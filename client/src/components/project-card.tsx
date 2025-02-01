@@ -35,7 +35,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <a href={project.link} target="_blank" rel="noopener noreferrer">
         <Card className="overflow-hidden h-full flex flex-col relative">
           {project.underConstruction && (
-            <div className="absolute top-0 right-0 transform translate-x-[15%] -translate-y-[5%] rotate-45 bg-yellow-400 text-yellow-900 py-0.5 px-6 font-semibold text-xs shadow-lg align:center">
+            <div className="absolute top-0 right-0 transform translate-x-[15%] -translate-y-[5%] rotate-45 bg-yellow-400 text-yellow-900 py-0.5 px- font-semibold text-xs shadow-lg align:center">
               Under Construction
             </div>
           )}
