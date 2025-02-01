@@ -36,7 +36,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <Card className="overflow-hidden h-full flex flex-col relative">
           {project.underConstruction && (
             <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
+              Under Construction
             </div>
           )}
           <CardHeader className="p-6 flex-shrink-0">
