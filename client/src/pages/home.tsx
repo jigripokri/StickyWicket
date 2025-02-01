@@ -5,10 +5,11 @@ const projects = [
   {
     id: 1,
     title: "Wish Upon a Wall",
-    description: "Create your own digital wishing wall! Share it with friends and family, and watch as they add their heartfelt messages.",
-    link: "https://wish.stickywicketlabs.com/",
+    description:
+      "Create your own digital wishing wall! Share it with friends and family, and watch as they add their heartfelt messages.",
+    link: "https://wishuponawall.net/",
     imageUrl: "🧱",
-    underConstruction: false
+    underConstruction: false,
   },
   {
     id: 2,
@@ -16,8 +17,8 @@ const projects = [
     description: "Get recommendations from your friends and family",
     link: "https://fivehigh.stickywicketlabs.com/",
     imageUrl: "🏗️",
-    underConstruction: true
-  }
+    underConstruction: true,
+  },
 ];
 
 export default function HomePage() {
@@ -26,7 +27,8 @@ export default function HomePage() {
       <div className="max-w-2xl mx-auto mb-12 text-center">
         <h1 className="text-4xl font-bold mb-4">Ideas, unstuck.</h1>
         <p className="text-muted-foreground">
-          Exploring the boundaries of web development through innovative projects and experiments.
+          Exploring the joy of web development through fun little projects and
+          experiments.
         </p>
       </div>
 
