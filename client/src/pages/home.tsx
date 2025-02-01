@@ -1,5 +1,6 @@
 import { ProjectCard } from "@/components/project-card";
 
+// Edit your project cards here ⬇️
 const projects = [
   {
     id: 1,
