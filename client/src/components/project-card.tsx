@@ -1,7 +1,15 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import type { Project } from "@db/schema";
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  link: string;
+  imageUrl: string;
+  underConstruction?: boolean;
+}
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
@@ -11,7 +19,12 @@ export function ProjectCard({ project }: { project: Project }) {
       className="h-full"
     >
       <a href={project.link} target="_blank" rel="noopener noreferrer">
-        <Card className="overflow-hidden h-full flex flex-col">
+        <Card className="overflow-hidden h-full flex flex-col relative">
+          {project.underConstruction && (
+            <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg">
+              Under Construction
+            </div>
+          )}
           <CardHeader className="p-6 flex-shrink-0">
             <div className="text-6xl mb-4 flex justify-center">
               {project.imageUrl}

@@ -1,24 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
 import { ProjectCard } from "@/components/project-card";
-import type { Project } from "@db/schema";
+
+const projects = [
+  {
+    id: 1,
+    title: "Wish Upon a Wall",
+    description: "Create your own digital wishing wall! Share it with friends and family, and watch as they add their heartfelt messages.",
+    link: "https://wishuponawall.net/",
+    imageUrl: "🧱",
+    underConstruction: false
+  },
+  {
+    id: 2,
+    title: "Five High",
+    description: "Get recommendations from your friends and family",
+    link: "https://fivehigh.net/",
+    imageUrl: "🏗️",
+    underConstruction: true
+  }
+];
 
 export default function HomePage() {
-  const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ["/api/projects"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-80 bg-muted animate-pulse rounded-lg" />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-2xl mx-auto mb-12 text-center">
@@ -29,7 +30,7 @@ export default function HomePage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects?.map((project) => (
+        {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
