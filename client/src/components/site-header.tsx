@@ -7,7 +7,10 @@ export function SiteHeader() {
     <header className="border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/">
-          <a className="text-xl font-bold">Sticky Wicket Labs</a>
+          <a className="text-xl font-bold flex items-center gap-2">
+            <span aria-label="cricket bat and ball" role="img">🏏</span>
+            Sticky Wicket Labs
+          </a>
         </Link>
         <nav className="flex gap-6">
           <Link href="/">
