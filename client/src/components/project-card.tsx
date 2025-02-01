@@ -8,22 +8,21 @@ export function ProjectCard({ project }: { project: Project }) {
     <motion.div
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
+      className="h-full"
     >
       <a href={project.link} target="_blank" rel="noopener noreferrer">
-        <Card className="overflow-hidden">
-          <CardHeader className="p-0">
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-48 object-cover"
-            />
+        <Card className="overflow-hidden h-full flex flex-col">
+          <CardHeader className="p-6 flex-shrink-0">
+            <div className="text-6xl mb-4 flex justify-center">
+              {project.imageUrl}
+            </div>
           </CardHeader>
-          <CardContent className="p-6">
-            <CardTitle className="flex items-center gap-2 mb-2">
+          <CardContent className="p-6 flex-grow flex flex-col">
+            <CardTitle className="flex items-center gap-2 mb-4">
               {project.title}
               <ArrowUpRight className="h-4 w-4" />
             </CardTitle>
-            <p className="text-muted-foreground">{project.description}</p>
+            <p className="text-muted-foreground flex-grow">{project.description}</p>
           </CardContent>
         </Card>
       </a>
