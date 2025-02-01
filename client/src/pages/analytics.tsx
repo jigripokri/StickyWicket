@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { StatsCard } from "@/components/stats-card";
-import { Users, Eye, LineChart, Clock, Globe, Mouse } from "lucide-react";
+import { Users, Eye, Activity, Clock, Globe, Mouse } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import {
-  LineChart as RechartsLineChart,
+  LineChart,
   Line,
   XAxis,
   YAxis,
@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <LineChart className="h-5 w-5" />
+            <Activity className="h-5 w-5" />
             Hourly Traffic (Last 24h)
           </h2>
           <div className="h-[300px]">
@@ -100,7 +100,7 @@ export default function AnalyticsPage() {
 
         <Card className="p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <LineChart className="h-5 w-5" />
+            <Activity className="h-5 w-5" />
             Daily Traffic (Last 30 Days)
           </h2>
           <div className="h-[300px]">
