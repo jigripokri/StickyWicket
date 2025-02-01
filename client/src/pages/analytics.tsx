@@ -26,7 +26,7 @@ interface Analytics {
   topCountries: { country: string; views: number }[];
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
+const COLORS = ['#FFB3BA', '#BAFFC9', '#BAE1FF', '#FFFFBA', '#FFB3F7'];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
@@ -80,20 +80,34 @@ export default function AnalyticsPage() {
           </h2>
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data?.viewsByHour || []}>
+              <LineChart data={data?.viewsByHour || []}>
                 <XAxis 
                   dataKey="hour" 
                   tickFormatter={formatDate}
+                  stroke="#888888"
+                  fontSize={12}
                 />
-                <YAxis />
+                <YAxis 
+                  stroke="#888888"
+                  fontSize={12}
+                />
                 <Tooltip 
                   labelFormatter={formatDate}
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    border: '1px solid #f0f0f0',
+                    borderRadius: '4px',
+                  }}
                 />
-                <Bar
+                <Line
+                  type="monotone"
                   dataKey="views"
-                  fill="hsl(var(--primary))"
+                  stroke="#FFB3BA"
+                  strokeWidth={2}
+                  dot={{ fill: '#FFB3BA', r: 4 }}
+                  activeDot={{ r: 6, fill: '#FF8DA1' }}
                 />
-              </BarChart>
+              </LineChart>
             </ResponsiveContainer>
           </div>
         </Card>
@@ -109,16 +123,28 @@ export default function AnalyticsPage() {
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
+                  stroke="#888888"
+                  fontSize={12}
                 />
-                <YAxis />
+                <YAxis 
+                  stroke="#888888"
+                  fontSize={12}
+                />
                 <Tooltip 
                   labelFormatter={formatDate}
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    border: '1px solid #f0f0f0',
+                    borderRadius: '4px',
+                  }}
                 />
                 <Line
                   type="monotone"
                   dataKey="views"
-                  stroke="hsl(var(--primary))"
+                  stroke="#BAE1FF"
                   strokeWidth={2}
+                  dot={{ fill: '#BAE1FF', r: 4 }}
+                  activeDot={{ r: 6, fill: '#92CEFF' }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -139,14 +165,26 @@ export default function AnalyticsPage() {
                 layout="vertical"
                 margin={{ left: 100 }}
               >
-                <XAxis type="number" />
+                <XAxis 
+                  type="number"
+                  stroke="#888888"
+                  fontSize={12}
+                />
                 <YAxis 
                   type="category" 
                   dataKey="title" 
                   width={100}
+                  stroke="#888888"
+                  fontSize={12}
                 />
-                <Tooltip />
-                <Bar dataKey="clicks" fill="hsl(var(--primary))" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    border: '1px solid #f0f0f0',
+                    borderRadius: '4px',
+                  }}
+                />
+                <Bar dataKey="clicks" fill="#BAFFC9" />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -174,7 +212,13 @@ export default function AnalyticsPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      border: '1px solid #f0f0f0',
+                      borderRadius: '4px',
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
