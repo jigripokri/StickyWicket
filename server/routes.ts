@@ -1,8 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { db } from "@db";
-import { projects, pageViews } from "@db/schema";
-import { desc, sql } from "drizzle-orm";
+import { pageViews } from "@db/schema";
+import { sql } from "drizzle-orm";
 
 export function registerRoutes(app: Express): Server {
   // Track page views
@@ -17,12 +17,6 @@ export function registerRoutes(app: Express): Server {
       userAgent: req.headers["user-agent"] || null,
     });
     next();
-  });
-
-  // Get all projects
-  app.get("/api/projects", async (_req, res) => {
-    const allProjects = await db.select().from(projects);
-    res.json(allProjects);
   });
 
   // Get analytics data
