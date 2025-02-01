@@ -20,7 +20,6 @@ interface Analytics {
   totalVisitors: number;
   pageViews: number;
   avgTimeOnSite: string;
-  viewsByHour: { hour: string; views: number }[];
   viewsByDay: { date: string; views: number }[];
   topProjects: { projectId: number; title: string; clicks: number }[];
   topCountries: { country: string; views: number }[];
@@ -32,7 +31,6 @@ function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
     month: 'short',
     day: 'numeric',
-    hour: 'numeric',
   });
 }
 
@@ -84,59 +82,13 @@ export default function AnalyticsPage() {
         <Card className="p-4 md:p-6">
           <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Activity className="h-5 w-5" />
-            Hourly Traffic
-          </h2>
-          <div className="h-[250px] md:h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart 
-                data={data?.viewsByHour || []}
-                margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
-              >
-                <XAxis 
-                  dataKey="hour" 
-                  tickFormatter={formatDate}
-                  stroke="#888888"
-                  fontSize={10}
-                  angle={-45}
-                  textAnchor="end"
-                  height={60}
-                />
-                <YAxis 
-                  stroke="#888888"
-                  fontSize={12}
-                  width={30}
-                />
-                <Tooltip 
-                  labelFormatter={formatDate}
-                  contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    border: '1px solid #f0f0f0',
-                    borderRadius: '4px',
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="views"
-                  stroke="#FFB3BA"
-                  strokeWidth={2}
-                  dot={{ fill: '#FFB3BA', r: 3 }}
-                  activeDot={{ r: 5, fill: '#FF8DA1' }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </Card>
-
-        <Card className="p-4 md:p-6">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Activity className="h-5 w-5" />
-            Daily Traffic
+            Daily Traffic (Last 7 Days)
           </h2>
           <div className="h-[250px] md:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart 
                 data={data?.viewsByDay || []}
-                margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
+                margin={{ top: 5, right: 20, left: 10, bottom: 65 }}
               >
                 <XAxis 
                   dataKey="date" 
@@ -146,11 +98,15 @@ export default function AnalyticsPage() {
                   angle={-45}
                   textAnchor="end"
                   height={60}
+                  tickMargin={20}
                 />
                 <YAxis 
                   stroke="#888888"
                   fontSize={12}
-                  width={30}
+                  tickCount={5}
+                  width={40}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <Tooltip 
                   labelFormatter={formatDate}
@@ -158,6 +114,7 @@ export default function AnalyticsPage() {
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     border: '1px solid #f0f0f0',
                     borderRadius: '4px',
+                    fontSize: '12px',
                   }}
                 />
                 <Line
@@ -172,9 +129,7 @@ export default function AnalyticsPage() {
             </ResponsiveContainer>
           </div>
         </Card>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-4 md:p-6">
           <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Mouse className="h-5 w-5" />
@@ -185,28 +140,37 @@ export default function AnalyticsPage() {
               <BarChart
                 data={data?.topProjects || []}
                 layout="vertical"
-                margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+                margin={{ top: 5, right: 20, left: 100, bottom: 5 }}
               >
                 <XAxis 
                   type="number"
                   stroke="#888888"
                   fontSize={12}
+                  axisLine={false}
+                  tickLine={false}
                 />
                 <YAxis 
                   type="category" 
                   dataKey="title" 
-                  width={120}
+                  width={90}
                   stroke="#888888"
                   fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
                 />
                 <Tooltip 
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     border: '1px solid #f0f0f0',
                     borderRadius: '4px',
+                    fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="clicks" fill="#BAFFC9" />
+                <Bar 
+                  dataKey="clicks" 
+                  fill="#BAFFC9"
+                  radius={[0, 4, 4, 0]}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -217,38 +181,34 @@ export default function AnalyticsPage() {
             <Globe className="h-5 w-5" />
             Top Countries
           </h2>
-          <div className="h-[250px] md:h-[300px] flex items-center justify-center">
-            {countryData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={countryData}
-                    dataKey="views"
-                    nameKey="country"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={80}
-                    label={(entry) => entry.country}
-                    labelLine={true}
-                  >
-                    {countryData.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                      border: '1px solid #f0f0f0',
-                      borderRadius: '4px',
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="text-muted-foreground text-center">
-                No country data available
-              </div>
-            )}
+          <div className="h-[250px] md:h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+                <Pie
+                  data={countryData}
+                  dataKey="views"
+                  nameKey="country"
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={80}
+                  paddingAngle={5}
+                  label={(entry) => `${entry.country}: ${entry.views}`}
+                >
+                  {countryData.map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    border: '1px solid #f0f0f0',
+                    borderRadius: '4px',
+                    fontSize: '12px',
+                  }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
           </div>
         </Card>
       </div>
