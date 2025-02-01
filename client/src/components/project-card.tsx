@@ -13,9 +13,8 @@ interface Project {
 }
 
 export function ProjectCard({ project }: { project: Project }) {
-  // Generate a random pastel color using RGB
+  // Generate a random pastel color using RGB for better animation support
   const getRandomPastelColor = useCallback(() => {
-    // Convert HSL to RGB for better animation support
     const h = Math.random() * 360;
     const s = 0.7;
     const l = 0.8;
@@ -46,32 +45,32 @@ export function ProjectCard({ project }: { project: Project }) {
       transition={{ duration: 0.3 }}
     >
       <Card>
-        <motion.div
-          className="h-full w-full"
+        <motion.div 
+          className="h-full w-full relative"
           whileHover={{
             scale: 1.02,
             transition: { duration: 0.2 }
           }}
         >
+          {project.underConstruction && (
+            <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg z-10">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
+            </div>
+          )}
           <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
             <motion.div 
-              className="h-full"
+              className="h-full flex flex-col"
               whileHover={{
                 backgroundColor: getRandomPastelColor(),
                 transition: { duration: 0.2 }
               }}
             >
-              {project.underConstruction && (
-                <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
-                </div>
-              )}
               <CardHeader className="p-6">
                 <div className="text-6xl mb-4 flex justify-center">
                   {project.imageUrl}
                 </div>
               </CardHeader>
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex-grow">
                 <CardTitle className="flex items-center gap-2 mb-4">
                   {project.title}
                   <ArrowUpRight className="h-4 w-4" />
