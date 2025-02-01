@@ -45,11 +45,19 @@ export default function AnalyticsPage() {
     return <div className="container mx-auto px-4 py-12">Loading analytics...</div>;
   }
 
-  return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">Analytics Dashboard</h1>
+  // Process country data to handle nulls
+  const countryData = data?.topCountries
+    ?.filter(country => country.country !== null)
+    ?.map(country => ({
+      ...country,
+      country: country.country || "Unknown"
+    })) || [];
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">Analytics Dashboard</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatsCard
           title="Total Visitors"
           value={data?.totalVisitors || 0}
@@ -72,24 +80,31 @@ export default function AnalyticsPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <Card className="p-4 md:p-6">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Activity className="h-5 w-5" />
-            Hourly Traffic (Last 24h)
+            Hourly Traffic
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[250px] md:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data?.viewsByHour || []}>
+              <LineChart 
+                data={data?.viewsByHour || []}
+                margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
+              >
                 <XAxis 
                   dataKey="hour" 
                   tickFormatter={formatDate}
                   stroke="#888888"
-                  fontSize={12}
+                  fontSize={10}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
                 />
                 <YAxis 
                   stroke="#888888"
                   fontSize={12}
+                  width={30}
                 />
                 <Tooltip 
                   labelFormatter={formatDate}
@@ -104,31 +119,38 @@ export default function AnalyticsPage() {
                   dataKey="views"
                   stroke="#FFB3BA"
                   strokeWidth={2}
-                  dot={{ fill: '#FFB3BA', r: 4 }}
-                  activeDot={{ r: 6, fill: '#FF8DA1' }}
+                  dot={{ fill: '#FFB3BA', r: 3 }}
+                  activeDot={{ r: 5, fill: '#FF8DA1' }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
-        <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <Card className="p-4 md:p-6">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Activity className="h-5 w-5" />
-            Daily Traffic (Last 30 Days)
+            Daily Traffic
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[250px] md:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data?.viewsByDay || []}>
+              <LineChart 
+                data={data?.viewsByDay || []}
+                margin={{ top: 5, right: 10, left: -20, bottom: 5 }}
+              >
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
                   stroke="#888888"
-                  fontSize={12}
+                  fontSize={10}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
                 />
                 <YAxis 
                   stroke="#888888"
                   fontSize={12}
+                  width={30}
                 />
                 <Tooltip 
                   labelFormatter={formatDate}
@@ -143,8 +165,8 @@ export default function AnalyticsPage() {
                   dataKey="views"
                   stroke="#BAE1FF"
                   strokeWidth={2}
-                  dot={{ fill: '#BAE1FF', r: 4 }}
-                  activeDot={{ r: 6, fill: '#92CEFF' }}
+                  dot={{ fill: '#BAE1FF', r: 3 }}
+                  activeDot={{ r: 5, fill: '#92CEFF' }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -153,17 +175,17 @@ export default function AnalyticsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <Card className="p-4 md:p-6">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Mouse className="h-5 w-5" />
             Most Clicked Projects
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[250px] md:h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data?.topProjects || []}
                 layout="vertical"
-                margin={{ left: 100 }}
+                margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
               >
                 <XAxis 
                   type="number"
@@ -173,7 +195,7 @@ export default function AnalyticsPage() {
                 <YAxis 
                   type="category" 
                   dataKey="title" 
-                  width={100}
+                  width={120}
                   stroke="#888888"
                   fontSize={12}
                 />
@@ -190,25 +212,26 @@ export default function AnalyticsPage() {
           </div>
         </Card>
 
-        <Card className="p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <Card className="p-4 md:p-6">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Globe className="h-5 w-5" />
             Top Countries
           </h2>
-          <div className="h-[300px] flex items-center justify-center">
-            {data?.topCountries && data.topCountries.length > 0 ? (
+          <div className="h-[250px] md:h-[300px] flex items-center justify-center">
+            {countryData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
-                    data={data.topCountries}
+                    data={countryData}
                     dataKey="views"
                     nameKey="country"
                     cx="50%"
                     cy="50%"
-                    outerRadius={100}
-                    label
+                    outerRadius={80}
+                    label={(entry) => entry.country}
+                    labelLine={true}
                   >
-                    {data.topCountries.map((_, index) => (
+                    {countryData.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
@@ -223,7 +246,7 @@ export default function AnalyticsPage() {
               </ResponsiveContainer>
             ) : (
               <div className="text-muted-foreground text-center">
-                No country data available yet
+                No country data available
               </div>
             )}
           </div>
