@@ -43,42 +43,47 @@ export function ProjectCard({ project }: { project: Project }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="h-full p-1 rounded-lg"
-      whileHover={{
-        scale: 1.02,
-        transition: { duration: 0.2 }
-      }}
+      transition={{ duration: 0.3 }}
     >
-      <a href={project.link} target="_blank" rel="noopener noreferrer">
+      <Card>
         <motion.div
+          className="h-full w-full"
           whileHover={{
-            backgroundColor: getRandomPastelColor(),
+            scale: 1.02,
             transition: { duration: 0.2 }
           }}
         >
-          <Card className="overflow-hidden h-full flex flex-col relative">
-            {project.underConstruction && (
-              <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
-              </div>
-            )}
-            <CardHeader className="p-6 flex-shrink-0">
-              <div className="text-6xl mb-4 flex justify-center">
-                {project.imageUrl}
-              </div>
-            </CardHeader>
-            <CardContent className="p-6 flex-grow flex flex-col">
-              <CardTitle className="flex items-center gap-2 mb-4">
-                {project.title}
-                <ArrowUpRight className="h-4 w-4" />
-              </CardTitle>
-              <p className="text-muted-foreground flex-grow">
-                {project.description}
-              </p>
-            </CardContent>
-          </Card>
+          <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+            <motion.div 
+              className="h-full"
+              whileHover={{
+                backgroundColor: getRandomPastelColor(),
+                transition: { duration: 0.2 }
+              }}
+            >
+              {project.underConstruction && (
+                <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
+                </div>
+              )}
+              <CardHeader className="p-6">
+                <div className="text-6xl mb-4 flex justify-center">
+                  {project.imageUrl}
+                </div>
+              </CardHeader>
+              <CardContent className="p-6">
+                <CardTitle className="flex items-center gap-2 mb-4">
+                  {project.title}
+                  <ArrowUpRight className="h-4 w-4" />
+                </CardTitle>
+                <p className="text-muted-foreground">
+                  {project.description}
+                </p>
+              </CardContent>
+            </motion.div>
+          </a>
         </motion.div>
-      </a>
+      </Card>
     </motion.div>
   );
 }
