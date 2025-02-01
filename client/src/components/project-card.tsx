@@ -29,14 +29,14 @@ export function ProjectCard({ project }: { project: Project }) {
       whileHover={{
         scale: 1.02,
         backgroundColor: getRandomPastelColor(),
-        transition: { duration: 0.2 }
+        transition: { duration: 0.2 },
       }}
     >
       <a href={project.link} target="_blank" rel="noopener noreferrer">
         <Card className="overflow-hidden h-full flex flex-col relative">
           {project.underConstruction && (
             <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
-              Under Construction
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
             </div>
           )}
           <CardHeader className="p-6 flex-shrink-0">
