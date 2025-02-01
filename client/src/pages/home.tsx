@@ -6,7 +6,7 @@ const projects = [
     id: 1,
     title: "Wish Upon a Wall",
     description: "Create your own digital wishing wall! Share it with friends and family, and watch as they add their heartfelt messages.",
-    link: "https://wishuponawall.net/",
+    link: "https://wish.stickywicketlabs.com/",
     imageUrl: "🧱",
     underConstruction: false
   },
@@ -14,7 +14,7 @@ const projects = [
     id: 2,
     title: "Five High",
     description: "Get recommendations from your friends and family",
-    link: "https://fivehigh.net/",
+    link: "https://fivehigh.stickywicketlabs.com/",
     imageUrl: "🏗️",
     underConstruction: true
   }
