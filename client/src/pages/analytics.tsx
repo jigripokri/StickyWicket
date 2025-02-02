@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
+  Cell,
 } from "recharts";
 
 interface Analytics {
@@ -21,6 +22,10 @@ interface Analytics {
   topProjects: Array<{ projectId: number; title: string; clicks: number }>;
   topCountries: Array<{ country: string; views: number }>;
 }
+
+// Define a set of visually distinct colors for the charts
+const PROJECT_COLORS = ['#34D399', '#60A5FA', '#F472B6', '#FBBF24', '#A78BFA'];
+const COUNTRY_COLORS = ['#F87171', '#FB923C', '#FBBF24', '#34D399', '#60A5FA'];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
@@ -161,9 +166,14 @@ export default function AnalyticsPage() {
                 />
                 <Bar 
                   dataKey="clicks" 
-                  fill="#BAFFC9"
                   radius={[4, 4, 0, 0]}
-                />
+                >
+                  {
+                    (data?.topProjects || []).map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={PROJECT_COLORS[index % PROJECT_COLORS.length]} />
+                    ))
+                  }
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -208,9 +218,14 @@ export default function AnalyticsPage() {
                 />
                 <Bar 
                   dataKey="views" 
-                  fill="#FFB3BA"
                   radius={[4, 4, 0, 0]}
-                />
+                >
+                  {
+                    (data?.topCountries || []).map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COUNTRY_COLORS[index % COUNTRY_COLORS.length]} />
+                    ))
+                  }
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
