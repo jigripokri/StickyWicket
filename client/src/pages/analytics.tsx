@@ -84,7 +84,7 @@ export default function AnalyticsPage() {
             <Activity className="h-5 w-5" />
             Daily Traffic (Last 7 Days)
           </h2>
-          <div className="h-[250px] md:h-[300px]">
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart 
                 data={data?.viewsByDay || []}
@@ -94,7 +94,7 @@ export default function AnalyticsPage() {
                   dataKey="date" 
                   tickFormatter={formatDate}
                   stroke="#888888"
-                  fontSize={10}
+                  fontSize={12}
                   angle={-45}
                   textAnchor="end"
                   height={60}
@@ -135,42 +135,42 @@ export default function AnalyticsPage() {
             <Mouse className="h-5 w-5" />
             Most Clicked Projects
           </h2>
-          <div className="h-[250px] md:h-[300px]">
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data?.topProjects || []}
-                layout="vertical"
-                margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
+                layout="horizontal"
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
               >
                 <XAxis 
-                  type="number"
+                  dataKey="title"
                   stroke="#888888"
                   fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                  tickMargin={20}
+                  interval={0}
                 />
                 <YAxis 
-                  type="category" 
-                  dataKey="title" 
-                  width={90}
                   stroke="#888888"
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
                 />
                 <Tooltip 
+                  formatter={(value) => [`${value} clicks`, 'Clicks']}
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     border: '1px solid #f0f0f0',
                     borderRadius: '4px',
                     fontSize: '12px',
                   }}
-                  formatter={(value) => [`${value} clicks`, 'Clicks']}
                 />
                 <Bar 
                   dataKey="clicks" 
                   fill="#BAFFC9"
-                  radius={[0, 4, 4, 0]}
+                  radius={[4, 4, 0, 0]}
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -182,28 +182,31 @@ export default function AnalyticsPage() {
             <Globe className="h-5 w-5" />
             Top Countries
           </h2>
-          <div className="h-[250px] md:h-[300px]">
+          <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
-              <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-                <Pie
-                  data={countryData}
-                  dataKey="views"
-                  nameKey="country"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                >
-                  {countryData.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={COLORS[index % COLORS.length]} 
-                    />
-                  ))}
-                </Pie>
+              <BarChart
+                data={countryData}
+                layout="horizontal"
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis 
+                  dataKey="country"
+                  stroke="#888888"
+                  fontSize={12}
+                  angle={-45}
+                  textAnchor="end"
+                  height={60}
+                  tickMargin={20}
+                  interval={0}
+                />
+                <YAxis 
+                  stroke="#888888"
+                  fontSize={12}
+                  tickLine={false}
+                  axisLine={false}
+                />
                 <Tooltip 
-                  formatter={(value, name, props) => [`${value} views`, props.payload.country]}
+                  formatter={(value) => [`${value} views`, 'Views']}
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     border: '1px solid #f0f0f0',
@@ -211,7 +214,12 @@ export default function AnalyticsPage() {
                     fontSize: '12px',
                   }}
                 />
-              </PieChart>
+                <Bar 
+                  dataKey="views" 
+                  fill="#FFB3BA"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>

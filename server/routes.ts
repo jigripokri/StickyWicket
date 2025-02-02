@@ -13,12 +13,13 @@ export function registerRoutes(app: Express): Server {
       return;
     }
 
+    const country = req.headers['cf-ipcountry'] || 'US'; // Default to US for demo
     await db.insert(pageViews).values({
       path: req.path,
       userAgent: req.headers["user-agent"] || null,
       ipAddress: req.ip,
       referrer: req.headers["referer"] || null,
-      country: null,
+      country,
       city: null,
     });
     next();
@@ -55,7 +56,7 @@ export function registerRoutes(app: Express): Server {
         .then(result => result[0].count),
       // Calculate real average time on site
       db
-        .execute<{ avg_time: string }>(sql`
+        .execute(sql`
           WITH user_sessions AS (
             SELECT 
               ip_address,
@@ -80,41 +81,51 @@ export function registerRoutes(app: Express): Server {
             ) as avg_time
           FROM session_durations
         `)
-        .then(result => result[0]?.avg_time || '0:00'),
+        .then(result => (result[0] as any)?.avg_time || '0:00'),
       // Daily views for the last 7 days
       db
-        .select({
-          date: sql<string>`date_trunc('day', timestamp)::text`,
-          views: sql<number>`count(*)`,
-        })
-        .from(pageViews)
-        .where(sql`timestamp > NOW() - INTERVAL '7 days'`)
-        .groupBy(sql`date_trunc('day', timestamp)`)
-        .orderBy(sql`date_trunc('day', timestamp)`),
+        .execute(sql`
+          WITH dates AS (
+            SELECT generate_series(
+              date_trunc('day', NOW() - INTERVAL '6 days'),
+              date_trunc('day', NOW()),
+              '1 day'::interval
+            )::date as date
+          )
+          SELECT 
+            dates.date::text,
+            COALESCE(COUNT(pv.id), 0) as views
+          FROM dates
+          LEFT JOIN page_views pv ON date_trunc('day', pv.timestamp) = dates.date
+          GROUP BY dates.date
+          ORDER BY dates.date
+        `),
       // Top clicked projects with titles
       db
-        .select({
-          projectId: projectClicks.projectId,
-          title: projects.title,
-          clicks: sql<number>`count(*)`,
-        })
-        .from(projectClicks)
-        .leftJoin(projects, eq(projects.id, projectClicks.projectId))
-        .where(sql`project_clicks.timestamp > NOW() - INTERVAL '7 days'`)
-        .groupBy(projectClicks.projectId, projects.title)
-        .orderBy(sql`count(*) desc`)
-        .limit(5),
+        .execute(sql`
+          SELECT 
+            pc.project_id as "projectId",
+            p.title,
+            COUNT(*) as clicks
+          FROM project_clicks pc
+          LEFT JOIN projects p ON p.id = pc.project_id
+          WHERE pc.timestamp > NOW() - INTERVAL '7 days'
+          GROUP BY pc.project_id, p.title
+          ORDER BY COUNT(*) DESC
+          LIMIT 5
+        `),
       // Top countries
       db
-        .select({
-          country: pageViews.country,
-          views: sql<number>`count(*)`,
-        })
-        .from(pageViews)
-        .where(sql`timestamp > NOW() - INTERVAL '7 days' AND country is not null`)
-        .groupBy(pageViews.country)
-        .orderBy(sql`count(*) desc`)
-        .limit(5),
+        .execute(sql`
+          SELECT 
+            COALESCE(country, 'Unknown') as country,
+            COUNT(*) as views
+          FROM page_views
+          WHERE timestamp > NOW() - INTERVAL '7 days'
+          GROUP BY country
+          ORDER BY COUNT(*) DESC
+          LIMIT 5
+        `),
     ]);
 
     res.json({
