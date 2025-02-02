@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { db } from "@db";
 import { pageViews, projectClicks, projects } from "@db/schema";
 import { sql } from "drizzle-orm";
-import { eq, and } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 export function registerRoutes(app: Express): Server {
   // Track page views with enhanced data
@@ -18,8 +18,6 @@ export function registerRoutes(app: Express): Server {
       userAgent: req.headers["user-agent"] || null,
       ipAddress: req.ip,
       referrer: req.headers["referer"] || null,
-      // Note: In a production environment, you'd want to use a geolocation service
-      // to populate country and city based on IP address
       country: null,
       city: null,
     });
@@ -42,7 +40,7 @@ export function registerRoutes(app: Express): Server {
     const [
       totalVisitors,
       pageViewsCount,
-      viewsByHour,
+      avgTimeOnSite,
       viewsByDay,
       topProjects,
       topCountries,
@@ -55,27 +53,45 @@ export function registerRoutes(app: Express): Server {
         .select({ count: sql<number>`count(*)` })
         .from(pageViews)
         .then(result => result[0].count),
-      // Hourly views for the last 24 hours
+      // Calculate real average time on site
       db
-        .select({
-          hour: sql<string>`date_trunc('hour', timestamp)::text`,
-          views: sql<number>`count(*)`,
-        })
-        .from(pageViews)
-        .where(sql`timestamp > now() - interval '24 hours'`)
-        .groupBy(sql`date_trunc('hour', timestamp)`)
-        .orderBy(sql`date_trunc('hour', timestamp)`),
-      // Daily views for the last 30 days
+        .execute<{ avg_time: string }>(sql`
+          WITH user_sessions AS (
+            SELECT 
+              ip_address,
+              timestamp,
+              LEAD(timestamp) OVER (PARTITION BY ip_address ORDER BY timestamp) as next_timestamp
+            FROM page_views
+            WHERE timestamp > NOW() - INTERVAL '7 days'
+          ),
+          session_durations AS (
+            SELECT 
+              EXTRACT(EPOCH FROM (next_timestamp - timestamp)) as duration_seconds
+            FROM user_sessions
+            WHERE 
+              next_timestamp IS NOT NULL 
+              AND (next_timestamp - timestamp) < INTERVAL '30 minutes'
+          )
+          SELECT 
+            CONCAT(
+              FLOOR(AVG(duration_seconds) / 60)::text, 
+              ':', 
+              LPAD(FLOOR(MOD(AVG(duration_seconds), 60))::text, 2, '0')
+            ) as avg_time
+          FROM session_durations
+        `)
+        .then(result => result[0]?.avg_time || '0:00'),
+      // Daily views for the last 7 days
       db
         .select({
           date: sql<string>`date_trunc('day', timestamp)::text`,
           views: sql<number>`count(*)`,
         })
         .from(pageViews)
-        .where(sql`timestamp > now() - interval '30 days'`)
+        .where(sql`timestamp > NOW() - INTERVAL '7 days'`)
         .groupBy(sql`date_trunc('day', timestamp)`)
         .orderBy(sql`date_trunc('day', timestamp)`),
-      // Top clicked projects
+      // Top clicked projects with titles
       db
         .select({
           projectId: projectClicks.projectId,
@@ -84,17 +100,18 @@ export function registerRoutes(app: Express): Server {
         })
         .from(projectClicks)
         .leftJoin(projects, eq(projects.id, projectClicks.projectId))
+        .where(sql`project_clicks.timestamp > NOW() - INTERVAL '7 days'`)
         .groupBy(projectClicks.projectId, projects.title)
         .orderBy(sql`count(*) desc`)
         .limit(5),
-      // Top countries (when implemented with geolocation service)
+      // Top countries
       db
         .select({
           country: pageViews.country,
           views: sql<number>`count(*)`,
         })
         .from(pageViews)
-        .where(sql`country is not null`)
+        .where(sql`timestamp > NOW() - INTERVAL '7 days' AND country is not null`)
         .groupBy(pageViews.country)
         .orderBy(sql`count(*) desc`)
         .limit(5),
@@ -103,8 +120,7 @@ export function registerRoutes(app: Express): Server {
     res.json({
       totalVisitors,
       pageViews: pageViewsCount,
-      avgTimeOnSite: "2:30", // Placeholder - would need session tracking for real value
-      viewsByHour,
+      avgTimeOnSite,
       viewsByDay,
       topProjects,
       topCountries,

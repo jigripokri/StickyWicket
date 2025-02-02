@@ -78,7 +78,7 @@ export default function AnalyticsPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-4 md:p-6">
           <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Activity className="h-5 w-5" />
@@ -88,7 +88,7 @@ export default function AnalyticsPage() {
             <ResponsiveContainer width="100%" height="100%">
               <LineChart 
                 data={data?.viewsByDay || []}
-                margin={{ top: 5, right: 20, left: 10, bottom: 65 }}
+                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
               >
                 <XAxis 
                   dataKey="date" 
@@ -140,14 +140,14 @@ export default function AnalyticsPage() {
               <BarChart
                 data={data?.topProjects || []}
                 layout="vertical"
-                margin={{ top: 5, right: 20, left: 100, bottom: 5 }}
+                margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
               >
                 <XAxis 
                   type="number"
                   stroke="#888888"
                   fontSize={12}
-                  axisLine={false}
                   tickLine={false}
+                  axisLine={false}
                 />
                 <YAxis 
                   type="category" 
@@ -165,6 +165,7 @@ export default function AnalyticsPage() {
                     borderRadius: '4px',
                     fontSize: '12px',
                   }}
+                  formatter={(value) => [`${value} clicks`, 'Clicks']}
                 />
                 <Bar 
                   dataKey="clicks" 
@@ -176,7 +177,7 @@ export default function AnalyticsPage() {
           </div>
         </Card>
 
-        <Card className="p-4 md:p-6">
+        <Card className="p-4 md:p-6 lg:col-span-2">
           <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <Globe className="h-5 w-5" />
             Top Countries
@@ -193,13 +194,16 @@ export default function AnalyticsPage() {
                   innerRadius={60}
                   outerRadius={80}
                   paddingAngle={5}
-                  label={(entry) => `${entry.country}: ${entry.views}`}
                 >
-                  {countryData.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  {countryData.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={COLORS[index % COLORS.length]} 
+                    />
                   ))}
                 </Pie>
                 <Tooltip 
+                  formatter={(value, name, props) => [`${value} views`, props.payload.country]}
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     border: '1px solid #f0f0f0',

@@ -24,9 +24,9 @@ export function ProjectCard({ project }: { project: Project }) {
 
   const handleClick = async () => {
     try {
-      await apiRequest('POST', `/api/track-click/${project.id}`);
+      await apiRequest("POST", `/api/track-click/${project.id}`);
     } catch (error) {
-      console.error('Failed to track click:', error);
+      console.error("Failed to track click:", error);
     }
   };
 
@@ -41,16 +41,16 @@ export function ProjectCard({ project }: { project: Project }) {
         transition: { duration: 0.2 },
       }}
     >
-      <a 
-        href={project.link} 
-        target="_blank" 
+      <a
+        href={project.link}
+        target="_blank"
         rel="noopener noreferrer"
         onClick={handleClick}
       >
         <Card className="overflow-hidden h-full flex flex-col relative">
           {project.underConstruction && (
             <div className="absolute top-0 right-0 transform translate-x-[30%] -translate-y-[10%] rotate-45 bg-yellow-400 text-yellow-900 py-1 px-8 font-semibold text-sm shadow-lg align:center">
-              Under Construction
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WIP
             </div>
           )}
           <CardHeader className="p-6 flex-shrink-0">
