@@ -44,12 +44,12 @@ export function registerRoutes(app: Express): Server {
   app.get("/api/analytics", async (_req, res) => {
     try {
       const [
-        totalVisitors,
-        pageViewsCount,
-        avgTimeOnSite,
-        viewsByDay,
-        topProjects,
-        topCountries,
+        totalVisitorsResult,
+        pageViewsResult,
+        avgTimeResult,
+        viewsByDayResult,
+        topProjectsResult,
+        topCountriesResult,
       ] = await Promise.all([
         // Total unique visitors
         db
@@ -104,7 +104,7 @@ export function registerRoutes(app: Express): Server {
             )
             SELECT 
               to_char(dates.date, 'YYYY-MM-DD') as date,
-              COALESCE(COUNT(pv.id), 0) as views
+              COALESCE(COUNT(pv.id), 0)::integer as views
             FROM dates
             LEFT JOIN page_views pv ON date_trunc('day', pv.timestamp) = dates.date
             GROUP BY dates.date
@@ -116,8 +116,8 @@ export function registerRoutes(app: Express): Server {
           .execute(sql`
             SELECT 
               pc.project_id as "projectId",
-              p.title,
-              COUNT(*) as clicks
+              COALESCE(p.title, 'Unknown Project') as title,
+              COUNT(*)::integer as clicks
             FROM project_clicks pc
             LEFT JOIN projects p ON p.id = pc.project_id
             WHERE pc.timestamp > NOW() - INTERVAL '7 days'
@@ -131,7 +131,7 @@ export function registerRoutes(app: Express): Server {
           .execute(sql`
             SELECT 
               COALESCE(country, 'Unknown') as country,
-              COUNT(*) as views
+              COUNT(*)::integer as views
             FROM page_views
             WHERE timestamp > NOW() - INTERVAL '7 days'
             GROUP BY country
@@ -140,23 +140,18 @@ export function registerRoutes(app: Express): Server {
           `),
       ]);
 
-      console.log('Analytics Response:', {
-        totalVisitors,
-        pageViews: pageViewsCount,
-        avgTimeOnSite,
-        viewsByDay,
-        topProjects,
-        topCountries,
-      });
+      const responseData = {
+        totalVisitors: Number(totalVisitorsResult),
+        pageViews: Number(pageViewsResult),
+        avgTimeOnSite: avgTimeResult,
+        viewsByDay: (viewsByDayResult as any).rows,
+        topProjects: (topProjectsResult as any).rows,
+        topCountries: (topCountriesResult as any).rows,
+      };
 
-      res.json({
-        totalVisitors,
-        pageViews: pageViewsCount,
-        avgTimeOnSite,
-        viewsByDay: viewsByDay as Array<{ date: string; views: number }>,
-        topProjects: topProjects as Array<{ projectId: number; title: string; clicks: number }>,
-        topCountries: topCountries as Array<{ country: string; views: number }>,
-      });
+      console.log('Analytics Response:', responseData);
+
+      res.json(responseData);
     } catch (error) {
       console.error('Error fetching analytics:', error);
       res.status(500).json({ error: 'Failed to fetch analytics data' });
