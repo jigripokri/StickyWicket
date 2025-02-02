@@ -17,9 +17,9 @@ interface Analytics {
   totalVisitors: number;
   pageViews: number;
   avgTimeOnSite: string;
-  viewsByDay: { date: string; views: number }[];
-  topProjects: { projectId: number; title: string; clicks: number }[];
-  topCountries: { country: string; views: number }[];
+  viewsByDay: Array<{ date: string; views: number }>;
+  topProjects: Array<{ projectId: number; title: string; clicks: number }>;
+  topCountries: Array<{ country: string; views: number }>;
 }
 
 function formatDate(dateStr: string) {
@@ -37,6 +37,12 @@ export default function AnalyticsPage() {
   if (isLoading) {
     return <div className="container mx-auto px-4 py-12">Loading analytics...</div>;
   }
+
+  console.log('Analytics Data:', {
+    viewsByDay: data?.viewsByDay,
+    topProjects: data?.topProjects,
+    topCountries: data?.topCountries
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -126,7 +132,6 @@ export default function AnalyticsPage() {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data?.topProjects || []}
-                layout="horizontal"
                 margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
               >
                 <XAxis 

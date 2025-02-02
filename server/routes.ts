@@ -14,14 +14,18 @@ export function registerRoutes(app: Express): Server {
     }
 
     const country = req.headers['cf-ipcountry'] || 'US'; // Default to US for demo
-    await db.insert(pageViews).values({
-      path: req.path,
-      userAgent: req.headers["user-agent"] || null,
-      ipAddress: req.ip,
-      referrer: req.headers["referer"] || null,
-      country,
-      city: null,
-    });
+    try {
+      await db.insert(pageViews).values({
+        path: req.path,
+        userAgent: req.headers["user-agent"] || null,
+        ipAddress: req.ip,
+        referrer: req.headers["referer"] || null,
+        country,
+        city: null,
+      });
+    } catch (error) {
+      console.error('Error inserting page view:', error);
+    }
     next();
   });
 
@@ -38,104 +42,125 @@ export function registerRoutes(app: Express): Server {
 
   // Get enhanced analytics data
   app.get("/api/analytics", async (_req, res) => {
-    const [
-      totalVisitors,
-      pageViewsCount,
-      avgTimeOnSite,
-      viewsByDay,
-      topProjects,
-      topCountries,
-    ] = await Promise.all([
-      db
-        .select({ count: sql<number>`count(distinct ip_address)` })
-        .from(pageViews)
-        .then(result => result[0].count),
-      db
-        .select({ count: sql<number>`count(*)` })
-        .from(pageViews)
-        .then(result => result[0].count),
-      // Calculate real average time on site
-      db
-        .execute(sql`
-          WITH user_sessions AS (
+    try {
+      const [
+        totalVisitors,
+        pageViewsCount,
+        avgTimeOnSite,
+        viewsByDay,
+        topProjects,
+        topCountries,
+      ] = await Promise.all([
+        // Total unique visitors
+        db
+          .select({ count: sql<number>`count(distinct ${pageViews.ipAddress})` })
+          .from(pageViews)
+          .then(result => result[0].count),
+
+        // Total page views
+        db
+          .select({ count: sql<number>`count(*)` })
+          .from(pageViews)
+          .then(result => result[0].count),
+
+        // Calculate real average time on site
+        db
+          .execute(sql`
+            WITH user_sessions AS (
+              SELECT 
+                ip_address,
+                timestamp,
+                LEAD(timestamp) OVER (PARTITION BY ip_address ORDER BY timestamp) as next_timestamp
+              FROM page_views
+              WHERE timestamp > NOW() - INTERVAL '7 days'
+            ),
+            session_durations AS (
+              SELECT 
+                EXTRACT(EPOCH FROM (next_timestamp - timestamp)) as duration_seconds
+              FROM user_sessions
+              WHERE 
+                next_timestamp IS NOT NULL 
+                AND (next_timestamp - timestamp) < INTERVAL '30 minutes'
+            )
             SELECT 
-              ip_address,
-              timestamp,
-              LEAD(timestamp) OVER (PARTITION BY ip_address ORDER BY timestamp) as next_timestamp
+              CONCAT(
+                FLOOR(AVG(duration_seconds) / 60)::text, 
+                ':', 
+                LPAD(FLOOR(MOD(AVG(duration_seconds), 60))::text, 2, '0')
+              ) as avg_time
+            FROM session_durations
+          `)
+          .then(result => (result[0] as any)?.avg_time || '0:00'),
+
+        // Daily views for the last 7 days
+        db
+          .execute(sql`
+            WITH dates AS (
+              SELECT generate_series(
+                date_trunc('day', NOW() - INTERVAL '6 days'),
+                date_trunc('day', NOW()),
+                '1 day'::interval
+              )::date as date
+            )
+            SELECT 
+              to_char(dates.date, 'YYYY-MM-DD') as date,
+              COALESCE(COUNT(pv.id), 0) as views
+            FROM dates
+            LEFT JOIN page_views pv ON date_trunc('day', pv.timestamp) = dates.date
+            GROUP BY dates.date
+            ORDER BY dates.date
+          `),
+
+        // Top clicked projects with titles
+        db
+          .execute(sql`
+            SELECT 
+              pc.project_id as "projectId",
+              p.title,
+              COUNT(*) as clicks
+            FROM project_clicks pc
+            LEFT JOIN projects p ON p.id = pc.project_id
+            WHERE pc.timestamp > NOW() - INTERVAL '7 days'
+            GROUP BY pc.project_id, p.title
+            ORDER BY COUNT(*) DESC
+            LIMIT 5
+          `),
+
+        // Top countries
+        db
+          .execute(sql`
+            SELECT 
+              COALESCE(country, 'Unknown') as country,
+              COUNT(*) as views
             FROM page_views
             WHERE timestamp > NOW() - INTERVAL '7 days'
-          ),
-          session_durations AS (
-            SELECT 
-              EXTRACT(EPOCH FROM (next_timestamp - timestamp)) as duration_seconds
-            FROM user_sessions
-            WHERE 
-              next_timestamp IS NOT NULL 
-              AND (next_timestamp - timestamp) < INTERVAL '30 minutes'
-          )
-          SELECT 
-            CONCAT(
-              FLOOR(AVG(duration_seconds) / 60)::text, 
-              ':', 
-              LPAD(FLOOR(MOD(AVG(duration_seconds), 60))::text, 2, '0')
-            ) as avg_time
-          FROM session_durations
-        `)
-        .then(result => (result[0] as any)?.avg_time || '0:00'),
-      // Daily views for the last 7 days
-      db
-        .execute(sql`
-          WITH dates AS (
-            SELECT generate_series(
-              date_trunc('day', NOW() - INTERVAL '6 days'),
-              date_trunc('day', NOW()),
-              '1 day'::interval
-            )::date as date
-          )
-          SELECT 
-            dates.date::text,
-            COALESCE(COUNT(pv.id), 0) as views
-          FROM dates
-          LEFT JOIN page_views pv ON date_trunc('day', pv.timestamp) = dates.date
-          GROUP BY dates.date
-          ORDER BY dates.date
-        `),
-      // Top clicked projects with titles
-      db
-        .execute(sql`
-          SELECT 
-            pc.project_id as "projectId",
-            p.title,
-            COUNT(*) as clicks
-          FROM project_clicks pc
-          LEFT JOIN projects p ON p.id = pc.project_id
-          WHERE pc.timestamp > NOW() - INTERVAL '7 days'
-          GROUP BY pc.project_id, p.title
-          ORDER BY COUNT(*) DESC
-          LIMIT 5
-        `),
-      // Top countries
-      db
-        .execute(sql`
-          SELECT 
-            COALESCE(country, 'Unknown') as country,
-            COUNT(*) as views
-          FROM page_views
-          WHERE timestamp > NOW() - INTERVAL '7 days'
-          GROUP BY country
-          ORDER BY COUNT(*) DESC
-          LIMIT 5
-        `),
-    ]);
+            GROUP BY country
+            ORDER BY COUNT(*) DESC
+            LIMIT 5
+          `),
+      ]);
 
-    res.json({
-      totalVisitors,
-      pageViews: pageViewsCount,
-      avgTimeOnSite,
-      viewsByDay,
-      topProjects,
-      topCountries,
-    });
+      console.log('Analytics Response:', {
+        totalVisitors,
+        pageViews: pageViewsCount,
+        avgTimeOnSite,
+        viewsByDay,
+        topProjects,
+        topCountries,
+      });
+
+      res.json({
+        totalVisitors,
+        pageViews: pageViewsCount,
+        avgTimeOnSite,
+        viewsByDay: viewsByDay as Array<{ date: string; views: number }>,
+        topProjects: topProjects as Array<{ projectId: number; title: string; clicks: number }>,
+        topCountries: topCountries as Array<{ country: string; views: number }>,
+      });
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
+      res.status(500).json({ error: 'Failed to fetch analytics data' });
+    }
   });
 
   const httpServer = createServer(app);
