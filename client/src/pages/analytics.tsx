@@ -11,9 +11,6 @@ import {
   ResponsiveContainer,
   BarChart,
   Bar,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
 interface Analytics {
@@ -24,8 +21,6 @@ interface Analytics {
   topProjects: { projectId: number; title: string; clicks: number }[];
   topCountries: { country: string; views: number }[];
 }
-
-const COLORS = ['#FFB3BA', '#BAFFC9', '#BAE1FF', '#FFFFBA', '#FFB3F7'];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
@@ -42,14 +37,6 @@ export default function AnalyticsPage() {
   if (isLoading) {
     return <div className="container mx-auto px-4 py-12">Loading analytics...</div>;
   }
-
-  // Process country data to handle nulls
-  const countryData = data?.topCountries
-    ?.filter(country => country.country !== null)
-    ?.map(country => ({
-      ...country,
-      country: country.country || "Unknown"
-    })) || [];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -140,7 +127,7 @@ export default function AnalyticsPage() {
               <BarChart
                 data={data?.topProjects || []}
                 layout="horizontal"
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
               >
                 <XAxis 
                   dataKey="title"
@@ -185,9 +172,9 @@ export default function AnalyticsPage() {
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
-                data={countryData}
+                data={data?.topCountries || []}
                 layout="horizontal"
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
               >
                 <XAxis 
                   dataKey="country"
