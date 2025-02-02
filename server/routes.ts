@@ -116,13 +116,13 @@ export function registerRoutes(app: Express): Server {
           .execute(sql`
             SELECT 
               pc.project_id as "projectId",
-              COALESCE(p.title, 'Unknown Project') as title,
+              p.title,
               COUNT(*)::integer as clicks
             FROM project_clicks pc
-            LEFT JOIN projects p ON p.id = pc.project_id
+            JOIN projects p ON p.id = pc.project_id
             WHERE pc.timestamp > NOW() - INTERVAL '7 days'
             GROUP BY pc.project_id, p.title
-            ORDER BY COUNT(*) DESC
+            ORDER BY clicks DESC
             LIMIT 5
           `),
 
