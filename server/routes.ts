@@ -114,17 +114,20 @@ export function registerRoutes(app: Express): Server {
         // Top clicked projects with titles
         db
           .execute(sql`
-            SELECT 
-              pc.project_id as "projectId",
-              p.title,
-              COUNT(*)::integer as clicks
-            FROM project_clicks pc
-            JOIN projects p ON p.id = pc.project_id
-            WHERE pc.timestamp > NOW() - INTERVAL '7 days'
-            GROUP BY pc.project_id, p.title
-            ORDER BY clicks DESC
-            LIMIT 5
-          `),
+                WITH project_stats AS (
+                  SELECT 
+                    pc.project_id as "projectId",
+                    p.title,
+                    COUNT(*)::integer as clicks
+                  FROM project_clicks pc
+                  INNER JOIN projects p ON p.id = pc.project_id
+                  WHERE pc.timestamp > NOW() - INTERVAL '7 days'
+                  GROUP BY pc.project_id, p.title
+                )
+                SELECT * FROM project_stats
+                ORDER BY clicks DESC
+                LIMIT 5
+              `),
 
         // Top countries
         db
