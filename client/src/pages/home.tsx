@@ -19,6 +19,14 @@ const projects = [
     imageUrl: "🏗️",
     underConstruction: true,
   },
+  {
+    id: 3,
+    title: "Donkey Pong",
+    description: "A fun twist on the classic Pong game - watch out for Donkey Kong in the middle!",
+    link: "https://pong-challenge-jigripokri.replit.app/",
+    imageUrl: "🦍",
+    underConstruction: false,
+  },
 ];
 
 export default function HomePage() {
