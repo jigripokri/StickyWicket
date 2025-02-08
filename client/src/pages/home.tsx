@@ -3,10 +3,17 @@ import { ProjectCard } from "@/components/project-card";
 // Edit your project cards here ⬇️
 const projects = [
   {
+    id: 4,
+    title: "KidScribe",
+    description: "Making the web super fun to read! ✨",
+    link: "https://kidscribe.stickywicketlabs.com/",
+    imageUrl: "📚",
+    underConstruction: false,
+  },
+  {
     id: 1,
     title: "Wish Upon a Wall",
-    description:
-      "Create your own digital wishing wall! Share it with friends and family, and watch as they add their heartfelt messages.",
+    description: "Collect heartful messages for a loved one.",
     link: "https://wishuponawall.net/",
     imageUrl: "🧱",
     underConstruction: false,
@@ -14,7 +21,7 @@ const projects = [
   {
     id: 2,
     title: "Five High",
-    description: "Get recommendations from your friends and family",
+    description: "Get recommendations from your friends.",
     link: "https://fivehigh.stickywicketlabs.com/",
     imageUrl: "🏗️",
     underConstruction: true,
@@ -22,8 +29,9 @@ const projects = [
   {
     id: 3,
     title: "Donkey Pong",
-    description: "A fun twist on the classic Pong game - watch out for Donkey Kong in the middle!",
-    link: "https://pong-challenge-jigripokri.replit.app/",
+    description:
+      "A fun twist on the classic Pong game - watch out for Donkey Kong in the middle!",
+    link: "http://donkeypong.stickywicketlabs.com/",
     imageUrl: "🦍",
     underConstruction: false,
   },
