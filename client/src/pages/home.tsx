@@ -21,7 +21,7 @@ const projects = [
   {
     id: 2,
     title: "Hue Knew?",
-    description: "Learn color theory",
+    description: "See how colors mix together to form new ones!",
     link: "https://hueknew.stickywicketlabs.com/",
     imageUrl: "🎨",
     underConstruction: false,
@@ -29,7 +29,7 @@ const projects = [
   {
     id: 3,
     title: "Emoji Math",
-    description: "Practice simple addition and sutraction",
+    description: "Practice simple addition and subtraction with emojis",
     link: "https://emojimath.stickywicketlabs.com/",
     imageUrl: "🧮",
     underConstruction: false,
