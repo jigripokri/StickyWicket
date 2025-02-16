@@ -13,7 +13,7 @@ const projects = [
   {
     id: 6,
     title: "Wish Upon a Wall",
-    description: "Collect heartful messages for a loved one.",
+    description: "Collect heartfelt messages for loved ones.",
     link: "https://wishuponawall.net/",
     imageUrl: "🧱",
     underConstruction: false,
