@@ -11,6 +11,14 @@ const projects = [
     underConstruction: false,
   },
   {
+    id: 5,
+    title: "DebateGPT",
+    description: "Practice your debating skills with AI!",
+    link: "https://debategpt.stickywicketlabs.com/",
+    imageUrl: "🥊",
+    underConstruction: false,
+  },
+  {
     id: 6,
     title: "Wish Upon a Wall",
     description: "Collect heartfelt messages for loved ones.",
@@ -33,14 +41,6 @@ const projects = [
     link: "https://emojimath.stickywicketlabs.com/",
     imageUrl: "🧮",
     underConstruction: false,
-  },
-  {
-    id: 7,
-    title: "Five High",
-    description: "Get recommendations from your friends.",
-    link: "https://fivehigh.stickywicketlabs.com/",
-    imageUrl: "🏗️",
-    underConstruction: true,
   },
   {
     id: 14,
