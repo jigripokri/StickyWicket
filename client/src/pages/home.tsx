@@ -13,7 +13,7 @@ const projects = [
   {
     id: 5,
     title: "DebateGPT",
-    description: "Practice your debating skills with AI!",
+    description: "Witness a debate between two AI personalities on any topic you choose.",
     link: "https://debategpt.stickywicketlabs.com/",
     imageUrl: "🥊",
     underConstruction: false,
