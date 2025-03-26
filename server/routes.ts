@@ -13,7 +13,7 @@ export function registerRoutes(app: Express): Server {
       return;
     }
 
-    const country = req.headers['cf-ipcountry'] || 'US'; // Default to US for demo
+    const country = req.headers['cf-ipcountry'] || Math.random() > 0.5 ? 'US' : (Math.random() > 0.5 ? 'CA' : 'UK'); // Generate some variety in countries for demo
     try {
       await db.insert(pageViews).values({
         path: req.path,
