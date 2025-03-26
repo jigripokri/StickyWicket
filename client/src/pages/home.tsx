@@ -1,7 +1,7 @@
 import { ProjectCard } from "@/components/project-card";
 
 // Edit your project cards here ⬇️
-const projects = [
+export const projects = [
   {
     id: 1,
     title: "KidScribe",

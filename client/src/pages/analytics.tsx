@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { StatsCard } from "@/components/stats-card";
-import { Users, Eye, Activity, Clock, Globe, Mouse } from "lucide-react";
+import { Users, Eye, Activity, Globe, Mouse } from "lucide-react";
 import { Card } from "@/components/ui/card";
+// Import projects from home page to know the active count
+import { projects } from "./home";
 import {
   LineChart,
   Line,
@@ -53,7 +55,7 @@ export default function AnalyticsPage() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl md:text-3xl font-bold mb-6">Analytics Dashboard</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <StatsCard
           title="Total Visitors"
           value={data?.totalVisitors || 0}
@@ -65,13 +67,8 @@ export default function AnalyticsPage() {
           icon={<Eye className="h-4 w-4 text-muted-foreground" />}
         />
         <StatsCard
-          title="Avg. Time on Site"
-          value={data?.avgTimeOnSite || "0:00"}
-          icon={<Clock className="h-4 w-4 text-muted-foreground" />}
-        />
-        <StatsCard
           title="Active Projects"
-          value={data?.topProjects?.length || 0}
+          value={projects.length || 0}
           icon={<Mouse className="h-4 w-4 text-muted-foreground" />}
         />
       </div>
