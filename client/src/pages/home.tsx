@@ -19,6 +19,14 @@ export const projects = [
     underConstruction: false,
   },
   {
+    id: 15,
+    title: "DottyDraw",
+    description: "Create pixel art drawings with simple dot patterns.",
+    link: "https://dottydraw.stickywicketlabs.com/",
+    imageUrl: "✏️",
+    underConstruction: false,
+  },
+  {
     id: 6,
     title: "Wish Upon a Wall",
     description: "Collect heartfelt messages for loved ones.",
