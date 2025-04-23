@@ -62,7 +62,7 @@ export function ProjectCard({ project }: { project: Project }) {
                   className="h-32 w-32 object-contain"
                 />
               ) : (
-                <div className="text-6xl">{project.imageUrl}</div>
+                <div className="text-7xl">{project.imageUrl}</div>
               )}
             </div>
           </CardHeader>

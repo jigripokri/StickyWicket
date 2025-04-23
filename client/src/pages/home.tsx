@@ -1,5 +1,12 @@
 import { ProjectCard } from "@/components/project-card";
 
+// Character image component for Characto project
+function CharactoBoy() {
+  return (
+    <span style={{ fontSize: '2.5rem' }}>👦</span>
+  );
+}
+
 // Edit your project cards here ⬇️
 export const projects = [
   {
@@ -7,7 +14,7 @@ export const projects = [
     title: "Characto",
     description: "Create beautiful, consistent characters across scenes.",
     link: "https://characto.stickywicketlabs.com/",
-    imageUrl: "/characto.png",
+    imageUrl: "👦",
     underConstruction: false,
   },
   {
