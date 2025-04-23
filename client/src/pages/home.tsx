@@ -7,7 +7,7 @@ export const projects = [
     title: "Characto",
     description: "Create beautiful, consistent characters across scenes.",
     link: "https://characto.stickywicketlabs.com/",
-    imageUrl: "/characto-images/characto1.png",
+    imageUrl: "/characto.png",
     underConstruction: false,
   },
   {

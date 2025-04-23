@@ -55,7 +55,7 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
           <CardHeader className="p-6 flex-shrink-0">
             <div className="mb-4 flex justify-center">
-              {project.imageUrl.startsWith('http') ? (
+              {project.imageUrl.startsWith('http') || project.imageUrl.startsWith('/') ? (
                 <img 
                   src={project.imageUrl} 
                   alt={project.title} 
