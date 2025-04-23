@@ -3,6 +3,14 @@ import { ProjectCard } from "@/components/project-card";
 // Edit your project cards here ⬇️
 export const projects = [
   {
+    id: 16,
+    title: "Characto",
+    description: "Create beautiful, consistent characters across scenes.",
+    link: "https://characto.stickywicketlabs.com/",
+    imageUrl: "/characto-images/characto1.png",
+    underConstruction: false,
+  },
+  {
     id: 1,
     title: "KidScribe",
     description: "Making the web super fun to read! ✨",

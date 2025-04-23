@@ -54,8 +54,16 @@ export function ProjectCard({ project }: { project: Project }) {
             </div>
           )}
           <CardHeader className="p-6 flex-shrink-0">
-            <div className="text-6xl mb-4 flex justify-center">
-              {project.imageUrl}
+            <div className="mb-4 flex justify-center">
+              {project.imageUrl.startsWith('http') ? (
+                <img 
+                  src={project.imageUrl} 
+                  alt={project.title} 
+                  className="h-32 w-32 object-contain"
+                />
+              ) : (
+                <div className="text-6xl">{project.imageUrl}</div>
+              )}
             </div>
           </CardHeader>
           <CardContent className="p-6 flex-grow flex flex-col">
