@@ -19,10 +19,10 @@ export const projects = [
   },
   {
     id: 1,
-    title: "KidScribe",
+    title: "ELI5",
     description: "Making the web super fun to read! ✨",
-    link: "https://kidscribe.stickywicketlabs.com/",
-    imageUrl: "📚",
+    link: "https://eli5.stickywicketlabs.com/",
+    imageUrl: "🧠",
     underConstruction: false,
   },
   {
