@@ -10,6 +10,14 @@ function CharactoBoy() {
 // Edit your project cards here ⬇️
 export const projects = [
   {
+    id: 17,
+    title: "KidScribe",
+    description: "Craft a fully illustrated storybook that's all about you.",
+    link: "https://kidscribe.ai/",
+    imageUrl: "📚",
+    underConstruction: false,
+  },
+  {
     id: 16,
     title: "Characto",
     description: "Create beautiful, consistent characters across scenes.",
@@ -65,15 +73,7 @@ export const projects = [
     imageUrl: "🧮",
     underConstruction: false,
   },
-  {
-    id: 14,
-    title: "Donkey Pong",
-    description:
-      "A fun twist on the classic Pong game - watch out for Donkey Kong in the middle!",
-    link: "http://donkeypong.stickywicketlabs.com/",
-    imageUrl: "🦍",
-    underConstruction: false,
-  },
+
 ];
 
 export default function HomePage() {
