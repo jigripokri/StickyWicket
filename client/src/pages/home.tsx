@@ -161,7 +161,7 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
 function PlayroomIllustration() {
   return (
     <motion.div 
-      className="relative w-full max-w-md mx-auto h-64 md:h-80 overflow-hidden"
+      className="relative w-full max-w-md mx-auto"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, delay: 0.2 }}
@@ -169,7 +169,7 @@ function PlayroomIllustration() {
       <img 
         src="/images/toybox-illustration.png"
         alt="Toy Box illustration with storybook, brain, boxing gloves, pencil, paint palette, emoji abacus, and brick wall representing all Sticky Wicket Labs projects"
-        className="w-full h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-125"
+        className="w-full h-auto"
       />
     </motion.div>
   );
