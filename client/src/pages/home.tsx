@@ -157,36 +157,32 @@ function FeaturedKidScribeCard() {
 
         {/* Description */}
         <p className="text-ink-light text-base md:text-lg leading-relaxed mb-6 max-w-md">
-          Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
+          Watch their eyes light up as they become the hero of their own illustrated adventure.
         </p>
 
         {/* Visual Harmony preview */}
         <div className="mt-auto">
-          <p className="text-xs font-medium text-ink-faint uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
-          <div className="grid grid-cols-3 gap-2">
-            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
+          <div className="grid grid-cols-3 gap-3">
+            <div className="relative rounded-xl overflow-hidden shadow-soft bg-neutral-mist">
               <img 
                 src="https://kidscribe.ai/assets/consistency-1-CaVth82r.png" 
-                alt="Scene 1: Characters meeting"
-                className="w-full h-20 md:h-24 object-cover"
+                alt="Scene 1"
+                className="w-full h-28 md:h-36 object-contain"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
+            <div className="relative rounded-xl overflow-hidden shadow-soft bg-neutral-mist">
               <img 
                 src="https://kidscribe.ai/assets/consistency-2-CErFaxMK.png" 
-                alt="Scene 2: Characters on discovery"
-                className="w-full h-20 md:h-24 object-cover"
+                alt="Scene 2"
+                className="w-full h-28 md:h-36 object-contain"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
+            <div className="relative rounded-xl overflow-hidden shadow-soft bg-neutral-mist">
               <img 
                 src="https://kidscribe.ai/assets/consistency-3-BXg-iRdO.png" 
-                alt="Scene 3: Characters on adventure"
-                className="w-full h-20 md:h-24 object-cover"
+                alt="Scene 3"
+                className="w-full h-28 md:h-36 object-contain"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
           </div>
         </div>
