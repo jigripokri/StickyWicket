@@ -159,18 +159,38 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
 }
 
 function BuildingBlock({ value, label, color }: { value: string | number; label: string; color: string }) {
+  const darkerColor = `color-mix(in srgb, ${color} 85%, black)`;
+  
   return (
     <div 
-      className="rounded-xl p-4 text-center text-white relative overflow-hidden"
-      style={{ backgroundColor: color }}
+      className="rounded-lg text-center text-white relative overflow-visible"
+      style={{ 
+        backgroundColor: color,
+        boxShadow: `0 4px 0 0 ${darkerColor}`,
+      }}
     >
-      {/* Brick stud effect */}
-      <div 
-        className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full opacity-30"
-        style={{ backgroundColor: 'rgba(255,255,255,0.3)' }}
-      />
-      <div className="font-display text-3xl font-bold mb-1 pt-2">{value}</div>
-      <div className="text-xs font-medium opacity-80 uppercase tracking-wider">{label}</div>
+      {/* LEGO studs row */}
+      <div className="absolute -top-2 left-0 right-0 flex justify-center gap-2 px-3">
+        <div 
+          className="w-5 h-5 rounded-full border-2 border-white/20"
+          style={{ 
+            backgroundColor: color,
+            boxShadow: `inset 0 -2px 0 0 rgba(0,0,0,0.2), inset 0 2px 0 0 rgba(255,255,255,0.3)`,
+          }}
+        />
+        <div 
+          className="w-5 h-5 rounded-full border-2 border-white/20"
+          style={{ 
+            backgroundColor: color,
+            boxShadow: `inset 0 -2px 0 0 rgba(0,0,0,0.2), inset 0 2px 0 0 rgba(255,255,255,0.3)`,
+          }}
+        />
+      </div>
+      
+      <div className="pt-5 pb-4 px-4">
+        <div className="font-display text-3xl font-bold mb-1">{value}</div>
+        <div className="text-xs font-medium opacity-80 uppercase tracking-wider">{label}</div>
+      </div>
     </div>
   );
 }
@@ -231,7 +251,7 @@ export default function HomePage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 gap-y-6 pt-3">
                 <BuildingBlock value={projects.length} label="Projects" color="#DA291C" />
                 <BuildingBlock value="100%" label="Fun Level" color="#0055BF" />
                 <BuildingBlock value="4" label="Categories" color="#4DBD33" />
