@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects as toys in a playroom-themed interface, providing comprehensive analytics on user engagement, page views, and project interactions.
+This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects with an elegant Post-it pastel aesthetic, providing comprehensive analytics on user engagement, page views, and project interactions.
 
 ## User Preferences
 
@@ -32,23 +32,26 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for migrations and schema updates
 - **Connection**: Connection pooling with @neondatabase/serverless
 
-## Design System: "The Playroom"
+## Design System: Post-it Pastel
 
-The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper textures, and playful but polished styling.
+The portfolio uses an elegant Post-it pastel aesthetic with soft colors, subtle shadows, and a warm, inviting feel.
 
 ### Color Palette
 | Role | Color | Hex |
 |------|-------|-----|
-| Background | Craft Paper | `#F5E6D3` |
-| Card Surface | White Board | `#FFFFFF` |
-| Section Background | Craft Tan | `#E8DDD0` |
-| Shadow/Border | Craft Shadow | `#D4C4B0` |
-| Primary Accent | LEGO Red | `#DA291C` |
-| Secondary Accent | LEGO Blue | `#0055BF` |
-| Success | LEGO Green | `#4DBD33` |
-| Highlight | LEGO Yellow | `#FFD700` |
-| Tertiary | LEGO Orange | `#FF6B35` |
-| Text | Marker Black | `#2D2D2D` |
+| Background | Warm Parchment | `#F9F4EC` |
+| Card Surface | Cloud White | `#FFFFFF` |
+| Border | Soft Edge | `#E7DFED` |
+| Mist | Neutral Mist | `#F0EBF5` |
+| Text Primary | Graphite Ink | `#2F2A3A` |
+| Text Secondary | Dove Gray | `#8A8295` |
+| Text Faint | Ink Faint | `#B8B2C2` |
+| Accent Yellow | Sunlit Lemon | `#FFF4B8` |
+| Accent Coral | Soft Coral | `#FFD7D5` |
+| Accent Aqua | Misty Aqua | `#CFEFF1` |
+| Accent Lavender | Lavender Haze | `#E3D8FF` |
+| Accent Rose | Dusty Rose | `#F3C9E8` |
+| Accent Mint | Fresh Mint | `#D4F5E9` |
 
 ### Typography
 - **Display Font**: Fredoka (playful, rounded headings)
@@ -56,31 +59,39 @@ The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper
 - Loaded via Google Fonts in client/index.html
 
 ### Design Principles
-- **Playful but Polished**: Fun without being chaotic
-- **Craft Paper Feel**: Warm, tactile background textures
-- **LEGO Inspiration**: Bold primary colors, building block motifs
+- **Elegant & Warm**: Soft pastels with professional polish
+- **Post-it Aesthetic**: Subtle note-like accents on cards
+- **Accessible**: High contrast text on pastel backgrounds
 - **Easy to Browse**: Clean grid layout, clear visual hierarchy
 
 ### UI Components
-- **Craft Card**: White cards with paper shadow, hover lift effect
-- **Brick Button**: 3D buttons with press-down animation
-- **Sticker Badge**: Dashed border category badges in various colors
-- **Paper Panel**: White panels with subtle grid pattern background
-- **Tape Accent**: Colored tape decoration on cards
+- **Note Card**: White cards with soft shadows (0 4px 20px rgba(47,42,58,0.06)), rounded-2xl corners, subtle border
+- **Note Button**: Pastel gradient buttons with hover lift effect
+- **Pastel Badge**: Rounded category badges with matching border colors
+- **Post-it Strip**: Semi-transparent pastel strips as card accents
+- **Elegant Panel**: White panels with soft edge borders
+
+### CSS Utility Classes
+- `.note-card`: Elegant card with soft shadow and border
+- `.note-button`: Pastel gradient button with hover animation
+- `.note-button-coral`, `.note-button-lavender`, `.note-button-aqua`: Button color variants
+- `.pastel-badge`: Category badge styling
+- `.pastel-badge-yellow`, `.pastel-badge-coral`, `.pastel-badge-aqua`, etc.: Badge color variants
+- `.stats-block-*`: Colored stat block variants
 
 ## Key Components
 
 ### Project Showcase (Homepage)
-- **ToyCard Component**: Projects as toys with tape accents and sticker badges
-- **Building Blocks Stats**: Colorful stat blocks in hero section
-- **Category Colors**: Each category has distinct color pairing
-- **Hover Effects**: Cards lift and rotate to neutral on hover
+- **ToyCard Component**: Projects with post-it strip accents and pastel badges
+- **FeaturedKidScribeCard**: Large featured card for KidScribe with Visual Harmony images
+- **Category Colors**: Each category has distinct pastel color pairing
+- **Hover Effects**: Cards lift smoothly with scale animation
 
 ### Analytics Dashboard (Progress Report)
-- **StatsCard Component**: LEGO-colored metric displays
-- **Daily Visitors Chart**: Line chart with red accent
-- **Most Played Chart**: Bar chart with multi-color bars
-- **Where Our Friends Are**: Geographic distribution chart
+- **StatsCard Component**: Pastel-accented metric displays with soft shadows
+- **Daily Visitors Chart**: Line chart with coral accent
+- **Most Visited Chart**: Bar chart with multi-pastel bars
+- **Where Our Visitors Are**: Geographic distribution chart
 
 ### Database Schema
 - **Projects Table**: Stores project information (title, description, links, images)
@@ -97,12 +108,12 @@ The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper
 7. Hue Knew? - Color mixing learning
 8. Emoji Math - Math practice with emojis
 
-## Category Color Mapping
-- Storytelling: Yellow/Amber tones
-- Creative Tools: Blue tones
-- Learning: Green tones
-- AI Fun: Red tones
-- Community: Purple tones
+## Category Color Mapping (Pastel)
+- Storytelling: Yellow (#FFF4B8 / #7A6B2A text)
+- Creative Tools: Aqua (#CFEFF1 / #3D6B6F text)
+- Learning: Mint (#D4F5E9 / #3D6B5A text)
+- AI Fun: Coral (#FFD7D5 / #8B4E52 text)
+- Community: Lavender (#E3D8FF / #5B4B8A text)
 
 ## Data Flow
 
@@ -150,7 +161,8 @@ The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper
 ## Technical Notes
 
 - **Category badges**: Use inline styles for colors (avoids dynamic Tailwind class issues)
-- **Card rotations**: Slight random rotations on cards, neutralize on hover
-- **Chart theming**: All Recharts components use LEGO color palette
+- **Card shadows**: Consistent soft shadows using rgba(47, 42, 58, 0.06) for cohesive look
+- **Chart theming**: All Recharts components use pastel color palette with darker stroke accents
+- **Accessibility**: Text colors maintain WCAG AA contrast ratios against pastel backgrounds
 
-The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The playroom theme creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.
+The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The Post-it pastel theme creates a warm, elegant portfolio presentation while the analytics system provides valuable insights into user behavior.
