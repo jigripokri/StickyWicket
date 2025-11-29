@@ -14,13 +14,13 @@ export function StatsCard({ title, value, icon }: StatsCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Card>
+      <Card className="bg-white border-clay/20">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">{title}</CardTitle>
-          {icon}
+          <CardTitle className="text-sm font-medium text-ink/60">{title}</CardTitle>
+          <span className="text-clay">{icon}</span>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{value}</div>
+          <div className="text-3xl font-display font-semibold text-ink">{value}</div>
         </CardContent>
       </Card>
     </motion.div>

@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { StatsCard } from "@/components/stats-card";
 import { Users, Eye, Activity, Globe, Mouse } from "lucide-react";
 import { Card } from "@/components/ui/card";
-// Import projects from home page to know the active count
 import { projects } from "./home";
 import {
   LineChart,
@@ -25,9 +24,8 @@ interface Analytics {
   topCountries: Array<{ country: string; views: number }>;
 }
 
-// Define a set of visually distinct colors for the charts
-const PROJECT_COLORS = ['#34D399', '#60A5FA', '#F472B6', '#FBBF24', '#A78BFA'];
-const COUNTRY_COLORS = ['#F87171', '#FB923C', '#FBBF24', '#34D399', '#60A5FA'];
+const PROJECT_COLORS = ['#FF6F61', '#3B82F6', '#F4B400', '#E6C4A8', '#2C1C14'];
+const COUNTRY_COLORS = ['#FF6F61', '#E6C4A8', '#F4B400', '#3B82F6', '#2C1C14'];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
@@ -42,186 +40,190 @@ export default function AnalyticsPage() {
   });
 
   if (isLoading) {
-    return <div className="container mx-auto px-4 py-12">Loading analytics...</div>;
+    return (
+      <div className="max-w-6xl mx-auto px-6 py-16 text-center">
+        <p className="text-ink/60 font-medium">Loading analytics...</p>
+      </div>
+    );
   }
 
-  console.log('Analytics Data:', {
-    viewsByDay: data?.viewsByDay,
-    topProjects: data?.topProjects,
-    topCountries: data?.topCountries
-  });
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6">Analytics Dashboard</h1>
+    <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="mb-12">
+        <h1 className="font-display text-3xl md:text-4xl font-medium text-ink mb-2">
+          Analytics Dashboard
+        </h1>
+        <p className="text-ink/60">
+          Track how visitors interact with your projects.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
         <StatsCard
           title="Total Visitors"
           value={data?.totalVisitors || 0}
-          icon={<Users className="h-4 w-4 text-muted-foreground" />}
+          icon={<Users className="h-5 w-5" />}
         />
         <StatsCard
           title="Page Views"
           value={data?.pageViews || 0}
-          icon={<Eye className="h-4 w-4 text-muted-foreground" />}
+          icon={<Eye className="h-5 w-5" />}
         />
         <StatsCard
           title="Active Projects"
           value={projects.length || 0}
-          icon={<Mouse className="h-4 w-4 text-muted-foreground" />}
+          icon={<Mouse className="h-5 w-5" />}
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-4 md:p-6">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Activity className="h-5 w-5" />
-            Daily Traffic (Last 7 Days)
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <Card className="p-6 bg-white border-clay/20">
+          <h2 className="font-display text-xl font-medium text-ink mb-6 flex items-center gap-3">
+            <Activity className="h-5 w-5 text-coral" />
+            Daily Traffic
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart 
                 data={data?.viewsByDay || []}
-                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
+                margin={{ top: 10, right: 20, left: 10, bottom: 50 }}
               >
                 <XAxis 
                   dataKey="date" 
                   tickFormatter={formatDate}
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   angle={-45}
                   textAnchor="end"
-                  height={60}
-                  tickMargin={20}
+                  height={50}
+                  tickMargin={15}
                 />
                 <YAxis 
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   tickCount={5}
-                  width={40}
+                  width={35}
                   axisLine={false}
                   tickLine={false}
                 />
                 <Tooltip 
                   labelFormatter={formatDate}
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    border: '1px solid #f0f0f0',
-                    borderRadius: '4px',
+                    backgroundColor: '#FDF8F3',
+                    border: '1px solid #E6C4A8',
+                    borderRadius: '8px',
                     fontSize: '12px',
+                    fontFamily: '"Nunito Sans", sans-serif',
                   }}
                 />
                 <Line
                   type="monotone"
                   dataKey="views"
-                  stroke="#BAE1FF"
+                  stroke="#FF6F61"
                   strokeWidth={2}
-                  dot={{ fill: '#BAE1FF', r: 3 }}
-                  activeDot={{ r: 5, fill: '#92CEFF' }}
+                  dot={{ fill: '#FF6F61', r: 3, strokeWidth: 0 }}
+                  activeDot={{ r: 5, fill: '#FF6F61', strokeWidth: 0 }}
                 />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
-        <Card className="p-4 md:p-6">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Mouse className="h-5 w-5" />
-            Most Clicked Projects
+        <Card className="p-6 bg-white border-clay/20">
+          <h2 className="font-display text-xl font-medium text-ink mb-6 flex items-center gap-3">
+            <Mouse className="h-5 w-5 text-sky" />
+            Popular Projects
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data?.topProjects || []}
-                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
+                margin={{ top: 10, right: 20, left: 10, bottom: 50 }}
               >
                 <XAxis 
                   dataKey="title"
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   angle={-45}
                   textAnchor="end"
-                  height={60}
-                  tickMargin={20}
+                  height={50}
+                  tickMargin={15}
                   interval={0}
                 />
                 <YAxis 
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   tickLine={false}
                   axisLine={false}
                 />
                 <Tooltip 
                   formatter={(value) => [`${value} clicks`, 'Clicks']}
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    border: '1px solid #f0f0f0',
-                    borderRadius: '4px',
+                    backgroundColor: '#FDF8F3',
+                    border: '1px solid #E6C4A8',
+                    borderRadius: '8px',
                     fontSize: '12px',
+                    fontFamily: '"Nunito Sans", sans-serif',
                   }}
                 />
                 <Bar 
                   dataKey="clicks" 
-                  radius={[4, 4, 0, 0]}
+                  radius={[6, 6, 0, 0]}
                 >
-                  {
-                    (data?.topProjects || []).map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={PROJECT_COLORS[index % PROJECT_COLORS.length]} />
-                    ))
-                  }
+                  {(data?.topProjects || []).map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={PROJECT_COLORS[index % PROJECT_COLORS.length]} />
+                  ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
-        <Card className="p-4 md:p-6 lg:col-span-2">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Globe className="h-5 w-5" />
-            Top Countries
+        <Card className="p-6 bg-white border-clay/20 lg:col-span-2">
+          <h2 className="font-display text-xl font-medium text-ink mb-6 flex items-center gap-3">
+            <Globe className="h-5 w-5 text-sunflower" />
+            Visitors by Country
           </h2>
-          <div className="h-[300px]">
+          <div className="h-[280px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 data={data?.topCountries || []}
                 layout="horizontal"
-                margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
+                margin={{ top: 10, right: 20, left: 10, bottom: 50 }}
               >
                 <XAxis 
                   dataKey="country"
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   angle={-45}
                   textAnchor="end"
-                  height={60}
-                  tickMargin={20}
+                  height={50}
+                  tickMargin={15}
                   interval={0}
                 />
                 <YAxis 
-                  stroke="#888888"
-                  fontSize={12}
+                  stroke="#E6C4A8"
+                  fontSize={11}
                   tickLine={false}
                   axisLine={false}
                 />
                 <Tooltip 
                   formatter={(value) => [`${value} views`, 'Views']}
                   contentStyle={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    border: '1px solid #f0f0f0',
-                    borderRadius: '4px',
+                    backgroundColor: '#FDF8F3',
+                    border: '1px solid #E6C4A8',
+                    borderRadius: '8px',
                     fontSize: '12px',
+                    fontFamily: '"Nunito Sans", sans-serif',
                   }}
                 />
                 <Bar 
                   dataKey="views" 
-                  radius={[4, 4, 0, 0]}
+                  radius={[6, 6, 0, 0]}
                 >
-                  {
-                    (data?.topCountries || []).map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COUNTRY_COLORS[index % COUNTRY_COLORS.length]} />
-                    ))
-                  }
+                  {(data?.topCountries || []).map((_, index) => (
+                    <Cell key={`cell-${index}`} fill={COUNTRY_COLORS[index % COUNTRY_COLORS.length]} />
+                  ))}
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
