@@ -104,26 +104,26 @@ function FeaturedKidScribeCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="craft-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2"
+      className="craft-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col overflow-hidden"
       whileHover={{ scale: 1.01 }}
     >
       {/* Tape accent */}
       <div 
-        className="absolute -top-2 left-8 w-24 h-6 rounded-sm opacity-80"
+        className="absolute -top-2 left-8 w-24 h-6 rounded-sm opacity-80 z-10"
         style={{ 
           background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
           transform: 'rotate(-1deg)',
         }}
       />
       <div 
-        className="absolute -top-2 right-8 w-20 h-5 rounded-sm opacity-70 hidden md:block"
+        className="absolute -top-2 right-8 w-20 h-5 rounded-sm opacity-70 hidden md:block z-10"
         style={{ 
           background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
           transform: 'rotate(2deg)',
         }}
       />
 
-      <div className="p-6 md:p-8 h-full flex flex-col">
+      <div className="p-6 md:p-8 flex-1 flex flex-col">
         {/* Header row */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-4">
@@ -180,7 +180,7 @@ function FeaturedKidScribeCard() {
       </div>
 
       {/* Bottom accent bar */}
-      <div className="h-3 rounded-b-xl bg-gradient-to-r from-lego-yellow via-lego-orange to-lego-red" />
+      <div className="h-3 mt-auto bg-gradient-to-r from-lego-yellow via-lego-orange to-lego-red" />
     </motion.a>
   );
 }
@@ -207,20 +207,20 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="craft-card block group relative"
+      className="craft-card block group relative h-full flex flex-col overflow-hidden"
       style={{ transform: `rotate(${rotation}deg)` }}
       whileHover={{ rotate: 0, scale: 1.02 }}
     >
       {/* Tape accent */}
       <div 
-        className="absolute -top-2 left-6 w-16 h-5 rounded-sm opacity-80"
+        className="absolute -top-2 left-6 w-16 h-5 rounded-sm opacity-80 z-10"
         style={{ 
           background: `linear-gradient(135deg, ${colors.border}40 0%, ${colors.border}60 100%)`,
           transform: 'rotate(-2deg)',
         }}
       />
 
-      <div className="p-6">
+      <div className="p-6 flex-1">
         {/* Emoji and status */}
         <div className="flex items-start justify-between mb-4">
           <div className="text-5xl">{project.emoji}</div>
@@ -250,7 +250,7 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
 
       {/* Bottom accent bar */}
       <div 
-        className="h-2 rounded-b-xl"
+        className="h-2 mt-auto"
         style={{ backgroundColor: colors.border }}
       />
     </motion.a>
