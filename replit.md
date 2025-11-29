@@ -70,15 +70,9 @@ The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper
 
 ## Key Components
 
-### Homepage Structure
-- **Top Hero**: Compact section with "Tiny Apps. Big Smiles." headline and Toy Box illustration
-- **KidScribe Spotlight**: Featured "Latest Project" section with split layout (copy left, stacked images right)
-- **LEGO Tape Divider**: Yellow horizontal bar separating sections
-- **The Toy Box**: Grid of 7 project cards (KidScribe excluded as it's featured above)
-- **Footer**: Simple branding with Sticky Wicket Labs logo
-
-### Project Showcase
+### Project Showcase (Homepage)
 - **ToyCard Component**: Projects as toys with tape accents and sticker badges
+- **Building Blocks Stats**: Colorful stat blocks in hero section
 - **Category Colors**: Each category has distinct color pairing
 - **Hover Effects**: Cards lift and rotate to neutral on hover
 

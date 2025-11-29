@@ -1,9 +1,18 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Blocks, ExternalLink, Star, Sparkles, BookOpen, Clock, Heart } from "lucide-react";
+import { Blocks, Sparkles, ExternalLink, Star } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export const projects = [
+  {
+    id: 17,
+    title: "KidScribe",
+    description: "Craft a fully illustrated storybook that's all about you.",
+    link: "https://kidscribe.ai/",
+    emoji: "📚",
+    status: "live",
+    category: "Storytelling",
+  },
   {
     id: 16,
     title: "Characto",
@@ -166,141 +175,33 @@ function PlayroomIllustration() {
   );
 }
 
-function KidScribeHero() {
-  const handleClick = async () => {
-    try {
-      await apiRequest("POST", "/api/track-click/17");
-    } catch (error) {
-      console.error("Failed to track click:", error);
-    }
-  };
-
-  return (
-    <section className="px-6 py-10 bg-craft-tan">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          {/* Left: Copy */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-lego-red/10 rounded-full mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-lego-red" />
-              <span className="text-xs font-semibold text-lego-red uppercase tracking-wide">Latest Project</span>
-            </div>
-            
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
-              Magical Books Starring <span className="text-lego-red">Your Child</span>
-            </h2>
-            
-            <p className="text-marker/70 text-base md:text-lg mb-5 max-w-md">
-              Watch their eyes light up as they become the hero of their own illustrated adventure.
-            </p>
-
-            {/* Compact features */}
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center gap-1.5 text-marker/60 text-sm">
-                <BookOpen className="w-4 h-4 text-lego-blue" />
-                <span>12 Art Styles</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-marker/60 text-sm">
-                <Heart className="w-4 h-4 text-lego-red" />
-                <span>Life Lessons</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-marker/60 text-sm">
-                <Clock className="w-4 h-4 text-lego-green" />
-                <span>5 Minutes</span>
-              </div>
-            </div>
-
-            <a
-              href="https://kidscribe.ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={handleClick}
-              className="brick-button brick-button-red inline-flex items-center gap-2"
-            >
-              <span>📚</span>
-              Create a Story
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </motion.div>
-
-          {/* Right: Stacked images */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative flex justify-center"
-          >
-            <div className="relative">
-              {/* Back image */}
-              <motion.div
-                className="absolute -left-6 top-4 w-36 md:w-44"
-                initial={{ rotate: -8 }}
-                animate={{ rotate: -6 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden border-2 border-white">
-                  <img 
-                    src="https://kidscribe.ai/assets/consistency-1-CaVth82r.png"
-                    alt="Story illustration"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-              
-              {/* Front image */}
-              <motion.div
-                className="relative z-10 w-44 md:w-56"
-                initial={{ rotate: 4 }}
-                animate={{ rotate: 3 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="bg-white rounded-lg shadow-xl overflow-hidden border-2 border-white">
-                  <img 
-                    src="https://kidscribe.ai/assets/consistency-2-CErFaxMK.png"
-                    alt="Story illustration featuring your child"
-                    className="w-full h-auto"
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-craft-paper">
       {/* Hero Section */}
-      <section className="px-6 py-10 md:py-12">
+      <section className="px-6 py-16 md:py-20">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Main content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-display text-4xl md:text-5xl font-bold text-marker leading-tight mb-4">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
                 Tiny Apps.
                 <br />
                 <span className="text-lego-red">Big Smiles.</span>
               </h1>
 
-              <p className="text-marker/70 text-lg leading-relaxed mb-6 max-w-md">
-                Delightful weekend experiments—built on rainy Saturdays, powered by curiosity.
+              <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+                A toy box of delightful little experiments—built on rainy Saturdays, powered by curiosity. Pick one. Play. Repeat.
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-4">
                 <a href="#projects" className="brick-button brick-button-red inline-flex items-center gap-2">
                   <Blocks className="w-4 h-4" />
-                  Explore Projects
+                  See All Projects
                 </a>
                 <Link href="/analytics" className="brick-button brick-button-blue inline-flex items-center gap-2">
                   <Star className="w-4 h-4" />
@@ -314,41 +215,32 @@ export default function HomePage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex justify-center"
             >
-              <div className="w-full max-w-sm">
-                <PlayroomIllustration />
-              </div>
+              <PlayroomIllustration />
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* KidScribe Hero Showcase */}
-      <KidScribeHero />
-
-      {/* LEGO tape divider */}
-      <div className="h-3 bg-lego-yellow" />
-
       {/* Projects Grid */}
-      <section id="projects" className="px-6 py-12 bg-craft-paper">
+      <section id="projects" className="px-6 py-16 bg-craft-tan/50">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-10">
+          <div className="text-center mb-12">
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-marker mb-2">
-                The Toy Box
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
+                Our Toy Box
               </h2>
-              <p className="text-marker/60 text-base">
-                Pick a project and start playing
+              <p className="text-marker/60 text-lg max-w-md mx-auto">
+                Pick a project and start playing!
               </p>
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {projects.map((project, index) => (
               <ToyCard key={project.id} project={project} index={index} />
             ))}
@@ -357,22 +249,27 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-8 bg-craft-tan border-t-2 border-craft-shadow/20">
+      <footer className="px-6 py-12 bg-white border-t-4 border-lego-yellow">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl">🧱</span>
-              <span className="font-display font-bold text-marker">
-                Sticky Wicket Labs
-              </span>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">🧱</span>
+              <div>
+                <div className="font-display font-bold text-marker text-lg">
+                  Sticky Wicket Labs
+                </div>
+                <div className="text-sm text-marker/50">
+                  Building fun since 2024
+                </div>
+              </div>
             </div>
 
-            <div className="flex items-center gap-4 text-sm text-marker/50">
-              <Link href="/analytics" className="hover:text-lego-blue transition-colors">
+            <div className="flex items-center gap-6 text-sm text-marker/50">
+              <Link href="/analytics" className="hover:text-lego-blue transition-colors font-medium">
                 Progress Report
               </Link>
-              <span>•</span>
-              <span>© 2025</span>
+              <span className="text-craft-shadow">|</span>
+              <span>© 2025 All toys reserved</span>
             </div>
           </div>
         </div>
