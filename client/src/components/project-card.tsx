@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ExternalLink, Play } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 interface Project {
@@ -6,11 +6,12 @@ interface Project {
   title: string;
   description: string;
   link: string;
-  imageUrl: string;
-  tagline?: string;
+  emoji: string;
+  status?: string;
+  category?: string;
 }
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   const handleClick = async () => {
     try {
       await apiRequest("POST", `/api/track-click/${project.id}`);
@@ -19,40 +20,59 @@ export function ProjectCard({ project }: { project: Project }) {
     }
   };
 
+  const colors = ["#FF3366", "#00D4FF", "#00FF94", "#FFE566", "#B366FF"];
+  const accentColor = colors[index % colors.length];
+
   return (
     <a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
-      className="block h-full"
+      className="program-card block group"
     >
-      <article className="exhibit-card h-full p-8 flex flex-col">
-        {/* Emoji Badge */}
-        <div className="mb-6 flex justify-center">
-          <div className="emoji-badge">
-            <span className="text-4xl">{project.imageUrl}</span>
+      <div className="p-6">
+        <div className="flex items-start justify-between mb-4">
+          <div className="text-4xl">{project.emoji}</div>
+          <div className="flex items-center gap-2">
+            <span className={`status-light ${project.status === 'live' ? 'active' : 'idle'}`}></span>
+            <span className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
+              {project.status || 'live'}
+            </span>
           </div>
         </div>
 
-        {/* Tagline */}
-        {project.tagline && (
-          <p className="text-xs font-medium tracking-widest uppercase text-coral text-center mb-3">
-            {project.tagline}
-          </p>
+        {project.category && (
+          <div 
+            className="inline-block px-2 py-1 rounded text-xs font-medium mb-3"
+            style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
+          >
+            {project.category}
+          </div>
         )}
 
-        {/* Title */}
-        <h3 className="font-display text-xl font-medium text-ink text-center mb-3 flex items-center justify-center gap-2">
+        <h3 className="font-display text-xl font-semibold text-tungsten-soft mb-2 group-hover:text-neon-cyan transition-colors flex items-center gap-2">
           {project.title}
-          <ArrowUpRight className="h-4 w-4 text-clay" />
+          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
         </h3>
 
-        {/* Description */}
-        <p className="text-ink/70 text-center text-sm leading-relaxed flex-grow">
+        <p className="text-tungsten-warm/70 text-sm leading-relaxed">
           {project.description}
         </p>
-      </article>
+      </div>
+
+      <div className="px-6 py-3 bg-studio-slate/50 border-t border-studio-steel flex items-center justify-between">
+        <div className="flex items-center gap-2 text-xs text-tungsten-warm/50">
+          <Play className="w-3 h-3" />
+          <span>View Program</span>
+        </div>
+        <div className="w-8 h-1 rounded-full bg-studio-steel overflow-hidden">
+          <div 
+            className="h-full rounded-full" 
+            style={{ width: '100%', backgroundColor: accentColor }}
+          ></div>
+        </div>
+      </div>
     </a>
   );
 }

@@ -6,16 +6,29 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Nunito Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        canvas: "#FDF8F3",
-        clay: "#E6C4A8",
-        coral: "#FF6F61",
-        sky: "#3B82F6",
-        sunflower: "#F4B400",
-        ink: "#2C1C14",
+        // Workshop palette
+        studio: {
+          dark: "#0D0D0F",
+          charcoal: "#1A1A1F",
+          slate: "#2A2A32",
+          steel: "#3D3D47",
+        },
+        neon: {
+          pink: "#FF3366",
+          cyan: "#00D4FF",
+          green: "#00FF94",
+          yellow: "#FFE566",
+          purple: "#B366FF",
+        },
+        tungsten: {
+          warm: "#FFB366",
+          soft: "#FFF5E6",
+        },
+        // Shadcn compatibility
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -74,25 +87,27 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        "ticker": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "ticker": "ticker 30s linear infinite",
       },
     },
   },
