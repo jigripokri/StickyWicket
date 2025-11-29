@@ -361,7 +361,11 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">🧱</span>
+              <img 
+                src="/images/swl-logo.png" 
+                alt="Sticky Wicket Labs" 
+                className="h-12 w-auto"
+              />
               <div>
                 <div className="font-display font-bold text-marker text-lg">
                   Sticky Wicket Labs
