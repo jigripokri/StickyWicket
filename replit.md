@@ -89,8 +89,10 @@ The portfolio uses an elegant Post-it pastel aesthetic with soft colors, subtle 
 
 ### About Me Page
 - **Personal ethos page**: Focus on motivations and joy of building
+- **Introduction**: "I'm Saurabh" - PM who codes, tinkerer who builds on weekends
 - **Headline**: "My Most Important User is Four Years Old" - about son and bedtime stories
-- **Sections**: Joy of Building, A Wonderful Time to Build, Let's Trade Notes
+- **Sections**: Joy of Building, A Wonderful Time to Build, Lessons Learned at 1 a.m., Let's Trade Notes
+- **Lessons Learned**: 4 cards covering roadmap discovery, AI as thought partner, prototype vs production, taste/agency/testing
 - **Contact**: Email (saurabh@stickywicketlabs.com) and LinkedIn link
 - **Navigation**: Accessible via header user icon, hero button, and footer link
 
