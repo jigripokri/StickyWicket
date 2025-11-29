@@ -95,8 +95,8 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
     }
   };
 
-  const colors = ["neon-pink", "neon-cyan", "neon-green", "neon-yellow", "neon-purple"];
-  const accentColor = colors[index % colors.length];
+  const colorValues = ["#FF3366", "#00D4FF", "#00FF94", "#FFE566", "#B366FF"];
+  const accentColor = colorValues[index % colorValues.length];
 
   return (
     <motion.a
@@ -110,9 +110,8 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
       className="program-card block group"
     >
       <div className="p-6">
-        {/* Header row */}
         <div className="flex items-start justify-between mb-4">
-          <div className={`text-4xl`}>{project.emoji}</div>
+          <div className="text-4xl">{project.emoji}</div>
           <div className="flex items-center gap-2">
             <span className={`status-light ${project.status === 'live' ? 'active' : 'idle'}`}></span>
             <span className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
@@ -121,20 +120,11 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
           </div>
         </div>
 
-        {/* Category tag */}
-        <div className={`inline-block px-2 py-1 rounded text-xs font-medium mb-3 bg-${accentColor}/20 text-${accentColor}`}
-          style={{ 
-            backgroundColor: `var(--tw-${accentColor}, rgba(255,255,255,0.1))`,
-          }}
+        <div 
+          className="inline-block px-2 py-1 rounded text-xs font-medium mb-3"
+          style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
         >
-          <span className={`text-${accentColor}`} style={{
-            color: accentColor === 'neon-pink' ? '#FF3366' :
-                   accentColor === 'neon-cyan' ? '#00D4FF' :
-                   accentColor === 'neon-green' ? '#00FF94' :
-                   accentColor === 'neon-yellow' ? '#FFE566' : '#B366FF'
-          }}>
-            {project.category}
-          </span>
+          {project.category}
         </div>
 
         {/* Title */}
@@ -156,13 +146,10 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
           <span>View Program</span>
         </div>
         <div className="w-8 h-1 rounded-full bg-studio-steel overflow-hidden">
-          <div className={`h-full rounded-full`} style={{
-            width: '100%',
-            backgroundColor: accentColor === 'neon-pink' ? '#FF3366' :
-                   accentColor === 'neon-cyan' ? '#00D4FF' :
-                   accentColor === 'neon-green' ? '#00FF94' :
-                   accentColor === 'neon-yellow' ? '#FFE566' : '#B366FF'
-          }}></div>
+          <div 
+            className="h-full rounded-full" 
+            style={{ width: '100%', backgroundColor: accentColor }}
+          ></div>
         </div>
       </div>
     </motion.a>

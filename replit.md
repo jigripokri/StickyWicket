@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects in an interactive card layout and provides comprehensive analytics on user engagement, page views, and project interactions.
+This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects as "broadcast programs" in a control room/studio themed interface, providing comprehensive analytics on user engagement, page views, and project interactions.
 
 ## User Preferences
 
@@ -32,48 +32,73 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for migrations and schema updates
 - **Connection**: Connection pooling with @neondatabase/serverless
 
-## Design System: "Museum of Playful Ideas"
+## Design System: "Wonder Workshop Live"
 
-The portfolio uses an elegant, refined design inspired by editorial publications and indie bookstores.
+The portfolio uses a broadcast studio/control room aesthetic with neon gel lighting and a live TV program metaphor.
 
 ### Color Palette
 | Role | Color | Hex |
 |------|-------|-----|
-| Canvas (background) | Warm Cream | `#FDF8F3` |
-| Soft Accent | Clay | `#E6C4A8` |
-| Primary Pop | Coral | `#FF6F61` |
-| Secondary Pop | Sky Blue | `#3B82F6` |
-| Tertiary Pop | Sunflower | `#F4B400` |
-| Text | Deep Ink | `#2C1C14` |
+| Main Background | Studio Dark | `#0D0D0F` |
+| Card Background | Studio Charcoal | `#1A1A1F` |
+| Interactive Elements | Studio Slate | `#2A2A32` |
+| Borders | Studio Steel | `#3D3D47` |
+| Primary Accent | Neon Pink | `#FF3366` |
+| Secondary Accent | Neon Cyan | `#00D4FF` |
+| Success/Live | Neon Green | `#00FF94` |
+| Warning | Neon Yellow | `#FFE566` |
+| Tertiary | Neon Purple | `#B366FF` |
+| Warm Text | Tungsten Warm | `#FFB366` |
+| Primary Text | Tungsten Soft | `#FFF5E6` |
 
 ### Typography
-- **Headlines**: Playfair Display (elegant serif)
-- **Body Text**: Nunito Sans (friendly, readable)
+- **Display Font**: Space Grotesk (headings, stats, labels)
+- **Body Font**: Inter (paragraphs, descriptions)
+- Loaded via Google Fonts in client/index.html
 
 ### Design Principles
-- **Restraint**: Minimal animations, let typography and whitespace do the work
-- **Warmth**: Cream canvas with clay accents creates an inviting feel
-- **Sophistication**: Editorial-quality typography and generous spacing
-- **Subtle Delight**: Cards lift gently on hover, no flashy effects
+- **Broadcast Feel**: Live indicators, status lights, ticker tape create energy
+- **Control Room**: Dark surfaces, neon accents, telemetry displays
+- **Subtle Motion**: Cards lift gently on hover with cyan glow, no flashy effects
+- **Professional Edge**: Technical aesthetic balanced with playful content
+
+### UI Components
+- **Ticker Tape**: Scrolling announcements with CSS animation
+- **Live Indicator**: Pulsing red dot with "LIVE FROM THE WORKSHOP" text
+- **Studio Panel**: Dark cards with subtle pink glow on edges
+- **Program Cards**: Project cards styled as TV programs with status lights
+- **Control Buttons**: Dark slate buttons with neon hover states
 
 ## Key Components
 
-### Project Showcase
-- **ProjectCard Component**: Archival mat styling with embossed emoji badges
-- **Subtle Hover**: Gentle lift and shadow on hover (no color flash)
-- **External Links**: Direct navigation to live project URLs
-- **Click Analytics**: Automatic tracking of project interactions
+### Project Showcase (Homepage)
+- **ProgramCard Component**: Displays projects as broadcast programs
+- **Status Lights**: Green (live) or yellow (idle) indicators
+- **Category Tags**: Color-coded badges using inline styles (avoids dynamic Tailwind)
+- **Ticker Tape**: Animated announcements at top of page
+- **Studio Status Panel**: Shows live program count, uptime, categories
 
-### Analytics Dashboard
-- **Real-time Metrics**: Total visitors, page views, and engagement statistics
-- **Data Visualization**: Charts using Recharts library (Line and Bar charts)
-- **Geographic Tracking**: Country-based visitor analytics
-- **Project Performance**: Click tracking and popularity metrics
+### Analytics Dashboard (Control Room)
+- **StatsCard Component**: Neon-accented metric displays
+- **Traffic Signal Chart**: Line chart showing views over time
+- **Top Programs Chart**: Bar chart of project popularity
+- **Global Reach Chart**: Geographic visitor distribution
+- **All charts use Recharts** with dark theme styling
 
 ### Database Schema
 - **Projects Table**: Stores project information (title, description, links, images)
 - **Page Views Table**: Tracks all page visits with metadata (IP, user agent, referrer, location)
 - **Project Clicks Table**: Records interactions with project cards
+
+## Current Projects (in display order)
+1. KidScribe - Personalized storybook creation (kidscribe.ai)
+2. Characto - Character design across scenes
+3. ELI5 - Making web content readable
+4. DebateGPT - AI debate simulator
+5. DottyDraw - Pixel art tool
+6. Wish Upon a Wall - Community message boards
+7. Hue Knew? - Color mixing learning
+8. Emoji Math - Math practice with emojis
 
 ## Data Flow
 
@@ -118,4 +143,10 @@ The portfolio uses an elegant, refined design inspired by editorial publications
 - `start`: Production server execution
 - `db:push`: Database schema deployment
 
-The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The analytics system provides valuable insights into user behavior while maintaining a clean separation between the portfolio showcase and data collection functionality.
+## Technical Notes
+
+- **Category badges**: Use inline styles for colors (avoid dynamic Tailwind class strings)
+- **Ticker animation**: CSS keyframes in index.css, duplicated items for seamless loop
+- **Chart theming**: All Recharts components use inline styles matching studio palette
+
+The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The broadcast/control room theme creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.
