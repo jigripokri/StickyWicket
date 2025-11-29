@@ -167,7 +167,7 @@ function PlayroomIllustration() {
       transition={{ duration: 0.6, delay: 0.2 }}
     >
       <img 
-        src="/attached_assets/Gemini_Generated_Image_r9idetr9idetr9id_1764404489503.jpg"
+        src="/images/toybox-illustration.jpg"
         alt="Toy Box illustration with storybook, brain, boxing gloves, pencil, paint palette, emoji abacus, and brick wall representing all Sticky Wicket Labs projects"
         className="w-full h-auto rounded-2xl"
       />
