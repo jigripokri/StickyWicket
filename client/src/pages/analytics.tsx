@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { StatsCard } from "@/components/stats-card";
-import { Users, Eye, Blocks, Globe, TrendingUp } from "lucide-react";
+import { Users, Eye, Blocks, Globe, TrendingUp, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "./home";
 import {
@@ -24,7 +24,7 @@ interface Analytics {
   topCountries: Array<{ country: string; views: number }>;
 }
 
-const SKETCH_GRAYS = ['#2D2D2D', '#4A4A4A', '#6B6B6B', '#8A8A8A', '#A8A8A8'];
+const LEGO_COLORS = ['#DA291C', '#0055BF', '#4DBD33', '#FFD700', '#FF6B35'];
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleString('en-US', {
@@ -40,17 +40,17 @@ export default function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-cream flex items-center justify-center">
+      <div className="min-h-screen bg-craft-paper flex items-center justify-center">
         <div className="text-center">
-          <div className="text-5xl mb-4 animate-pulse">📊</div>
-          <p className="text-ink/50 font-display font-medium">Building your report...</p>
+          <div className="text-5xl mb-4 animate-bounce">🧱</div>
+          <p className="text-marker/60 font-display font-medium">Building your report...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-craft-paper">
       {/* Header */}
       <section className="px-6 py-12">
         <div className="max-w-6xl mx-auto">
@@ -59,10 +59,14 @@ export default function AnalyticsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="font-display text-3xl md:text-4xl font-bold text-ink mb-2">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-lego-blue/10 rounded-full mb-4">
+              <Star className="w-4 h-4 text-lego-blue" />
+              <span className="text-sm font-medium text-marker">Stats & Numbers</span>
+            </div>
+            <h1 className="font-display text-3xl md:text-4xl font-bold text-marker mb-2">
               Progress Report
             </h1>
-            <p className="text-ink/50">
+            <p className="text-marker/60">
               See how our toys are doing out in the world
             </p>
           </motion.div>
@@ -77,16 +81,19 @@ export default function AnalyticsPage() {
               title="Total Visitors"
               value={data?.totalVisitors || 0}
               icon={<Users className="h-5 w-5" />}
+              color="#DA291C"
             />
             <StatsCard
               title="Page Views"
               value={data?.pageViews || 0}
               icon={<Eye className="h-5 w-5" />}
+              color="#0055BF"
             />
             <StatsCard
               title="Active Projects"
               value={projects.length || 0}
               icon={<Blocks className="h-5 w-5" />}
+              color="#4DBD33"
             />
           </div>
 
@@ -97,11 +104,14 @@ export default function AnalyticsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-white rounded-xl p-6 border border-sketch-border"
+              className="bg-white rounded-xl p-6"
+              style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)' }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <TrendingUp className="w-5 h-5 text-ink/40" />
-                <h2 className="font-display text-lg font-bold text-ink">
+                <div className="w-8 h-8 bg-lego-red/10 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-lego-red" />
+                </div>
+                <h2 className="font-display text-lg font-bold text-marker">
                   Daily Visitors
                 </h2>
               </div>
@@ -114,7 +124,7 @@ export default function AnalyticsPage() {
                     <XAxis 
                       dataKey="date" 
                       tickFormatter={formatDate}
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       angle={-45}
                       textAnchor="end"
@@ -122,7 +132,7 @@ export default function AnalyticsPage() {
                       tickMargin={15}
                     />
                     <YAxis 
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       tickCount={5}
                       width={35}
@@ -133,21 +143,21 @@ export default function AnalyticsPage() {
                       labelFormatter={formatDate}
                       contentStyle={{
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid #C4C0B8',
-                        borderRadius: '8px',
+                        border: '2px solid #E8DDD0',
+                        borderRadius: '12px',
                         fontSize: '12px',
                         fontFamily: '"Fredoka", sans-serif',
                         color: '#2D2D2D',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                       }}
                     />
                     <Line
                       type="monotone"
                       dataKey="views"
-                      stroke="#2D2D2D"
-                      strokeWidth={2}
-                      dot={{ fill: '#2D2D2D', r: 3, strokeWidth: 0 }}
-                      activeDot={{ r: 5, fill: '#2D2D2D', strokeWidth: 0 }}
+                      stroke="#DA291C"
+                      strokeWidth={3}
+                      dot={{ fill: '#DA291C', r: 4, strokeWidth: 0 }}
+                      activeDot={{ r: 6, fill: '#DA291C', strokeWidth: 0 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -159,11 +169,14 @@ export default function AnalyticsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-white rounded-xl p-6 border border-sketch-border"
+              className="bg-white rounded-xl p-6"
+              style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)' }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <Blocks className="w-5 h-5 text-ink/40" />
-                <h2 className="font-display text-lg font-bold text-ink">
+                <div className="w-8 h-8 bg-lego-blue/10 rounded-lg flex items-center justify-center">
+                  <Blocks className="w-5 h-5 text-lego-blue" />
+                </div>
+                <h2 className="font-display text-lg font-bold text-marker">
                   Most Played
                 </h2>
               </div>
@@ -175,7 +188,7 @@ export default function AnalyticsPage() {
                   >
                     <XAxis 
                       dataKey="title"
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       angle={-45}
                       textAnchor="end"
@@ -184,7 +197,7 @@ export default function AnalyticsPage() {
                       interval={0}
                     />
                     <YAxis 
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       tickLine={false}
                       axisLine={false}
@@ -193,20 +206,20 @@ export default function AnalyticsPage() {
                       formatter={(value) => [`${value} plays`, 'Popularity']}
                       contentStyle={{
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid #C4C0B8',
-                        borderRadius: '8px',
+                        border: '2px solid #E8DDD0',
+                        borderRadius: '12px',
                         fontSize: '12px',
                         fontFamily: '"Fredoka", sans-serif',
                         color: '#2D2D2D',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                       }}
                     />
                     <Bar 
                       dataKey="clicks" 
-                      radius={[4, 4, 0, 0]}
+                      radius={[8, 8, 0, 0]}
                     >
                       {(data?.topProjects || []).map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={SKETCH_GRAYS[index % SKETCH_GRAYS.length]} />
+                        <Cell key={`cell-${index}`} fill={LEGO_COLORS[index % LEGO_COLORS.length]} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -219,11 +232,14 @@ export default function AnalyticsPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-white rounded-xl p-6 border border-sketch-border lg:col-span-2"
+              className="bg-white rounded-xl p-6 lg:col-span-2"
+              style={{ boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)' }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <Globe className="w-5 h-5 text-ink/40" />
-                <h2 className="font-display text-lg font-bold text-ink">
+                <div className="w-8 h-8 bg-lego-green/10 rounded-lg flex items-center justify-center">
+                  <Globe className="w-5 h-5 text-lego-green" />
+                </div>
+                <h2 className="font-display text-lg font-bold text-marker">
                   Where Our Friends Are
                 </h2>
               </div>
@@ -236,7 +252,7 @@ export default function AnalyticsPage() {
                   >
                     <XAxis 
                       dataKey="country"
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       angle={-45}
                       textAnchor="end"
@@ -245,7 +261,7 @@ export default function AnalyticsPage() {
                       interval={0}
                     />
                     <YAxis 
-                      stroke="#C4C0B8"
+                      stroke="#D4C4B0"
                       fontSize={11}
                       tickLine={false}
                       axisLine={false}
@@ -254,20 +270,20 @@ export default function AnalyticsPage() {
                       formatter={(value) => [`${value} visitors`, 'Visitors']}
                       contentStyle={{
                         backgroundColor: '#FFFFFF',
-                        border: '1px solid #C4C0B8',
-                        borderRadius: '8px',
+                        border: '2px solid #E8DDD0',
+                        borderRadius: '12px',
                         fontSize: '12px',
                         fontFamily: '"Fredoka", sans-serif',
                         color: '#2D2D2D',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
                       }}
                     />
                     <Bar 
                       dataKey="views" 
-                      radius={[4, 4, 0, 0]}
+                      radius={[8, 8, 0, 0]}
                     >
                       {(data?.topCountries || []).map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={SKETCH_GRAYS[index % SKETCH_GRAYS.length]} />
+                        <Cell key={`cell-${index}`} fill={LEGO_COLORS[index % LEGO_COLORS.length]} />
                       ))}
                     </Bar>
                   </BarChart>

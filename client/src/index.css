@@ -13,7 +13,7 @@
 
   body {
     @apply font-sans antialiased;
-    background-color: #F5F0E8;
+    background-color: #F5E6D3;
     color: #2D2D2D;
   }
 
@@ -22,40 +22,143 @@
   }
 
   ::selection {
-    background-color: #2D2D2D;
-    color: #F5F0E8;
+    background-color: #FFD700;
+    color: #2D2D2D;
   }
 }
 
 @layer components {
-  .sketch-card {
-    @apply bg-white rounded-xl border border-sketch-border;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  .craft-card {
+    @apply bg-white rounded-xl;
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.04);
     transition: all 0.2s ease;
   }
 
-  .sketch-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+  .craft-card:hover {
+    box-shadow: 
+      0 8px 24px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
   }
 
-  .outline-button {
-    @apply px-5 py-2.5 rounded-lg font-display font-medium text-sm;
-    @apply border-2 border-ink text-ink bg-transparent;
+  .tape-accent {
+    position: relative;
+  }
+
+  .tape-accent::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(135deg, #7CB9E8 0%, #9DD1F5 100%);
+    transform: rotate(-2deg);
+    opacity: 0.9;
+    border-radius: 2px;
+  }
+
+  .tape-accent-green::before {
+    background: linear-gradient(135deg, #90EE90 0%, #B8F5B8 100%);
+  }
+
+  .brick-button {
+    @apply px-5 py-3 rounded-lg font-display font-semibold text-sm text-white;
     @apply transition-all duration-150;
+    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
   }
 
-  .outline-button:hover {
-    @apply bg-ink text-white;
+  .brick-button:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
   }
 
-  .outline-badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
-    @apply border border-sketch-border text-sketch-muted bg-transparent;
+  .brick-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 0 rgba(0, 0, 0, 0.2);
   }
 
-  .featured-badge {
-    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
-    @apply bg-ink text-white;
+  .brick-button-red {
+    @apply bg-lego-red;
+    box-shadow: 0 4px 0 0 #a11f15;
+  }
+
+  .brick-button-red:hover {
+    box-shadow: 0 2px 0 0 #a11f15;
+  }
+
+  .brick-button-blue {
+    @apply bg-lego-blue;
+    box-shadow: 0 4px 0 0 #003d8a;
+  }
+
+  .brick-button-blue:hover {
+    box-shadow: 0 2px 0 0 #003d8a;
+  }
+
+  .sticker-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+    @apply border-2 border-dashed;
+    transform: rotate(-1deg);
+  }
+
+  .sticker-red {
+    @apply bg-red-50 text-lego-red border-lego-red/30;
+  }
+
+  .sticker-blue {
+    @apply bg-blue-50 text-lego-blue border-lego-blue/30;
+  }
+
+  .sticker-yellow {
+    @apply bg-yellow-50 text-yellow-700 border-lego-yellow/50;
+  }
+
+  .sticker-green {
+    @apply bg-green-50 text-lego-green border-lego-green/30;
+  }
+
+  .sticker-orange {
+    @apply bg-orange-50 text-lego-orange border-lego-orange/30;
+  }
+
+  .paper-panel {
+    @apply bg-white rounded-2xl p-6;
+    background-image: 
+      linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .building-block {
+    @apply rounded-lg p-4;
+    position: relative;
+  }
+
+  .building-block::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: inherit;
+    filter: brightness(0.9);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .progress-stamp {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-md;
+    @apply text-xs font-bold uppercase tracking-wider;
+    border: 2px solid currentColor;
+    transform: rotate(-3deg);
   }
 }

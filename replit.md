@@ -32,19 +32,23 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for migrations and schema updates
 - **Connection**: Connection pooling with @neondatabase/serverless
 
-## Design System: "Sketch Aesthetic"
+## Design System: "The Playroom"
 
-The portfolio uses a minimalist, hand-drawn sketch aesthetic with cream tones, thin borders, and monochrome accents.
+The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper textures, and playful but polished styling.
 
 ### Color Palette
 | Role | Color | Hex |
 |------|-------|-----|
-| Background | Cream | `#F5F0E8` |
-| Card Surface | White | `#FFFFFF` |
-| Border | Sketch Border | `#C4C0B8` |
-| Light Background | Sketch Light | `#E8E4DC` |
-| Muted Text | Sketch Muted | `#8A8680` |
-| Primary Text | Ink | `#2D2D2D` |
+| Background | Craft Paper | `#F5E6D3` |
+| Card Surface | White Board | `#FFFFFF` |
+| Section Background | Craft Tan | `#E8DDD0` |
+| Shadow/Border | Craft Shadow | `#D4C4B0` |
+| Primary Accent | LEGO Red | `#DA291C` |
+| Secondary Accent | LEGO Blue | `#0055BF` |
+| Success | LEGO Green | `#4DBD33` |
+| Highlight | LEGO Yellow | `#FFD700` |
+| Tertiary | LEGO Orange | `#FF6B35` |
+| Text | Marker Black | `#2D2D2D` |
 
 ### Typography
 - **Display Font**: Fredoka (playful, rounded headings)
@@ -52,29 +56,30 @@ The portfolio uses a minimalist, hand-drawn sketch aesthetic with cream tones, t
 - Loaded via Google Fonts in client/index.html
 
 ### Design Principles
-- **Minimalist**: Clean, uncluttered aesthetic
-- **Sketch-like**: Hand-drawn, approachable feel
-- **Monochrome**: Black, white, and gray with cream background
+- **Playful but Polished**: Fun without being chaotic
+- **Craft Paper Feel**: Warm, tactile background textures
+- **LEGO Inspiration**: Bold primary colors, building block motifs
 - **Easy to Browse**: Clean grid layout, clear visual hierarchy
 
 ### UI Components
-- **Sketch Card**: White cards with thin gray borders, subtle hover lift
-- **Outline Button**: Black-bordered buttons, fill on hover
-- **Outline Badge**: Thin-bordered category pills
-- **Featured Badge**: Solid black badge for featured items
+- **Craft Card**: White cards with paper shadow, hover lift effect
+- **Brick Button**: 3D buttons with press-down animation
+- **Sticker Badge**: Dashed border category badges in various colors
+- **Paper Panel**: White panels with subtle grid pattern background
+- **Tape Accent**: Colored tape decoration on cards
 
 ## Key Components
 
 ### Project Showcase (Homepage)
-- **ToyCard Component**: Projects as sketch cards with outline badges
-- **FeaturedKidScribeCard**: 2x2 featured card with Visual Harmony images
-- **Hover Effects**: Cards lift subtly on hover
-- **Outline Buttons**: "See All Projects" and "Progress Report" in hero
+- **ToyCard Component**: Projects as toys with tape accents and sticker badges
+- **Building Blocks Stats**: Colorful stat blocks in hero section
+- **Category Colors**: Each category has distinct color pairing
+- **Hover Effects**: Cards lift and rotate to neutral on hover
 
 ### Analytics Dashboard (Progress Report)
-- **StatsCard Component**: Clean bordered metric displays
-- **Daily Visitors Chart**: Line chart with monochrome styling
-- **Most Played Chart**: Bar chart with grayscale bars
+- **StatsCard Component**: LEGO-colored metric displays
+- **Daily Visitors Chart**: Line chart with red accent
+- **Most Played Chart**: Bar chart with multi-color bars
 - **Where Our Friends Are**: Geographic distribution chart
 
 ### Database Schema
@@ -92,6 +97,12 @@ The portfolio uses a minimalist, hand-drawn sketch aesthetic with cream tones, t
 7. Hue Knew? - Color mixing learning
 8. Emoji Math - Math practice with emojis
 
+## Category Color Mapping
+- Storytelling: Yellow/Amber tones
+- Creative Tools: Blue tones
+- Learning: Green tones
+- AI Fun: Red tones
+- Community: Purple tones
 
 ## Data Flow
 
@@ -138,9 +149,8 @@ The portfolio uses a minimalist, hand-drawn sketch aesthetic with cream tones, t
 
 ## Technical Notes
 
-- **Category badges**: Use outline-badge class for consistent styling
-- **Chart theming**: All Recharts components use monochrome gray palette
-- **Logo**: Custom SW script logo at /images/swl-logo.png
-- **Hero illustration**: /images/toybox-illustration.png (transparent PNG)
+- **Category badges**: Use inline styles for colors (avoids dynamic Tailwind class issues)
+- **Card rotations**: Slight random rotations on cards, neutralize on hover
+- **Chart theming**: All Recharts components use LEGO color palette
 
-The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The sketch aesthetic creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.
+The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The playroom theme creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.

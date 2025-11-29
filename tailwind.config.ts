@@ -10,13 +10,23 @@ export default {
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Sketch aesthetic palette
-        cream: "#F5F0E8",
-        ink: "#2D2D2D",
-        sketch: {
-          light: "#E8E4DC",
-          border: "#C4C0B8",
-          muted: "#8A8680",
+        // Playroom palette
+        craft: {
+          paper: "#F5E6D3",
+          board: "#FFFFFF",
+          tan: "#E8DDD0",
+          shadow: "#D4C4B0",
+        },
+        lego: {
+          red: "#DA291C",
+          blue: "#0055BF",
+          yellow: "#FFD700",
+          green: "#4DBD33",
+          orange: "#FF6B35",
+        },
+        tape: {
+          blue: "#7CB9E8",
+          green: "#90EE90",
         },
         marker: "#2D2D2D",
         // Shadcn compatibility
@@ -96,8 +106,9 @@ export default {
         "wiggle": "wiggle 0.3s ease-in-out",
       },
       boxShadow: {
-        'sketch': '0 1px 3px rgba(0, 0, 0, 0.04)',
-        'sketch-hover': '0 4px 12px rgba(0, 0, 0, 0.08)',
+        'paper': '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
+        'paper-hover': '0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)',
+        'brick': '0 4px 0 0 rgba(0, 0, 0, 0.15)',
       },
     },
   },
