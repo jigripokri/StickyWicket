@@ -160,139 +160,18 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
 
 function PlayroomIllustration() {
   return (
-    <div className="relative w-full h-80 md:h-96">
-      {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-lego-yellow/20 via-transparent to-lego-blue/10 rounded-3xl" />
-      
-      {/* Floating elements - other projects */}
-      <motion.div 
-        className="absolute top-4 left-4 text-3xl"
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      >
-        🧠
-      </motion.div>
-      <motion.div 
-        className="absolute top-8 right-8 text-2xl"
-        animate={{ y: [0, -6, 0], rotate: [0, 10, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-      >
-        🎨
-      </motion.div>
-      <motion.div 
-        className="absolute bottom-16 left-8 text-2xl"
-        animate={{ y: [0, -5, 0] }}
-        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-      >
-        🥊
-      </motion.div>
-      <motion.div 
-        className="absolute bottom-8 right-12 text-2xl"
-        animate={{ y: [0, -7, 0] }}
-        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
-      >
-        ✏️
-      </motion.div>
-      <motion.div 
-        className="absolute top-1/3 right-4 text-xl"
-        animate={{ y: [0, -4, 0], scale: [1, 1.1, 1] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-      >
-        🧮
-      </motion.div>
-      <motion.div 
-        className="absolute bottom-1/3 left-2 text-xl"
-        animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-      >
-        🧱
-      </motion.div>
-
-      {/* Sparkles */}
-      <motion.div 
-        className="absolute top-12 left-1/4 text-lego-yellow text-lg"
-        animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        ✨
-      </motion.div>
-      <motion.div 
-        className="absolute bottom-20 right-1/4 text-lego-yellow text-sm"
-        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.3, 1] }}
-        transition={{ duration: 1.8, repeat: Infinity, delay: 0.5 }}
-      >
-        ✨
-      </motion.div>
-
-      {/* Central KidScribe book */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative"
-        >
-          {/* Open book shape */}
-          <div className="relative">
-            {/* Book pages */}
-            <div className="flex">
-              {/* Left page */}
-              <div 
-                className="w-28 md:w-36 h-36 md:h-44 bg-white rounded-l-lg shadow-lg relative overflow-hidden"
-                style={{ 
-                  transform: 'perspective(800px) rotateY(15deg)',
-                  transformOrigin: 'right center',
-                }}
-              >
-                <div className="absolute inset-2 border-2 border-dashed border-craft-shadow/30 rounded flex flex-col items-center justify-center p-2">
-                  <div className="text-4xl md:text-5xl mb-1">👧</div>
-                  <div className="w-full space-y-1">
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-4/5" />
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
-                  </div>
-                </div>
-              </div>
-              {/* Spine */}
-              <div className="w-3 md:w-4 h-36 md:h-44 bg-lego-red shadow-inner" />
-              {/* Right page */}
-              <div 
-                className="w-28 md:w-36 h-36 md:h-44 bg-white rounded-r-lg shadow-lg relative overflow-hidden"
-                style={{ 
-                  transform: 'perspective(800px) rotateY(-15deg)',
-                  transformOrigin: 'left center',
-                }}
-              >
-                <div className="absolute inset-2 border-2 border-dashed border-craft-shadow/30 rounded flex flex-col items-center justify-center p-2">
-                  <div className="text-4xl md:text-5xl mb-1">🏰</div>
-                  <div className="w-full space-y-1">
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-4/5" />
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
-                    <div className="h-1.5 bg-craft-shadow/20 rounded w-3/4" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Book base/cover */}
-            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-64 md:w-80 h-4 bg-lego-red rounded-b-lg shadow-md" />
-          </div>
-
-          {/* KidScribe label */}
-          <motion.div 
-            className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md border-2 border-lego-red/20"
-            animate={{ y: [0, -3, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <span className="font-display font-bold text-lego-red text-sm">📚 KidScribe</span>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Stars decoration */}
-      <div className="absolute top-6 right-1/3 text-lego-yellow/60 text-xs">⭐</div>
-      <div className="absolute bottom-12 left-1/3 text-lego-yellow/60 text-xs">⭐</div>
-    </div>
+    <motion.div 
+      className="relative w-full max-w-md mx-auto"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+    >
+      <img 
+        src="/attached_assets/Gemini_Generated_Image_r9idetr9idetr9id_1764404489503.jpg"
+        alt="Toy Box illustration with storybook, brain, boxing gloves, pencil, paint palette, emoji abacus, and brick wall representing all Sticky Wicket Labs projects"
+        className="w-full h-auto rounded-2xl"
+      />
+    </motion.div>
   );
 }
 
