@@ -86,6 +86,105 @@ const categoryColors: Record<string, { bg: string; text: string; border: string 
   "Community": { bg: "#F3E8FF", text: "#7C3AED", border: "#8B5CF6" },
 };
 
+function FeaturedKidScribeCard() {
+  const handleClick = async () => {
+    try {
+      await apiRequest("POST", `/api/track-click/17`);
+    } catch (error) {
+      console.error("Failed to track click:", error);
+    }
+  };
+
+  return (
+    <motion.a
+      href="https://kidscribe.ai/"
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={handleClick}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="craft-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2"
+      whileHover={{ scale: 1.01 }}
+    >
+      {/* Tape accent */}
+      <div 
+        className="absolute -top-2 left-8 w-24 h-6 rounded-sm opacity-80"
+        style={{ 
+          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
+          transform: 'rotate(-1deg)',
+        }}
+      />
+      <div 
+        className="absolute -top-2 right-8 w-20 h-5 rounded-sm opacity-70 hidden md:block"
+        style={{ 
+          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
+          transform: 'rotate(2deg)',
+        }}
+      />
+
+      <div className="p-6 md:p-8 h-full flex flex-col">
+        {/* Header row */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <span className="text-5xl md:text-6xl">📚</span>
+            <div>
+              <div 
+                className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
+                style={{ backgroundColor: "#FEF3C7", color: "#B45309" }}
+              >
+                Storytelling
+              </div>
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-marker group-hover:text-lego-blue transition-colors flex items-center gap-2">
+                KidScribe
+                <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-60 transition-opacity" />
+              </h3>
+            </div>
+          </div>
+          <div className="hidden md:block bg-lego-red text-white px-3 py-1 rounded-full text-xs font-bold">
+            ★ FEATURED
+          </div>
+        </div>
+
+        {/* Main tagline */}
+        <div className="mb-4">
+          <p className="font-display text-xl md:text-2xl text-marker/90 leading-snug">
+            Magical Books <span className="text-lego-red">Starring Your Child</span>
+          </p>
+        </div>
+
+        {/* Description */}
+        <p className="text-marker/70 text-base md:text-lg leading-relaxed mb-6 max-w-md">
+          Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
+        </p>
+
+        {/* Features grid */}
+        <div className="grid grid-cols-2 gap-3 mt-auto">
+          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
+            <div className="text-2xl mb-1">✨</div>
+            <div className="text-xs font-medium text-marker/70">Personalized Stories</div>
+          </div>
+          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
+            <div className="text-2xl mb-1">🎨</div>
+            <div className="text-xs font-medium text-marker/70">12 Art Styles</div>
+          </div>
+          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
+            <div className="text-2xl mb-1">👧</div>
+            <div className="text-xs font-medium text-marker/70">Character Consistency</div>
+          </div>
+          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
+            <div className="text-2xl mb-1">📖</div>
+            <div className="text-xs font-medium text-marker/70">Print-Ready Books</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom accent bar */}
+      <div className="h-3 rounded-b-xl bg-gradient-to-r from-lego-yellow via-lego-orange to-lego-red" />
+    </motion.a>
+  );
+}
+
 function ToyCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const handleClick = async () => {
     try {
@@ -241,7 +340,8 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {projects.map((project, index) => (
+            <FeaturedKidScribeCard />
+            {projects.filter(p => p.id !== 17).map((project, index) => (
               <ToyCard key={project.id} project={project} index={index} />
             ))}
           </div>
