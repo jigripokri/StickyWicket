@@ -333,7 +333,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="px-6 py-16 bg-craft-tan/50">
+      <section id="projects" className="px-6 py-16 bg-craft-paper">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <motion.div
