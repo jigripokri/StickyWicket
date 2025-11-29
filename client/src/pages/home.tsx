@@ -190,17 +190,17 @@ export default function HomePage() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-lego-yellow/20 rounded-full mb-6">
                 <Sparkles className="w-4 h-4 text-lego-orange" />
-                <span className="text-sm font-medium text-marker">Welcome to the Playroom!</span>
+                <span className="text-sm font-medium text-marker">Weekend experiments. Zero ads. Pure fun.</span>
               </div>
 
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
-                Where Ideas
+                Tiny Apps.
                 <br />
-                <span className="text-lego-red">Come to Play</span>
+                <span className="text-lego-red">Big Smiles.</span>
               </h1>
 
               <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
-                Explore our collection of playful experiments built for kids, families, and the young at heart. Each project is a new toy to discover!
+                A toy box of delightful little experiments—built on rainy Saturdays, powered by curiosity. Pick one. Play. Repeat.
               </p>
 
               <div className="flex flex-wrap gap-4">
