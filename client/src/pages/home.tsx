@@ -188,11 +188,6 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-lego-yellow/20 rounded-full mb-6">
-                <Sparkles className="w-4 h-4 text-lego-orange" />
-                <span className="text-sm font-medium text-marker">Weekend experiments. Zero ads. Pure fun.</span>
-              </div>
-
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
                 Tiny Apps.
                 <br />
