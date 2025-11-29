@@ -18,14 +18,13 @@ export function SiteHeader() {
         <nav className="flex items-center gap-2">
           <Link 
             href="/analytics" 
-            className={`px-4 py-2 rounded-lg font-display font-medium text-sm transition-all flex items-center gap-2 ${
+            className={`p-2 rounded-lg transition-all flex items-center justify-center ${
               location === "/analytics" 
                 ? "bg-lego-blue text-white" 
                 : "text-marker/60 hover:bg-craft-tan hover:text-marker"
             }`}
           >
-            <BarChart3 className="w-4 h-4" />
-            Progress
+            <BarChart3 className="w-5 h-5" />
           </Link>
         </nav>
       </div>
