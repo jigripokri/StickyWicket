@@ -158,23 +158,34 @@ function FeaturedKidScribeCard() {
           Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
         </p>
 
-        {/* Features grid */}
-        <div className="grid grid-cols-2 gap-3 mt-auto">
-          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
-            <div className="text-2xl mb-1">✨</div>
-            <div className="text-xs font-medium text-marker/70">Personalized Stories</div>
-          </div>
-          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
-            <div className="text-2xl mb-1">🎨</div>
-            <div className="text-xs font-medium text-marker/70">12 Art Styles</div>
-          </div>
-          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
-            <div className="text-2xl mb-1">👧</div>
-            <div className="text-xs font-medium text-marker/70">Character Consistency</div>
-          </div>
-          <div className="bg-craft-tan/50 rounded-lg p-3 text-center">
-            <div className="text-2xl mb-1">📖</div>
-            <div className="text-xs font-medium text-marker/70">Print-Ready Books</div>
+        {/* Visual Harmony preview */}
+        <div className="mt-auto">
+          <p className="text-xs font-medium text-marker/50 uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
+          <div className="grid grid-cols-3 gap-2">
+            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+              <img 
+                src="https://kidscribe.ai/assets/consistency-1-CaVth82r.png" 
+                alt="Scene 1: Characters meeting"
+                className="w-full h-20 md:h-24 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+              <img 
+                src="https://kidscribe.ai/assets/consistency-2-CErFaxMK.png" 
+                alt="Scene 2: Characters on discovery"
+                className="w-full h-20 md:h-24 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+              <img 
+                src="https://kidscribe.ai/assets/consistency-3-BXg-iRdO.png" 
+                alt="Scene 3: Characters on adventure"
+                className="w-full h-20 md:h-24 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+            </div>
           </div>
         </div>
       </div>
