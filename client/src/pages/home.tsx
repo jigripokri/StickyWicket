@@ -104,12 +104,12 @@ function FeaturedKidScribeCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="note-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col overflow-hidden"
+      className="note-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col"
       whileHover={{ scale: 1.01 }}
     >
       {/* Post-it strip accent */}
       <div 
-        className="absolute -top-1 left-8 w-20 h-5 rounded-sm z-10"
+        className="absolute -top-2.5 left-8 w-20 h-5 rounded-sm z-10"
         style={{ 
           background: `linear-gradient(135deg, #FFF4B8 0%, #FFEAA0 100%)`,
           transform: 'rotate(-1deg)',
@@ -117,7 +117,7 @@ function FeaturedKidScribeCard() {
         }}
       />
       <div 
-        className="absolute -top-1 right-8 w-16 h-4 rounded-sm hidden md:block z-10"
+        className="absolute -top-2 right-8 w-16 h-4 rounded-sm hidden md:block z-10"
         style={{ 
           background: `linear-gradient(135deg, #FFD7D5 0%, #FFC5C2 100%)`,
           transform: 'rotate(2deg)',
@@ -218,12 +218,12 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="note-card block group relative h-full flex flex-col overflow-hidden"
+      className="note-card block group relative h-full flex flex-col"
       whileHover={{ scale: 1.02 }}
     >
       {/* Post-it strip accent */}
       <div 
-        className="absolute -top-1 left-6 w-14 h-4 rounded-sm z-10"
+        className="absolute -top-2 left-6 w-14 h-4 rounded-sm z-10"
         style={{ 
           background: `linear-gradient(135deg, ${colors.bg} 0%, ${colors.border} 100%)`,
           transform: 'rotate(-1deg)',
