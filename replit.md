@@ -87,11 +87,19 @@ The portfolio uses an elegant Post-it pastel aesthetic with soft colors, subtle 
 - **Category Colors**: Each category has distinct pastel color pairing
 - **Hover Effects**: Cards lift smoothly with scale animation
 
+### About Me Page
+- **Personal ethos page**: Focus on motivations and joy of building
+- **Headline**: "My Most Important User is Four Years Old" - about son and bedtime stories
+- **Sections**: Joy of Building, A Wonderful Time to Build, Let's Trade Notes
+- **Contact**: Email (saurabh@stickywicketlabs.com) and LinkedIn link
+- **Navigation**: Accessible via header user icon, hero button, and footer link
+
 ### Analytics Dashboard (Progress Report)
 - **StatsCard Component**: Pastel-accented metric displays with soft shadows
 - **Daily Visitors Chart**: Line chart with coral accent
 - **Most Visited Chart**: Bar chart with multi-pastel bars
 - **Where Our Visitors Are**: Geographic distribution chart
+- **Note**: Still available at /analytics route but not linked in main navigation
 
 ### Database Schema
 - **Projects Table**: Stores project information (title, description, links, images)

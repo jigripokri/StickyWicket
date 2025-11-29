@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { BarChart3 } from "lucide-react";
+import { User } from "lucide-react";
 
 export function SiteHeader() {
   const [location] = useLocation();
@@ -17,14 +17,14 @@ export function SiteHeader() {
         </Link>
         <nav className="flex items-center gap-2">
           <Link 
-            href="/analytics" 
+            href="/about" 
             className={`p-2 rounded-xl transition-all flex items-center justify-center ${
-              location === "/analytics" 
-                ? "bg-postit-lavender text-ink" 
+              location === "/about" 
+                ? "bg-postit-coral text-ink" 
                 : "text-ink-light hover:bg-neutral-mist hover:text-ink"
             }`}
           >
-            <BarChart3 className="w-5 h-5" />
+            <User className="w-5 h-5" />
           </Link>
         </nav>
       </div>

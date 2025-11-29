@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Blocks, Sparkles, ExternalLink, Star } from "lucide-react";
+import { Blocks, Sparkles, ExternalLink, Heart } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export const projects = [
@@ -313,9 +313,9 @@ export default function HomePage() {
                   <Blocks className="w-4 h-4" />
                   See All Projects
                 </a>
-                <Link href="/analytics" className="note-button note-button-lavender inline-flex items-center gap-2">
-                  <Star className="w-4 h-4" />
-                  Progress Report
+                <Link href="/about" className="note-button note-button-lavender inline-flex items-center gap-2">
+                  <Heart className="w-4 h-4" />
+                  About Me
                 </Link>
               </div>
             </motion.div>
@@ -377,8 +377,8 @@ export default function HomePage() {
             </div>
 
             <div className="flex items-center gap-6 text-sm text-ink-light">
-              <Link href="/analytics" className="hover:text-ink transition-colors font-medium">
-                Progress Report
+              <Link href="/about" className="hover:text-ink transition-colors font-medium">
+                About Me
               </Link>
               <span className="text-neutral-edge">|</span>
               <span>© 2025 All projects reserved</span>
