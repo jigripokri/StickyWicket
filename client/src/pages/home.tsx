@@ -79,11 +79,11 @@ export const projects = [
 ];
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  "Storytelling": { bg: "#FEF3C7", text: "#B45309", border: "#F59E0B" },
-  "Creative Tools": { bg: "#DBEAFE", text: "#1D4ED8", border: "#3B82F6" },
-  "Learning": { bg: "#D1FAE5", text: "#047857", border: "#10B981" },
-  "AI Fun": { bg: "#FEE2E2", text: "#B91C1C", border: "#EF4444" },
-  "Community": { bg: "#F3E8FF", text: "#7C3AED", border: "#8B5CF6" },
+  "Storytelling": { bg: "#FFF4B8", text: "#7A6B2A", border: "#E8D990" },
+  "Creative Tools": { bg: "#CFEFF1", text: "#3D6B6F", border: "#A8D8DB" },
+  "Learning": { bg: "#D4F5E9", text: "#3D6B5A", border: "#A8D8C5" },
+  "AI Fun": { bg: "#FFD7D5", text: "#8B4E52", border: "#E8B8B5" },
+  "Community": { bg: "#E3D8FF", text: "#5B4B8A", border: "#C5B6E8" },
 };
 
 function FeaturedKidScribeCard() {
@@ -104,22 +104,24 @@ function FeaturedKidScribeCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="craft-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col overflow-hidden"
+      className="note-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col overflow-hidden"
       whileHover={{ scale: 1.01 }}
     >
-      {/* Tape accent */}
+      {/* Post-it strip accent */}
       <div 
-        className="absolute -top-2 left-8 w-24 h-6 rounded-sm opacity-80 z-10"
+        className="absolute -top-1 left-8 w-20 h-5 rounded-sm z-10"
         style={{ 
-          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
+          background: `linear-gradient(135deg, #FFF4B8 0%, #FFEAA0 100%)`,
           transform: 'rotate(-1deg)',
+          boxShadow: '0 2px 4px rgba(47, 42, 58, 0.08)',
         }}
       />
       <div 
-        className="absolute -top-2 right-8 w-20 h-5 rounded-sm opacity-70 hidden md:block z-10"
+        className="absolute -top-1 right-8 w-16 h-4 rounded-sm hidden md:block z-10"
         style={{ 
-          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
+          background: `linear-gradient(135deg, #FFD7D5 0%, #FFC5C2 100%)`,
           transform: 'rotate(2deg)',
+          boxShadow: '0 2px 4px rgba(47, 42, 58, 0.08)',
         }}
       />
 
@@ -131,67 +133,67 @@ function FeaturedKidScribeCard() {
             <div>
               <div 
                 className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
-                style={{ backgroundColor: "#FEF3C7", color: "#B45309" }}
+                style={{ backgroundColor: "#FFF4B8", color: "#7A6B2A", border: "1.5px solid #E8D990" }}
               >
                 Storytelling
               </div>
-              <h3 className="font-display text-2xl md:text-3xl font-bold text-marker group-hover:text-lego-blue transition-colors flex items-center gap-2">
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-ink group-hover:text-ink-light transition-colors flex items-center gap-2">
                 KidScribe
                 <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-60 transition-opacity" />
               </h3>
             </div>
           </div>
-          <div className="hidden md:block bg-lego-red text-white px-3 py-1 rounded-full text-xs font-bold">
+          <div className="hidden md:block bg-postit-coral text-[#8B4E52] px-3 py-1 rounded-full text-xs font-bold border border-[#E8B8B5]">
             ★ FEATURED
           </div>
         </div>
 
         {/* Main tagline */}
         <div className="mb-4">
-          <p className="font-display text-xl md:text-2xl text-marker/90 leading-snug">
-            Magical Books <span className="text-lego-red">Starring Your Child</span>
+          <p className="font-display text-xl md:text-2xl text-ink/90 leading-snug">
+            Magical Books <span className="text-[#8B4E52]">Starring Your Child</span>
           </p>
         </div>
 
         {/* Description */}
-        <p className="text-marker/70 text-base md:text-lg leading-relaxed mb-6 max-w-md">
+        <p className="text-ink-light text-base md:text-lg leading-relaxed mb-6 max-w-md">
           Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
         </p>
 
         {/* Visual Harmony preview */}
         <div className="mt-auto">
-          <p className="text-xs font-medium text-marker/50 uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
+          <p className="text-xs font-medium text-ink-faint uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
           <div className="grid grid-cols-3 gap-2">
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
               <img 
                 src="https://kidscribe.ai/assets/consistency-1-CaVth82r.png" 
                 alt="Scene 1: Characters meeting"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
               <img 
                 src="https://kidscribe.ai/assets/consistency-2-CErFaxMK.png" 
                 alt="Scene 2: Characters on discovery"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-xl overflow-hidden shadow-soft group/img">
               <img 
                 src="https://kidscribe.ai/assets/consistency-3-BXg-iRdO.png" 
                 alt="Scene 3: Characters on adventure"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom accent bar */}
-      <div className="h-3 mt-auto bg-gradient-to-r from-lego-yellow via-lego-orange to-lego-red" />
+      {/* Bottom accent bar - soft pastel gradient */}
+      <div className="h-2 mt-auto bg-gradient-to-r from-postit-yellow via-postit-coral to-postit-rose" />
     </motion.a>
   );
 }
@@ -206,8 +208,6 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
   };
 
   const colors = categoryColors[project.category] || categoryColors["Learning"];
-  const rotations = [-1, 0.5, -0.5, 1, -0.8, 0.3, -0.3, 0.8];
-  const rotation = rotations[index % rotations.length];
 
   return (
     <motion.a
@@ -218,16 +218,16 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="craft-card block group relative h-full flex flex-col overflow-hidden"
-      style={{ transform: `rotate(${rotation}deg)` }}
-      whileHover={{ rotate: 0, scale: 1.02 }}
+      className="note-card block group relative h-full flex flex-col overflow-hidden"
+      whileHover={{ scale: 1.02 }}
     >
-      {/* Tape accent */}
+      {/* Post-it strip accent */}
       <div 
-        className="absolute -top-2 left-6 w-16 h-5 rounded-sm opacity-80 z-10"
+        className="absolute -top-1 left-6 w-14 h-4 rounded-sm z-10"
         style={{ 
-          background: `linear-gradient(135deg, ${colors.border}40 0%, ${colors.border}60 100%)`,
-          transform: 'rotate(-2deg)',
+          background: `linear-gradient(135deg, ${colors.bg} 0%, ${colors.border} 100%)`,
+          transform: 'rotate(-1deg)',
+          boxShadow: '0 2px 4px rgba(47, 42, 58, 0.06)',
         }}
       />
 
@@ -236,11 +236,11 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
         <div className="flex items-start justify-between mb-4">
           <div className="text-5xl">{project.emoji}</div>
           <div 
-            className="sticker-badge"
+            className="pastel-badge"
             style={{ 
               backgroundColor: colors.bg,
               color: colors.text,
-              borderColor: `${colors.border}50`,
+              borderColor: colors.border,
             }}
           >
             {project.category}
@@ -248,21 +248,21 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
         </div>
 
         {/* Title */}
-        <h3 className="font-display text-xl font-bold text-marker mb-2 group-hover:text-lego-blue transition-colors flex items-center gap-2">
+        <h3 className="font-display text-xl font-bold text-ink mb-2 group-hover:text-ink-light transition-colors flex items-center gap-2">
           {project.title}
           <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity" />
         </h3>
 
         {/* Description */}
-        <p className="text-marker/70 text-sm leading-relaxed">
+        <p className="text-ink-light text-sm leading-relaxed">
           {project.description}
         </p>
       </div>
 
       {/* Bottom accent bar */}
       <div 
-        className="h-2 mt-auto"
-        style={{ backgroundColor: colors.border }}
+        className="h-1.5 mt-auto"
+        style={{ background: `linear-gradient(90deg, ${colors.bg} 0%, ${colors.border} 100%)` }}
       />
     </motion.a>
   );
@@ -287,7 +287,7 @@ function PlayroomIllustration() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-craft-paper">
+    <div className="min-h-screen bg-neutral-parchment">
       {/* Hero Section */}
       <section className="px-6 py-8 md:py-12">
         <div className="max-w-6xl mx-auto">
@@ -298,22 +298,22 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-tight mb-6">
                 Weekend Projects.
                 <br />
-                <span className="text-lego-red">Weekday Magic.</span>
+                <span className="text-[#8B4E52]">Weekday Magic.</span>
               </h1>
 
-              <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+              <p className="text-ink-light text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
                 Rediscovering the joy of web development through fun side projects. Built on rainy Saturdays.
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a href="#projects" className="brick-button brick-button-red inline-flex items-center gap-2">
+                <a href="#projects" className="note-button note-button-coral inline-flex items-center gap-2">
                   <Blocks className="w-4 h-4" />
                   See All Projects
                 </a>
-                <Link href="/analytics" className="brick-button brick-button-blue inline-flex items-center gap-2">
+                <Link href="/analytics" className="note-button note-button-lavender inline-flex items-center gap-2">
                   <Star className="w-4 h-4" />
                   Progress Report
                 </Link>
@@ -333,7 +333,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="px-6 py-16 bg-craft-paper">
+      <section id="projects" className="px-6 py-16 bg-neutral-parchment">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <motion.div
@@ -341,7 +341,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-3">
                 Projects
               </h2>
             </motion.div>
@@ -357,7 +357,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 bg-white border-t-4 border-lego-yellow">
+      <footer className="px-6 py-12 bg-white border-t border-neutral-edge">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
@@ -367,21 +367,21 @@ export default function HomePage() {
                 className="h-12 w-auto"
               />
               <div>
-                <div className="font-display font-bold text-marker text-lg">
+                <div className="font-display font-bold text-ink text-lg">
                   Sticky Wicket Labs
                 </div>
-                <div className="text-sm text-marker/50">
+                <div className="text-sm text-ink-light">
                   Building fun since 2024
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-sm text-marker/50">
-              <Link href="/analytics" className="hover:text-lego-blue transition-colors font-medium">
+            <div className="flex items-center gap-6 text-sm text-ink-light">
+              <Link href="/analytics" className="hover:text-ink transition-colors font-medium">
                 Progress Report
               </Link>
-              <span className="text-craft-shadow">|</span>
-              <span>© 2025 All toys reserved</span>
+              <span className="text-neutral-edge">|</span>
+              <span>© 2025 All projects reserved</span>
             </div>
           </div>
         </div>

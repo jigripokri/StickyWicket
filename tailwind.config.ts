@@ -10,25 +10,26 @@ export default {
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Playroom palette
-        craft: {
-          paper: "#F5E6D3",
-          board: "#FFFFFF",
-          tan: "#E8DDD0",
-          shadow: "#D4C4B0",
+        // Post-it pastel palette
+        postit: {
+          yellow: "#FFF4B8",
+          coral: "#FFD7D5",
+          aqua: "#CFEFF1",
+          lavender: "#E3D8FF",
+          rose: "#F3C9E8",
+          mint: "#D4F5E9",
         },
-        lego: {
-          red: "#DA291C",
-          blue: "#0055BF",
-          yellow: "#FFD700",
-          green: "#4DBD33",
-          orange: "#FF6B35",
+        neutral: {
+          parchment: "#F9F4EC",
+          cloud: "#FFFFFF",
+          edge: "#E7DFED",
+          mist: "#F0EBF5",
         },
-        tape: {
-          blue: "#7CB9E8",
-          green: "#90EE90",
+        ink: {
+          DEFAULT: "#2F2A3A",
+          light: "#8A8295",
+          faint: "#B8B2C2",
         },
-        marker: "#2D2D2D",
         // Shadcn compatibility
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -106,9 +107,9 @@ export default {
         "wiggle": "wiggle 0.3s ease-in-out",
       },
       boxShadow: {
-        'paper': '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
-        'paper-hover': '0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)',
-        'brick': '0 4px 0 0 rgba(0, 0, 0, 0.15)',
+        'note': '0 4px 20px rgba(47, 42, 58, 0.06), 0 2px 6px rgba(47, 42, 58, 0.04)',
+        'note-hover': '0 12px 30px rgba(47, 42, 58, 0.10), 0 4px 10px rgba(47, 42, 58, 0.06)',
+        'soft': '0 2px 8px rgba(47, 42, 58, 0.05)',
       },
     },
   },

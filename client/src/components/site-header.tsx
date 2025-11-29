@@ -5,9 +5,9 @@ export function SiteHeader() {
   const [location] = useLocation();
 
   return (
-    <header className="bg-white border-b-4 border-lego-red">
+    <header className="bg-white border-b border-neutral-edge">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-marker flex items-center gap-3 hover:opacity-80 transition-opacity">
+        <Link href="/" className="font-display font-bold text-ink flex items-center gap-3 hover:opacity-80 transition-opacity">
           <img 
             src="/images/swl-logo.png" 
             alt="Sticky Wicket Labs" 
@@ -18,10 +18,10 @@ export function SiteHeader() {
         <nav className="flex items-center gap-2">
           <Link 
             href="/analytics" 
-            className={`p-2 rounded-lg transition-all flex items-center justify-center ${
+            className={`p-2 rounded-xl transition-all flex items-center justify-center ${
               location === "/analytics" 
-                ? "bg-lego-blue text-white" 
-                : "text-marker/60 hover:bg-craft-tan hover:text-marker"
+                ? "bg-postit-lavender text-ink" 
+                : "text-ink-light hover:bg-neutral-mist hover:text-ink"
             }`}
           >
             <BarChart3 className="w-5 h-5" />

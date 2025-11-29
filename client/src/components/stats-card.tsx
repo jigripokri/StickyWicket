@@ -5,34 +5,44 @@ interface StatsCardProps {
   value: string | number;
   icon: React.ReactNode;
   color?: string;
+  bgColor?: string;
 }
 
-export function StatsCard({ title, value, icon, color = "#DA291C" }: StatsCardProps) {
+export function StatsCard({ 
+  title, 
+  value, 
+  icon, 
+  color = "#8B4E52",
+  bgColor = "#FFD7D5"
+}: StatsCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white rounded-xl p-6 relative overflow-hidden"
+      className="bg-white rounded-2xl p-6 relative overflow-hidden border border-neutral-edge"
       style={{ 
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
-        borderBottom: `4px solid ${color}`,
+        boxShadow: '0 4px 20px rgba(47, 42, 58, 0.06), 0 2px 6px rgba(47, 42, 58, 0.04)',
       }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-marker/40">{icon}</span>
+      <div 
+        className="absolute top-0 right-0 w-24 h-24 -mr-6 -mt-6 rounded-full opacity-30"
+        style={{ backgroundColor: bgColor }}
+      />
+      <div className="flex items-center justify-between mb-4 relative">
+        <span className="text-ink-light">{icon}</span>
         <span 
-          className="w-3 h-3 rounded-full animate-pulse"
+          className="w-2 h-2 rounded-full"
           style={{ backgroundColor: color }}
         />
       </div>
       <div 
-        className="text-4xl font-display font-bold mb-1"
+        className="text-4xl font-display font-bold mb-1 relative"
         style={{ color }}
       >
         {value}
       </div>
-      <div className="text-sm text-marker/60 font-medium">
+      <div className="text-sm text-ink-light font-medium relative">
         {title}
       </div>
     </motion.div>
