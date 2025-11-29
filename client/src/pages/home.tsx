@@ -1,18 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Blocks, Sparkles, ExternalLink, Star } from "lucide-react";
+import { Blocks, ExternalLink, Star, Sparkles, BookOpen, Clock, Heart } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export const projects = [
-  {
-    id: 17,
-    title: "KidScribe",
-    description: "Craft a fully illustrated storybook that's all about you.",
-    link: "https://kidscribe.ai/",
-    emoji: "📚",
-    status: "live",
-    category: "Storytelling",
-  },
   {
     id: 16,
     title: "Characto",
@@ -175,6 +166,134 @@ function PlayroomIllustration() {
   );
 }
 
+function KidScribeHero() {
+  const handleClick = async () => {
+    try {
+      await apiRequest("POST", "/api/track-click/17");
+    } catch (error) {
+      console.error("Failed to track click:", error);
+    }
+  };
+
+  const storyImages = [
+    "https://kidscribe.ai/assets/consistency-1-CaVth82r.png",
+    "https://kidscribe.ai/assets/consistency-2-CErFaxMK.png",
+    "https://kidscribe.ai/assets/consistency-3-BXg-iRdO.png",
+  ];
+
+  return (
+    <section className="px-6 py-16 bg-gradient-to-b from-amber-50 to-craft-paper overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-10"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-lego-red/10 rounded-full mb-4">
+            <Sparkles className="w-4 h-4 text-lego-red" />
+            <span className="text-sm font-medium text-lego-red">Our #1 Project</span>
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-marker mb-4">
+            Magical Books Starring <span className="text-lego-red">Your Child</span>
+          </h2>
+          <p className="text-marker/70 text-lg md:text-xl max-w-2xl mx-auto">
+            Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
+          </p>
+        </motion.div>
+
+        {/* Story book showcase */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative mb-10"
+        >
+          {/* Floating decorations */}
+          <div className="absolute -top-4 left-10 text-3xl animate-bounce" style={{ animationDuration: '3s' }}>✨</div>
+          <div className="absolute -top-2 right-16 text-2xl animate-bounce" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}>⭐</div>
+          <div className="absolute bottom-10 -left-2 text-2xl animate-bounce" style={{ animationDuration: '2.8s', animationDelay: '0.3s' }}>📖</div>
+          
+          {/* Story pages cascade */}
+          <div className="flex justify-center items-end gap-4 md:gap-6 px-4">
+            {storyImages.map((src, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40, rotate: (index - 1) * 5 }}
+                animate={{ opacity: 1, y: 0, rotate: (index - 1) * 3 }}
+                transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                className="relative group"
+                style={{ 
+                  zIndex: index === 1 ? 10 : 5,
+                  transform: `translateY(${index === 1 ? 0 : 20}px)`
+                }}
+              >
+                <div 
+                  className={`bg-white rounded-xl shadow-xl overflow-hidden border-4 border-white
+                    ${index === 1 ? 'w-48 md:w-64' : 'w-36 md:w-48 opacity-90'}`}
+                >
+                  <img 
+                    src={src}
+                    alt={`Story page ${index + 1}`}
+                    className="w-full h-auto"
+                  />
+                </div>
+                {index === 1 && (
+                  <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-lego-yellow text-marker text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                    Your child here!
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Features row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex flex-wrap justify-center gap-6 md:gap-10 mb-10"
+        >
+          <div className="flex items-center gap-2 text-marker/70">
+            <Clock className="w-5 h-5 text-lego-blue" />
+            <span className="font-medium">Ready in 5 mins</span>
+          </div>
+          <div className="flex items-center gap-2 text-marker/70">
+            <BookOpen className="w-5 h-5 text-lego-green" />
+            <span className="font-medium">12 Art Styles</span>
+          </div>
+          <div className="flex items-center gap-2 text-marker/70">
+            <Heart className="w-5 h-5 text-lego-red" />
+            <span className="font-medium">Teach Life Lessons</span>
+          </div>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+          className="text-center"
+        >
+          <a
+            href="https://kidscribe.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={handleClick}
+            className="inline-flex items-center gap-3 bg-lego-red hover:bg-red-700 text-white font-display font-bold text-lg px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+          >
+            <span className="text-2xl">📚</span>
+            Create Your Child's Story
+            <ExternalLink className="w-5 h-5" />
+          </a>
+          <p className="text-marker/50 text-sm mt-3">Free to try • No credit card required</p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-craft-paper">
@@ -221,6 +340,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* KidScribe Hero Showcase */}
+      <KidScribeHero />
 
       {/* Projects Grid */}
       <section id="projects" className="px-6 py-16 bg-craft-tan/50">
