@@ -17,25 +17,16 @@ export default function AboutPage() {
               <span className="text-sm font-medium text-ink">Hello There</span>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-6 items-start">
-              <div className="flex-shrink-0">
-                <img 
-                  src="/images/saurabh-avatar.png" 
-                  alt="Saurabh" 
-                  className="w-32 h-auto md:w-40"
-                />
-              </div>
-              <div>
-                <h1 className="font-display text-3xl md:text-4xl font-bold text-ink mb-4 leading-tight">
-                  I'm Saurabh.
-                </h1>
-                <p className="text-ink leading-relaxed mb-3">
-                  By day, I'm a product manager who has spent years building software at companies large and small. By night and weekend, I'm a tinkerer who loves turning ideas into working tools.
-                </p>
-                <p className="text-ink-light leading-relaxed">
-                  I code just enough to be dangerous. A PM who can ship prototypes, debug API calls, and occasionally break things in interesting ways. These projects are my playground for learning new skills and solving problems that matter to me.
-                </p>
-              </div>
+            <div>
+              <h1 className="font-display text-3xl md:text-4xl font-bold text-ink mb-4 leading-tight">
+                I'm Saurabh.
+              </h1>
+              <p className="text-ink leading-relaxed mb-3">
+                By day, I'm a product manager who has spent years building software at companies large and small. By night and weekend, I'm a tinkerer who loves turning ideas into working tools.
+              </p>
+              <p className="text-ink-light leading-relaxed">
+                I code just enough to be dangerous. A PM who can ship prototypes, debug API calls, and occasionally break things in interesting ways. These projects are my playground for learning new skills and solving problems that matter to me.
+              </p>
             </div>
           </motion.div>
 
