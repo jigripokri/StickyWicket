@@ -199,6 +199,10 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-wrap gap-4">
+                <a href="#projects" className="brick-button brick-button-red inline-flex items-center gap-2">
+                  <Blocks className="w-4 h-4" />
+                  See All Projects
+                </a>
                 <Link href="/analytics" className="brick-button brick-button-blue inline-flex items-center gap-2">
                   <Star className="w-4 h-4" />
                   Progress Report
