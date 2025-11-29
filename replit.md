@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects as "broadcast programs" in a control room/studio themed interface, providing comprehensive analytics on user engagement, page views, and project interactions.
+This is a full-stack web application for Sticky Wicket Labs, serving as a portfolio showcase with integrated analytics tracking. The platform displays various projects as toys in a playroom-themed interface, providing comprehensive analytics on user engagement, page views, and project interactions.
 
 ## User Preferences
 
@@ -32,58 +32,55 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for migrations and schema updates
 - **Connection**: Connection pooling with @neondatabase/serverless
 
-## Design System: "Wonder Workshop Live"
+## Design System: "The Playroom"
 
-The portfolio uses a broadcast studio/control room aesthetic with neon gel lighting and a live TV program metaphor.
+The portfolio uses a kids' toyroom aesthetic with LEGO brick colors, craft paper textures, and playful but polished styling.
 
 ### Color Palette
 | Role | Color | Hex |
 |------|-------|-----|
-| Main Background | Studio Dark | `#0D0D0F` |
-| Card Background | Studio Charcoal | `#1A1A1F` |
-| Interactive Elements | Studio Slate | `#2A2A32` |
-| Borders | Studio Steel | `#3D3D47` |
-| Primary Accent | Neon Pink | `#FF3366` |
-| Secondary Accent | Neon Cyan | `#00D4FF` |
-| Success/Live | Neon Green | `#00FF94` |
-| Warning | Neon Yellow | `#FFE566` |
-| Tertiary | Neon Purple | `#B366FF` |
-| Warm Text | Tungsten Warm | `#FFB366` |
-| Primary Text | Tungsten Soft | `#FFF5E6` |
+| Background | Craft Paper | `#F5E6D3` |
+| Card Surface | White Board | `#FFFFFF` |
+| Section Background | Craft Tan | `#E8DDD0` |
+| Shadow/Border | Craft Shadow | `#D4C4B0` |
+| Primary Accent | LEGO Red | `#DA291C` |
+| Secondary Accent | LEGO Blue | `#0055BF` |
+| Success | LEGO Green | `#4DBD33` |
+| Highlight | LEGO Yellow | `#FFD700` |
+| Tertiary | LEGO Orange | `#FF6B35` |
+| Text | Marker Black | `#2D2D2D` |
 
 ### Typography
-- **Display Font**: Space Grotesk (headings, stats, labels)
-- **Body Font**: Inter (paragraphs, descriptions)
+- **Display Font**: Fredoka (playful, rounded headings)
+- **Body Font**: Inter (clean, readable body text)
 - Loaded via Google Fonts in client/index.html
 
 ### Design Principles
-- **Broadcast Feel**: Live indicators, status lights, ticker tape create energy
-- **Control Room**: Dark surfaces, neon accents, telemetry displays
-- **Subtle Motion**: Cards lift gently on hover with cyan glow, no flashy effects
-- **Professional Edge**: Technical aesthetic balanced with playful content
+- **Playful but Polished**: Fun without being chaotic
+- **Craft Paper Feel**: Warm, tactile background textures
+- **LEGO Inspiration**: Bold primary colors, building block motifs
+- **Easy to Browse**: Clean grid layout, clear visual hierarchy
 
 ### UI Components
-- **Ticker Tape**: Scrolling announcements with CSS animation
-- **Live Indicator**: Pulsing red dot with "LIVE FROM THE WORKSHOP" text
-- **Studio Panel**: Dark cards with subtle pink glow on edges
-- **Program Cards**: Project cards styled as TV programs with status lights
-- **Control Buttons**: Dark slate buttons with neon hover states
+- **Craft Card**: White cards with paper shadow, hover lift effect
+- **Brick Button**: 3D buttons with press-down animation
+- **Sticker Badge**: Dashed border category badges in various colors
+- **Paper Panel**: White panels with subtle grid pattern background
+- **Tape Accent**: Colored tape decoration on cards
 
 ## Key Components
 
 ### Project Showcase (Homepage)
-- **ProgramCard Component**: Displays projects as broadcast programs
-- **Status Lights**: Green (live) or yellow (idle) indicators
-- **Category Tags**: Color-coded badges using inline styles (avoids dynamic Tailwind)
-- **Ticker Tape**: Animated announcements at top of page
-- **Studio Status Panel**: Shows live program count, uptime, categories
+- **ToyCard Component**: Projects as toys with tape accents and sticker badges
+- **Building Blocks Stats**: Colorful stat blocks in hero section
+- **Category Colors**: Each category has distinct color pairing
+- **Hover Effects**: Cards lift and rotate to neutral on hover
 
-### Analytics Dashboard (Control Room)
-- **StatsCard Component**: Neon-accented metric displays
-- **Traffic Signal Chart**: Line chart showing views over time
-- **Top Programs Chart**: Bar chart of project popularity
-- **Global Reach Chart**: Geographic visitor distribution
-- **All charts use Recharts** with dark theme styling
+### Analytics Dashboard (Progress Report)
+- **StatsCard Component**: LEGO-colored metric displays
+- **Daily Visitors Chart**: Line chart with red accent
+- **Most Played Chart**: Bar chart with multi-color bars
+- **Where Our Friends Are**: Geographic distribution chart
 
 ### Database Schema
 - **Projects Table**: Stores project information (title, description, links, images)
@@ -99,6 +96,13 @@ The portfolio uses a broadcast studio/control room aesthetic with neon gel light
 6. Wish Upon a Wall - Community message boards
 7. Hue Knew? - Color mixing learning
 8. Emoji Math - Math practice with emojis
+
+## Category Color Mapping
+- Storytelling: Yellow/Amber tones
+- Creative Tools: Blue tones
+- Learning: Green tones
+- AI Fun: Red tones
+- Community: Purple tones
 
 ## Data Flow
 
@@ -145,8 +149,8 @@ The portfolio uses a broadcast studio/control room aesthetic with neon gel light
 
 ## Technical Notes
 
-- **Category badges**: Use inline styles for colors (avoid dynamic Tailwind class strings)
-- **Ticker animation**: CSS keyframes in index.css, duplicated items for seamless loop
-- **Chart theming**: All Recharts components use inline styles matching studio palette
+- **Category badges**: Use inline styles for colors (avoids dynamic Tailwind class issues)
+- **Card rotations**: Slight random rotations on cards, neutralize on hover
+- **Chart theming**: All Recharts components use LEGO color palette
 
-The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The broadcast/control room theme creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.
+The application follows a modern full-stack architecture with emphasis on type safety, performance, and user experience. The playroom theme creates a distinctive, memorable portfolio presentation while the analytics system provides valuable insights into user behavior.
