@@ -342,11 +342,8 @@ export default function HomePage() {
               transition={{ duration: 0.4 }}
             >
               <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
-                Our Toy Box
+                Projects
               </h2>
-              <p className="text-marker/60 text-lg max-w-md mx-auto">
-                Pick a project and start playing!
-              </p>
             </motion.div>
           </div>
 
