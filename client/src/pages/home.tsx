@@ -158,39 +158,140 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
   );
 }
 
-function BuildingBlock({ value, label, color }: { value: string | number; label: string; color: string }) {
-  const darkerColor = `color-mix(in srgb, ${color} 85%, black)`;
-  
+function PlayroomIllustration() {
   return (
-    <div 
-      className="rounded-lg text-center text-white relative overflow-visible"
-      style={{ 
-        backgroundColor: color,
-        boxShadow: `0 4px 0 0 ${darkerColor}`,
-      }}
-    >
-      {/* LEGO studs row */}
-      <div className="absolute -top-2 left-0 right-0 flex justify-center gap-2 px-3">
-        <div 
-          className="w-5 h-5 rounded-full border-2 border-white/20"
-          style={{ 
-            backgroundColor: color,
-            boxShadow: `inset 0 -2px 0 0 rgba(0,0,0,0.2), inset 0 2px 0 0 rgba(255,255,255,0.3)`,
-          }}
-        />
-        <div 
-          className="w-5 h-5 rounded-full border-2 border-white/20"
-          style={{ 
-            backgroundColor: color,
-            boxShadow: `inset 0 -2px 0 0 rgba(0,0,0,0.2), inset 0 2px 0 0 rgba(255,255,255,0.3)`,
-          }}
-        />
-      </div>
+    <div className="relative w-full h-80 md:h-96">
+      {/* Background glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-lego-yellow/20 via-transparent to-lego-blue/10 rounded-3xl" />
       
-      <div className="pt-5 pb-4 px-4">
-        <div className="font-display text-3xl font-bold mb-1">{value}</div>
-        <div className="text-xs font-medium opacity-80 uppercase tracking-wider">{label}</div>
+      {/* Floating elements - other projects */}
+      <motion.div 
+        className="absolute top-4 left-4 text-3xl"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      >
+        🧠
+      </motion.div>
+      <motion.div 
+        className="absolute top-8 right-8 text-2xl"
+        animate={{ y: [0, -6, 0], rotate: [0, 10, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+      >
+        🎨
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-16 left-8 text-2xl"
+        animate={{ y: [0, -5, 0] }}
+        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+      >
+        🥊
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-8 right-12 text-2xl"
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+      >
+        ✏️
+      </motion.div>
+      <motion.div 
+        className="absolute top-1/3 right-4 text-xl"
+        animate={{ y: [0, -4, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+      >
+        🧮
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-1/3 left-2 text-xl"
+        animate={{ y: [0, -6, 0] }}
+        transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+      >
+        🧱
+      </motion.div>
+
+      {/* Sparkles */}
+      <motion.div 
+        className="absolute top-12 left-1/4 text-lego-yellow text-lg"
+        animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        ✨
+      </motion.div>
+      <motion.div 
+        className="absolute bottom-20 right-1/4 text-lego-yellow text-sm"
+        animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.3, 1] }}
+        transition={{ duration: 1.8, repeat: Infinity, delay: 0.5 }}
+      >
+        ✨
+      </motion.div>
+
+      {/* Central KidScribe book */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="relative"
+        >
+          {/* Open book shape */}
+          <div className="relative">
+            {/* Book pages */}
+            <div className="flex">
+              {/* Left page */}
+              <div 
+                className="w-28 md:w-36 h-36 md:h-44 bg-white rounded-l-lg shadow-lg relative overflow-hidden"
+                style={{ 
+                  transform: 'perspective(800px) rotateY(15deg)',
+                  transformOrigin: 'right center',
+                }}
+              >
+                <div className="absolute inset-2 border-2 border-dashed border-craft-shadow/30 rounded flex flex-col items-center justify-center p-2">
+                  <div className="text-4xl md:text-5xl mb-1">👧</div>
+                  <div className="w-full space-y-1">
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-4/5" />
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
+                  </div>
+                </div>
+              </div>
+              {/* Spine */}
+              <div className="w-3 md:w-4 h-36 md:h-44 bg-lego-red shadow-inner" />
+              {/* Right page */}
+              <div 
+                className="w-28 md:w-36 h-36 md:h-44 bg-white rounded-r-lg shadow-lg relative overflow-hidden"
+                style={{ 
+                  transform: 'perspective(800px) rotateY(-15deg)',
+                  transformOrigin: 'left center',
+                }}
+              >
+                <div className="absolute inset-2 border-2 border-dashed border-craft-shadow/30 rounded flex flex-col items-center justify-center p-2">
+                  <div className="text-4xl md:text-5xl mb-1">🏰</div>
+                  <div className="w-full space-y-1">
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-4/5" />
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-full" />
+                    <div className="h-1.5 bg-craft-shadow/20 rounded w-3/4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Book base/cover */}
+            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-64 md:w-80 h-4 bg-lego-red rounded-b-lg shadow-md" />
+          </div>
+
+          {/* KidScribe label */}
+          <motion.div 
+            className="absolute -bottom-10 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-full shadow-md border-2 border-lego-red/20"
+            animate={{ y: [0, -3, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <span className="font-display font-bold text-lego-red text-sm">📚 KidScribe</span>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Stars decoration */}
+      <div className="absolute top-6 right-1/3 text-lego-yellow/60 text-xs">⭐</div>
+      <div className="absolute bottom-12 left-1/3 text-lego-yellow/60 text-xs">⭐</div>
     </div>
   );
 }
@@ -235,33 +336,13 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Right: Building Blocks Stats */}
+            {/* Right: Playroom Illustration */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="paper-panel"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 bg-lego-yellow rounded-lg flex items-center justify-center">
-                  <Blocks className="w-5 h-5 text-marker" />
-                </div>
-                <h2 className="font-display text-lg font-bold text-marker">
-                  What We've Built
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4 gap-y-6 pt-3">
-                <BuildingBlock value={projects.length} label="Projects" color="#DA291C" />
-                <BuildingBlock value="100%" label="Fun Level" color="#0055BF" />
-                <BuildingBlock value="4" label="Categories" color="#4DBD33" />
-                <BuildingBlock value="∞" label="Ideas" color="#FF6B35" />
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-craft-shadow/30 flex items-center justify-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-lego-green animate-pulse" />
-                <span className="text-sm text-marker/60">All systems ready to play!</span>
-              </div>
+              <PlayroomIllustration />
             </motion.div>
           </div>
         </div>
