@@ -32,11 +32,35 @@ Preferred communication style: Simple, everyday language.
 - **Schema Management**: Drizzle Kit for migrations and schema updates
 - **Connection**: Connection pooling with @neondatabase/serverless
 
+## Design System: "Museum of Playful Ideas"
+
+The portfolio uses an elegant, refined design inspired by editorial publications and indie bookstores.
+
+### Color Palette
+| Role | Color | Hex |
+|------|-------|-----|
+| Canvas (background) | Warm Cream | `#FDF8F3` |
+| Soft Accent | Clay | `#E6C4A8` |
+| Primary Pop | Coral | `#FF6F61` |
+| Secondary Pop | Sky Blue | `#3B82F6` |
+| Tertiary Pop | Sunflower | `#F4B400` |
+| Text | Deep Ink | `#2C1C14` |
+
+### Typography
+- **Headlines**: Playfair Display (elegant serif)
+- **Body Text**: Nunito Sans (friendly, readable)
+
+### Design Principles
+- **Restraint**: Minimal animations, let typography and whitespace do the work
+- **Warmth**: Cream canvas with clay accents creates an inviting feel
+- **Sophistication**: Editorial-quality typography and generous spacing
+- **Subtle Delight**: Cards lift gently on hover, no flashy effects
+
 ## Key Components
 
 ### Project Showcase
-- **ProjectCard Component**: Interactive cards with hover animations and click tracking
-- **Dynamic Styling**: Random pastel color generation on hover
+- **ProjectCard Component**: Archival mat styling with embossed emoji badges
+- **Subtle Hover**: Gentle lift and shadow on hover (no color flash)
 - **External Links**: Direct navigation to live project URLs
 - **Click Analytics**: Automatic tracking of project interactions
 
