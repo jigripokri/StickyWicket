@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin, Heart, Lightbulb, Rocket, MessageCircle, GraduationCap, User } from "lucide-react";
+import { Mail, Linkedin, Heart, Lightbulb, Rocket, MessageCircle, User } from "lucide-react";
 
 export default function AboutPage() {
   return (
@@ -18,6 +18,13 @@ export default function AboutPage() {
             </div>
 
             <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="flex-shrink-0">
+                <img 
+                  src="/images/saurabh-avatar.png" 
+                  alt="Saurabh" 
+                  className="w-32 h-auto md:w-40"
+                />
+              </div>
               <div>
                 <h1 className="font-display text-3xl md:text-4xl font-bold text-ink mb-4 leading-tight">
                   I'm Saurabh.
@@ -26,7 +33,7 @@ export default function AboutPage() {
                   By day, I'm a product manager who has spent years building software at companies large and small. By night and weekend, I'm a tinkerer who loves turning ideas into working tools.
                 </p>
                 <p className="text-ink-light leading-relaxed">
-                  I code just enough to be dangerous—a PM who can ship prototypes, debug API calls, and occasionally break things in interesting ways. These projects are my playground for learning new skills and solving problems that matter to me.
+                  I code just enough to be dangerous. A PM who can ship prototypes, debug API calls, and occasionally break things in interesting ways. These projects are my playground for learning new skills and solving problems that matter to me.
                 </p>
               </div>
             </div>
@@ -74,7 +81,7 @@ export default function AboutPage() {
                 Somewhere along the way, I rediscovered something I had forgotten: the pure joy of making things. Not for metrics or roadmaps, but for the delight of watching an idea become something real. Something you can click, share, and smile at.
               </p>
               <p className="text-ink-light leading-relaxed">
-                These weekend projects started as ways to teach myself new things. They became something more—tools I actually want to use, built exactly the way I think they should work. No compromises. No committee reviews. Just ideas, code, and that satisfying moment when it all comes together.
+                These weekend projects started as ways to teach myself new things. They became something more. Tools I actually want to use, built exactly the way I think they should work. No compromises. No committee reviews. Just ideas, code, and that satisfying moment when it all comes together.
               </p>
             </div>
           </motion.div>
@@ -96,7 +103,7 @@ export default function AboutPage() {
                 We are living in a remarkable moment. An idea that used to take months can become working software overnight. The gap between "what if" and "try it" has never been smaller.
               </p>
               <p className="text-ink-light leading-relaxed">
-                I am learning every single day—new tools, new techniques, new ways of thinking. Not because I have to, but because it is genuinely fun. Each project here taught me something. Some taught me many things by breaking in interesting ways.
+                I am learning every single day. New tools, new techniques, new ways of thinking. Not because I have to, but because it is genuinely fun. Each project here taught me something. Some taught me many things by breaking in interesting ways.
               </p>
             </div>
           </motion.div>
@@ -105,55 +112,6 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.35 }}
-            className="mb-10"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-postit-rose/50 rounded-xl flex items-center justify-center border border-[#D9A8CC]">
-                <GraduationCap className="w-5 h-5 text-[#7A4B6B]" />
-              </div>
-              <h2 className="font-display text-xl font-bold text-ink">Lessons Learned at 1 a.m.</h2>
-            </div>
-            <div>
-              <p className="text-ink leading-relaxed mb-6">
-                Building these projects has reinforced some truths about making things in the age of AI:
-              </p>
-              
-              <div className="space-y-5">
-                <div className="bg-white rounded-xl p-5 border border-neutral-edge" style={{ boxShadow: '0 2px 10px rgba(47, 42, 58, 0.04)' }}>
-                  <h3 className="font-display font-semibold text-ink mb-2">The roadmap is never a straight line.</h3>
-                  <p className="text-ink-light text-sm leading-relaxed">
-                    My initial plan for KidScribe was a full storybook builder. But the real problem was character consistency—so I built Characto first. It was not a detour; it was a necessary discovery. Sometimes you have to build a bridge before you can cross the river.
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl p-5 border border-neutral-edge" style={{ boxShadow: '0 2px 10px rgba(47, 42, 58, 0.04)' }}>
-                  <h3 className="font-display font-semibold text-ink mb-2">AI is the ultimate thought partner.</h3>
-                  <p className="text-ink-light text-sm leading-relaxed">
-                    I use AI to brainstorm solutions, make sense of dense documentation, and debug cryptic error messages. It does not write the apps for me, but it is the best technical sounding board I could ask for.
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl p-5 border border-neutral-edge" style={{ boxShadow: '0 2px 10px rgba(47, 42, 58, 0.04)' }}>
-                  <h3 className="font-display font-semibold text-ink mb-2">A prototype is not a production app.</h3>
-                  <p className="text-ink-light text-sm leading-relaxed">
-                    My first builds stored images as base64 strings. Classic prototype move. They fell apart under the slightest load. Real architecture—object storage, connection pools, retry logic—is unglamorous but essential.
-                  </p>
-                </div>
-
-                <div className="bg-white rounded-xl p-5 border border-neutral-edge" style={{ boxShadow: '0 2px 10px rgba(47, 42, 58, 0.04)' }}>
-                  <h3 className="font-display font-semibold text-ink mb-2">The new skills that matter: taste, agency, and testing.</h3>
-                  <p className="text-ink-light text-sm leading-relaxed">
-                    When the barrier to creation is lowered, other skills become paramount. <strong className="font-medium text-ink">Taste</strong>—knowing whether something is actually good. <strong className="font-medium text-ink">Agency</strong>—the willingness to jump in and learn what is needed. <strong className="font-medium text-ink">Testing</strong>—prompting the AI to think step-by-step before big changes, then checking for regressions relentlessly.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
             className="mb-12"
           >
             <div className="flex items-center gap-3 mb-4">
@@ -175,7 +133,7 @@ export default function AboutPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
             <div className="bg-white rounded-2xl p-6 md:p-8 border border-neutral-edge" style={{ boxShadow: '0 4px 20px rgba(47, 42, 58, 0.06)' }}>
               <h3 className="font-display text-lg font-bold text-ink mb-4">Say Hello</h3>
@@ -203,7 +161,7 @@ export default function AboutPage() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
             className="text-center text-ink-light mt-12 text-sm"
           >
             Thanks for stopping by. Now go build something.
