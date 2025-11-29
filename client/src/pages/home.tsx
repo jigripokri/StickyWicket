@@ -299,13 +299,13 @@ export default function HomePage() {
               transition={{ duration: 0.5 }}
             >
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
-                Tiny Apps.
+                Weekend Projects.
                 <br />
-                <span className="text-lego-red">Big Smiles.</span>
+                <span className="text-lego-red">Weekday Magic.</span>
               </h1>
 
               <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
-                A toy box of delightful little experiments—built on rainy Saturdays, powered by curiosity. Pick one. Play. Repeat.
+                Rediscovering the joy of web development through fun side projects. Built on rainy Saturdays.
               </p>
 
               <div className="flex flex-wrap gap-4">
