@@ -7,9 +7,12 @@ export function SiteHeader() {
   return (
     <header className="bg-white border-b-4 border-lego-red">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display font-bold text-marker flex items-center gap-3 hover:text-lego-blue transition-colors">
-          <span className="text-2xl">🧱</span>
-          <span className="text-lg">Sticky Wicket Labs</span>
+        <Link href="/" className="font-display font-bold text-marker flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <img 
+            src="/images/swl-logo.png" 
+            alt="Sticky Wicket Labs" 
+            className="h-10 w-auto"
+          />
         </Link>
         <nav className="flex items-center gap-2">
           <Link 
