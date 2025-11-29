@@ -78,13 +78,6 @@ export const projects = [
   },
 ];
 
-const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-  "Storytelling": { bg: "#FEF3C7", text: "#B45309", border: "#F59E0B" },
-  "Creative Tools": { bg: "#DBEAFE", text: "#1D4ED8", border: "#3B82F6" },
-  "Learning": { bg: "#D1FAE5", text: "#047857", border: "#10B981" },
-  "AI Fun": { bg: "#FEE2E2", text: "#B91C1C", border: "#EF4444" },
-  "Community": { bg: "#F3E8FF", text: "#7C3AED", border: "#8B5CF6" },
-};
 
 function FeaturedKidScribeCard() {
   const handleClick = async () => {
@@ -104,94 +97,65 @@ function FeaturedKidScribeCard() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="craft-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col overflow-hidden"
+      className="sketch-card block group relative col-span-1 md:col-span-2 row-span-1 md:row-span-2 h-full flex flex-col"
       whileHover={{ scale: 1.01 }}
     >
-      {/* Tape accent */}
-      <div 
-        className="absolute -top-2 left-8 w-24 h-6 rounded-sm opacity-80 z-10"
-        style={{ 
-          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
-          transform: 'rotate(-1deg)',
-        }}
-      />
-      <div 
-        className="absolute -top-2 right-8 w-20 h-5 rounded-sm opacity-70 hidden md:block z-10"
-        style={{ 
-          background: `linear-gradient(135deg, #F59E0B40 0%, #F59E0B60 100%)`,
-          transform: 'rotate(2deg)',
-        }}
-      />
-
       <div className="p-6 md:p-8 flex-1 flex flex-col">
         {/* Header row */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-4">
             <span className="text-5xl md:text-6xl">📚</span>
             <div>
-              <div 
-                className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
-                style={{ backgroundColor: "#FEF3C7", color: "#B45309" }}
-              >
-                Storytelling
-              </div>
-              <h3 className="font-display text-2xl md:text-3xl font-bold text-marker group-hover:text-lego-blue transition-colors flex items-center gap-2">
+              <span className="outline-badge mb-2">Storytelling</span>
+              <h3 className="font-display text-2xl md:text-3xl font-bold text-ink group-hover:text-sketch-muted transition-colors flex items-center gap-2">
                 KidScribe
                 <ExternalLink className="w-5 h-5 opacity-0 group-hover:opacity-60 transition-opacity" />
               </h3>
             </div>
           </div>
-          <div className="hidden md:block bg-lego-red text-white px-3 py-1 rounded-full text-xs font-bold">
-            ★ FEATURED
-          </div>
+          <span className="featured-badge hidden md:inline-flex">★ FEATURED</span>
         </div>
 
         {/* Main tagline */}
         <div className="mb-4">
-          <p className="font-display text-xl md:text-2xl text-marker/90 leading-snug">
-            Magical Books <span className="text-lego-red">Starring Your Child</span>
+          <p className="font-display text-xl md:text-2xl text-ink/90 leading-snug">
+            Magical Books Starring Your Child
           </p>
         </div>
 
         {/* Description */}
-        <p className="text-marker/70 text-base md:text-lg leading-relaxed mb-6 max-w-md">
+        <p className="text-ink/60 text-base md:text-lg leading-relaxed mb-6 max-w-md">
           Watch their eyes light up as they become the hero of their own illustrated adventure. Ready in 5 minutes.
         </p>
 
         {/* Visual Harmony preview */}
         <div className="mt-auto">
-          <p className="text-xs font-medium text-marker/50 uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
+          <p className="text-xs font-medium text-ink/40 uppercase tracking-wider mb-3">Character Consistency Across Scenes</p>
           <div className="grid grid-cols-3 gap-2">
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-lg overflow-hidden border border-sketch-border">
               <img 
                 src="https://kidscribe.ai/assets/consistency-1-CaVth82r.png" 
                 alt="Scene 1: Characters meeting"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-lg overflow-hidden border border-sketch-border">
               <img 
                 src="https://kidscribe.ai/assets/consistency-2-CErFaxMK.png" 
                 alt="Scene 2: Characters on discovery"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
-            <div className="relative rounded-lg overflow-hidden shadow-sm group/img">
+            <div className="relative rounded-lg overflow-hidden border border-sketch-border">
               <img 
                 src="https://kidscribe.ai/assets/consistency-3-BXg-iRdO.png" 
                 alt="Scene 3: Characters on adventure"
                 className="w-full h-20 md:h-24 object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity" />
             </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom accent bar */}
-      <div className="h-3 mt-auto bg-gradient-to-r from-lego-yellow via-lego-orange to-lego-red" />
     </motion.a>
   );
 }
@@ -205,10 +169,6 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
     }
   };
 
-  const colors = categoryColors[project.category] || categoryColors["Learning"];
-  const rotations = [-1, 0.5, -0.5, 1, -0.8, 0.3, -0.3, 0.8];
-  const rotation = rotations[index % rotations.length];
-
   return (
     <motion.a
       href={project.link}
@@ -218,52 +178,26 @@ function ToyCard({ project, index }: { project: typeof projects[0]; index: numbe
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.05 * index }}
-      className="craft-card block group relative h-full flex flex-col overflow-hidden"
-      style={{ transform: `rotate(${rotation}deg)` }}
-      whileHover={{ rotate: 0, scale: 1.02 }}
+      className="sketch-card block group h-full"
+      whileHover={{ scale: 1.02 }}
     >
-      {/* Tape accent */}
-      <div 
-        className="absolute -top-2 left-6 w-16 h-5 rounded-sm opacity-80 z-10"
-        style={{ 
-          background: `linear-gradient(135deg, ${colors.border}40 0%, ${colors.border}60 100%)`,
-          transform: 'rotate(-2deg)',
-        }}
-      />
-
-      <div className="p-6 flex-1">
-        {/* Emoji and status */}
+      <div className="p-6">
+        {/* Emoji and category */}
         <div className="flex items-start justify-between mb-4">
-          <div className="text-5xl">{project.emoji}</div>
-          <div 
-            className="sticker-badge"
-            style={{ 
-              backgroundColor: colors.bg,
-              color: colors.text,
-              borderColor: `${colors.border}50`,
-            }}
-          >
-            {project.category}
-          </div>
+          <div className="text-4xl">{project.emoji}</div>
+          <span className="outline-badge">{project.category}</span>
         </div>
 
         {/* Title */}
-        <h3 className="font-display text-xl font-bold text-marker mb-2 group-hover:text-lego-blue transition-colors flex items-center gap-2">
+        <h3 className="font-display text-xl font-bold text-ink mb-2 group-hover:text-sketch-muted transition-colors">
           {project.title}
-          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity" />
         </h3>
 
         {/* Description */}
-        <p className="text-marker/70 text-sm leading-relaxed">
+        <p className="text-ink/60 text-sm leading-relaxed">
           {project.description}
         </p>
       </div>
-
-      {/* Bottom accent bar */}
-      <div 
-        className="h-2 mt-auto"
-        style={{ backgroundColor: colors.border }}
-      />
     </motion.a>
   );
 }
@@ -287,7 +221,7 @@ function PlayroomIllustration() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-craft-paper">
+    <div className="min-h-screen bg-cream">
       {/* Hero Section */}
       <section className="px-6 py-8 md:py-12">
         <div className="max-w-6xl mx-auto">
@@ -298,22 +232,22 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-tight mb-6">
                 Tiny Apps.
                 <br />
-                <span className="text-lego-red">Big Smiles.</span>
+                Big Smiles.
               </h1>
 
-              <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+              <p className="text-ink/60 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
                 A toy box of delightful little experiments—built on rainy Saturdays, powered by curiosity. Pick one. Play. Repeat.
               </p>
 
               <div className="flex flex-wrap gap-4">
-                <a href="#projects" className="brick-button brick-button-red inline-flex items-center gap-2">
+                <a href="#projects" className="outline-button inline-flex items-center gap-2">
                   <Blocks className="w-4 h-4" />
                   See All Projects
                 </a>
-                <Link href="/analytics" className="brick-button brick-button-blue inline-flex items-center gap-2">
+                <Link href="/analytics" className="outline-button inline-flex items-center gap-2">
                   <Star className="w-4 h-4" />
                   Progress Report
                 </Link>
@@ -333,7 +267,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Grid */}
-      <section id="projects" className="px-6 py-16 bg-craft-tan/50">
+      <section id="projects" className="px-6 py-16 border-t border-sketch-border">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <motion.div
@@ -341,16 +275,16 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-3">
                 Our Toy Box
               </h2>
-              <p className="text-marker/60 text-lg max-w-md mx-auto">
+              <p className="text-ink/50 text-lg max-w-md mx-auto">
                 Pick a project and start playing!
               </p>
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <FeaturedKidScribeCard />
             {projects.filter(p => p.id !== 17).map((project, index) => (
               <ToyCard key={project.id} project={project} index={index} />
@@ -360,26 +294,26 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 bg-white border-t-4 border-lego-yellow">
+      <footer className="px-6 py-12 bg-white border-t border-sketch-border">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <span className="text-3xl">🧱</span>
+              <img src="/images/swl-logo.png" alt="Sticky Wicket Labs" className="h-8 w-auto" />
               <div>
-                <div className="font-display font-bold text-marker text-lg">
+                <div className="font-display font-bold text-ink text-lg">
                   Sticky Wicket Labs
                 </div>
-                <div className="text-sm text-marker/50">
+                <div className="text-sm text-ink/40">
                   Building fun since 2024
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-sm text-marker/50">
-              <Link href="/analytics" className="hover:text-lego-blue transition-colors font-medium">
+            <div className="flex items-center gap-6 text-sm text-ink/40">
+              <Link href="/analytics" className="hover:text-ink transition-colors font-medium">
                 Progress Report
               </Link>
-              <span className="text-craft-shadow">|</span>
+              <span className="text-sketch-border">|</span>
               <span>© 2025 All toys reserved</span>
             </div>
           </div>
