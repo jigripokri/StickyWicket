@@ -1,37 +1,38 @@
 import { Link, useLocation } from "wouter";
-import { Radio } from "lucide-react";
+import { Blocks, BarChart3 } from "lucide-react";
 
 export function SiteHeader() {
   const [location] = useLocation();
 
   return (
-    <header className="bg-studio-dark border-b border-studio-steel">
+    <header className="bg-white border-b-4 border-lego-red">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-display font-semibold text-tungsten-soft flex items-center gap-3 hover:text-neon-pink transition-colors">
-          <span className="text-xl">🏏</span>
-          <span>Sticky Wicket Labs</span>
+        <Link href="/" className="font-display font-bold text-marker flex items-center gap-3 hover:text-lego-blue transition-colors">
+          <span className="text-2xl">🧱</span>
+          <span className="text-lg">Sticky Wicket Labs</span>
         </Link>
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-2">
           <Link 
             href="/" 
-            className={`text-sm font-medium transition-colors flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-lg font-display font-medium text-sm transition-all flex items-center gap-2 ${
               location === "/" 
-                ? "text-neon-cyan" 
-                : "text-tungsten-warm/60 hover:text-tungsten-soft"
+                ? "bg-lego-red text-white" 
+                : "text-marker/60 hover:bg-craft-tan hover:text-marker"
             }`}
           >
-            <Radio className="w-4 h-4" />
-            Programs
+            <Blocks className="w-4 h-4" />
+            Projects
           </Link>
           <Link 
             href="/analytics" 
-            className={`text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-lg font-display font-medium text-sm transition-all flex items-center gap-2 ${
               location === "/analytics" 
-                ? "text-neon-cyan" 
-                : "text-tungsten-warm/60 hover:text-tungsten-soft"
+                ? "bg-lego-blue text-white" 
+                : "text-marker/60 hover:bg-craft-tan hover:text-marker"
             }`}
           >
-            Telemetry
+            <BarChart3 className="w-4 h-4" />
+            Progress
           </Link>
         </nav>
       </div>

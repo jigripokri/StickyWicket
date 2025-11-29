@@ -7,33 +7,32 @@ interface StatsCardProps {
   color?: string;
 }
 
-export function StatsCard({ title, value, icon, color = "neon-cyan" }: StatsCardProps) {
-  const colorMap: Record<string, string> = {
-    "neon-cyan": "#00D4FF",
-    "neon-pink": "#FF3366",
-    "neon-green": "#00FF94",
-    "neon-yellow": "#FFE566",
-    "neon-purple": "#B366FF",
-  };
-
+export function StatsCard({ title, value, icon, color = "#DA291C" }: StatsCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="studio-panel p-6"
+      className="bg-white rounded-xl p-6 relative overflow-hidden"
+      style={{ 
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
+        borderBottom: `4px solid ${color}`,
+      }}
     >
       <div className="flex items-center justify-between mb-4">
-        <span className="text-tungsten-warm/60">{icon}</span>
-        <span className="status-light active"></span>
+        <span className="text-marker/40">{icon}</span>
+        <span 
+          className="w-3 h-3 rounded-full animate-pulse"
+          style={{ backgroundColor: color }}
+        />
       </div>
       <div 
-        className="text-3xl font-display font-bold mb-1"
-        style={{ color: colorMap[color] || colorMap["neon-cyan"] }}
+        className="text-4xl font-display font-bold mb-1"
+        style={{ color }}
       >
         {value}
       </div>
-      <div className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
+      <div className="text-sm text-marker/60 font-medium">
         {title}
       </div>
     </motion.div>

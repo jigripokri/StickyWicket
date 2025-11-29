@@ -13,8 +13,8 @@
 
   body {
     @apply font-sans antialiased;
-    background-color: #0D0D0F;
-    color: #FFF5E6;
+    background-color: #F5E6D3;
+    color: #2D2D2D;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -22,79 +22,143 @@
   }
 
   ::selection {
-    background-color: #FF3366;
-    color: white;
+    background-color: #FFD700;
+    color: #2D2D2D;
   }
 }
 
 @layer components {
-  .studio-panel {
-    @apply bg-studio-charcoal border border-studio-steel rounded-lg;
+  .craft-card {
+    @apply bg-white rounded-xl;
     box-shadow: 
-      0 0 0 1px rgba(255, 51, 102, 0.1),
-      0 4px 24px rgba(0, 0, 0, 0.4);
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
   }
 
-  .studio-panel-glow {
-    @apply studio-panel;
+  .craft-card:hover {
     box-shadow: 
-      0 0 0 1px rgba(255, 51, 102, 0.2),
-      0 0 30px rgba(255, 51, 102, 0.1),
-      0 4px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  .neon-text {
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-  }
-
-  .control-button {
-    @apply px-4 py-2 rounded font-display font-medium text-sm;
-    @apply bg-studio-slate border border-studio-steel;
-    @apply hover:bg-studio-steel hover:border-neon-pink/50;
-    @apply transition-all duration-200;
-  }
-
-  .live-indicator {
-    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full;
-    @apply bg-neon-pink/20 text-neon-pink text-xs font-medium uppercase tracking-wider;
-  }
-
-  .live-indicator::before {
-    content: "";
-    @apply w-2 h-2 rounded-full bg-neon-pink animate-pulse-glow;
-  }
-
-  .program-card {
-    @apply bg-studio-charcoal border border-studio-steel rounded-lg overflow-hidden;
-    @apply transition-all duration-300;
-  }
-
-  .program-card:hover {
-    @apply border-neon-cyan/50;
-    box-shadow: 
-      0 0 0 1px rgba(0, 212, 255, 0.3),
-      0 0 40px rgba(0, 212, 255, 0.15),
-      0 8px 32px rgba(0, 0, 0, 0.4);
+      0 8px 24px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.06);
     transform: translateY(-4px);
   }
 
-  .ticker-tape {
-    @apply overflow-hidden whitespace-nowrap;
-    @apply bg-studio-slate border-y border-studio-steel;
-    @apply text-tungsten-warm text-sm font-display;
+  .tape-accent {
+    position: relative;
   }
 
-  .status-light {
-    @apply w-2 h-2 rounded-full;
+  .tape-accent::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(135deg, #7CB9E8 0%, #9DD1F5 100%);
+    transform: rotate(-2deg);
+    opacity: 0.9;
+    border-radius: 2px;
   }
 
-  .status-light.active {
-    @apply bg-neon-green;
-    box-shadow: 0 0 8px #00FF94;
+  .tape-accent-green::before {
+    background: linear-gradient(135deg, #90EE90 0%, #B8F5B8 100%);
   }
 
-  .status-light.idle {
-    @apply bg-neon-yellow;
-    box-shadow: 0 0 8px #FFE566;
+  .brick-button {
+    @apply px-5 py-3 rounded-lg font-display font-semibold text-sm text-white;
+    @apply transition-all duration-150;
+    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+  }
+
+  .brick-button:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .brick-button:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .brick-button-red {
+    @apply bg-lego-red;
+    box-shadow: 0 4px 0 0 #a11f15;
+  }
+
+  .brick-button-red:hover {
+    box-shadow: 0 2px 0 0 #a11f15;
+  }
+
+  .brick-button-blue {
+    @apply bg-lego-blue;
+    box-shadow: 0 4px 0 0 #003d8a;
+  }
+
+  .brick-button-blue:hover {
+    box-shadow: 0 2px 0 0 #003d8a;
+  }
+
+  .sticker-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+    @apply border-2 border-dashed;
+    transform: rotate(-1deg);
+  }
+
+  .sticker-red {
+    @apply bg-red-50 text-lego-red border-lego-red/30;
+  }
+
+  .sticker-blue {
+    @apply bg-blue-50 text-lego-blue border-lego-blue/30;
+  }
+
+  .sticker-yellow {
+    @apply bg-yellow-50 text-yellow-700 border-lego-yellow/50;
+  }
+
+  .sticker-green {
+    @apply bg-green-50 text-lego-green border-lego-green/30;
+  }
+
+  .sticker-orange {
+    @apply bg-orange-50 text-lego-orange border-lego-orange/30;
+  }
+
+  .paper-panel {
+    @apply bg-white rounded-2xl p-6;
+    background-image: 
+      linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+    box-shadow: 
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.04);
+  }
+
+  .building-block {
+    @apply rounded-lg p-4;
+    position: relative;
+  }
+
+  .building-block::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: inherit;
+    filter: brightness(0.9);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  .progress-stamp {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-md;
+    @apply text-xs font-bold uppercase tracking-wider;
+    border: 2px solid currentColor;
+    transform: rotate(-3deg);
   }
 }

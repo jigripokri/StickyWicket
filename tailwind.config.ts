@@ -6,28 +6,29 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        display: ['"Fredoka"', 'system-ui', 'sans-serif'],
         sans: ['"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Workshop palette
-        studio: {
-          dark: "#0D0D0F",
-          charcoal: "#1A1A1F",
-          slate: "#2A2A32",
-          steel: "#3D3D47",
+        // Playroom palette
+        craft: {
+          paper: "#F5E6D3",
+          board: "#FFFFFF",
+          tan: "#E8DDD0",
+          shadow: "#D4C4B0",
         },
-        neon: {
-          pink: "#FF3366",
-          cyan: "#00D4FF",
-          green: "#00FF94",
-          yellow: "#FFE566",
-          purple: "#B366FF",
+        lego: {
+          red: "#DA291C",
+          blue: "#0055BF",
+          yellow: "#FFD700",
+          green: "#4DBD33",
+          orange: "#FF6B35",
         },
-        tungsten: {
-          warm: "#FFB366",
-          soft: "#FFF5E6",
+        tape: {
+          blue: "#7CB9E8",
+          green: "#90EE90",
         },
+        marker: "#2D2D2D",
         // Shadcn compatibility
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -94,20 +95,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.5" },
-        },
-        "ticker": {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-1deg)" },
+          "50%": { transform: "rotate(1deg)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
-        "ticker": "ticker 30s linear infinite",
+        "wiggle": "wiggle 0.3s ease-in-out",
+      },
+      boxShadow: {
+        'paper': '0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)',
+        'paper-hover': '0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06)',
+        'brick': '0 4px 0 0 rgba(0, 0, 0, 0.15)',
       },
     },
   },

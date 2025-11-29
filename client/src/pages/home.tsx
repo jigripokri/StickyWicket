@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Radio, Zap, Play, ExternalLink } from "lucide-react";
+import { Blocks, Sparkles, ExternalLink, Star } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
 export const projects = [
@@ -38,7 +38,7 @@ export const projects = [
     link: "https://debategpt.stickywicketlabs.com/",
     emoji: "🥊",
     status: "live",
-    category: "AI Experiments",
+    category: "AI Fun",
   },
   {
     id: 15,
@@ -78,15 +78,15 @@ export const projects = [
   },
 ];
 
-const tickerItems = [
-  "🎬 Now Broadcasting: 8 Live Programs",
-  "🏏 Sticky Wicket Labs — Where Ideas Come Alive",
-  "✨ New: KidScribe launched at kidscribe.ai",
-  "🎨 Creative tools for kids, parents & curious minds",
-  "📡 Signal Strong — All Systems Operational",
-];
+const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
+  "Storytelling": { bg: "#FEF3C7", text: "#B45309", border: "#F59E0B" },
+  "Creative Tools": { bg: "#DBEAFE", text: "#1D4ED8", border: "#3B82F6" },
+  "Learning": { bg: "#D1FAE5", text: "#047857", border: "#10B981" },
+  "AI Fun": { bg: "#FEE2E2", text: "#B91C1C", border: "#EF4444" },
+  "Community": { bg: "#F3E8FF", text: "#7C3AED", border: "#8B5CF6" },
+};
 
-function ProgramCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ToyCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const handleClick = async () => {
     try {
       await apiRequest("POST", `/api/track-click/${project.id}`);
@@ -95,8 +95,9 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
     }
   };
 
-  const colorValues = ["#FF3366", "#00D4FF", "#00FF94", "#FFE566", "#B366FF"];
-  const accentColor = colorValues[index % colorValues.length];
+  const colors = categoryColors[project.category] || categoryColors["Learning"];
+  const rotations = [-1, 0.5, -0.5, 1, -0.8, 0.3, -0.3, 0.8];
+  const rotation = rotations[index % rotations.length];
 
   return (
     <motion.a
@@ -106,210 +107,194 @@ function ProgramCard({ project, index }: { project: typeof projects[0]; index: n
       onClick={handleClick}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 * index }}
-      className="program-card block group"
+      transition={{ duration: 0.4, delay: 0.05 * index }}
+      className="craft-card block group relative"
+      style={{ transform: `rotate(${rotation}deg)` }}
+      whileHover={{ rotate: 0, scale: 1.02 }}
     >
+      {/* Tape accent */}
+      <div 
+        className="absolute -top-2 left-6 w-16 h-5 rounded-sm opacity-80"
+        style={{ 
+          background: `linear-gradient(135deg, ${colors.border}40 0%, ${colors.border}60 100%)`,
+          transform: 'rotate(-2deg)',
+        }}
+      />
+
       <div className="p-6">
+        {/* Emoji and status */}
         <div className="flex items-start justify-between mb-4">
-          <div className="text-4xl">{project.emoji}</div>
-          <div className="flex items-center gap-2">
-            <span className={`status-light ${project.status === 'live' ? 'active' : 'idle'}`}></span>
-            <span className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
-              {project.status}
-            </span>
+          <div className="text-5xl">{project.emoji}</div>
+          <div 
+            className="sticker-badge"
+            style={{ 
+              backgroundColor: colors.bg,
+              color: colors.text,
+              borderColor: `${colors.border}50`,
+            }}
+          >
+            {project.category}
           </div>
         </div>
 
-        <div 
-          className="inline-block px-2 py-1 rounded text-xs font-medium mb-3"
-          style={{ backgroundColor: `${accentColor}20`, color: accentColor }}
-        >
-          {project.category}
-        </div>
-
         {/* Title */}
-        <h3 className="font-display text-xl font-semibold text-tungsten-soft mb-2 group-hover:text-neon-cyan transition-colors flex items-center gap-2">
+        <h3 className="font-display text-xl font-bold text-marker mb-2 group-hover:text-lego-blue transition-colors flex items-center gap-2">
           {project.title}
-          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-60 transition-opacity" />
         </h3>
 
         {/* Description */}
-        <p className="text-tungsten-warm/70 text-sm leading-relaxed">
+        <p className="text-marker/70 text-sm leading-relaxed">
           {project.description}
         </p>
       </div>
 
-      {/* Bottom bar */}
-      <div className="px-6 py-3 bg-studio-slate/50 border-t border-studio-steel flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs text-tungsten-warm/50">
-          <Play className="w-3 h-3" />
-          <span>View Program</span>
-        </div>
-        <div className="w-8 h-1 rounded-full bg-studio-steel overflow-hidden">
-          <div 
-            className="h-full rounded-full" 
-            style={{ width: '100%', backgroundColor: accentColor }}
-          ></div>
-        </div>
-      </div>
+      {/* Bottom accent bar */}
+      <div 
+        className="h-2 rounded-b-xl"
+        style={{ backgroundColor: colors.border }}
+      />
     </motion.a>
+  );
+}
+
+function BuildingBlock({ value, label, color }: { value: string | number; label: string; color: string }) {
+  return (
+    <div 
+      className="rounded-xl p-4 text-center text-white relative overflow-hidden"
+      style={{ backgroundColor: color }}
+    >
+      {/* Brick stud effect */}
+      <div 
+        className="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full opacity-30"
+        style={{ backgroundColor: 'rgba(255,255,255,0.3)' }}
+      />
+      <div className="font-display text-3xl font-bold mb-1 pt-2">{value}</div>
+      <div className="text-xs font-medium opacity-80 uppercase tracking-wider">{label}</div>
+    </div>
   );
 }
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-studio-dark">
-      {/* Ticker Tape */}
-      <div className="ticker-tape py-2">
-        <div className="animate-ticker inline-flex">
-          {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} className="mx-8">{item}</span>
-          ))}
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-craft-paper">
       {/* Hero Section */}
-      <section className="px-6 py-16 md:py-24">
+      <section className="px-6 py-16 md:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Main content */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="live-indicator mb-6">
-                  <span>Live from the Workshop</span>
-                </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-lego-yellow/20 rounded-full mb-6">
+                <Sparkles className="w-4 h-4 text-lego-orange" />
+                <span className="text-sm font-medium text-marker">Welcome to the Playroom!</span>
+              </div>
 
-                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-tungsten-soft leading-tight mb-6">
-                  Where Playful
-                  <br />
-                  <span className="text-neon-pink neon-text">Ideas</span> Get Made
-                </h1>
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-marker leading-tight mb-6">
+                Where Ideas
+                <br />
+                <span className="text-lego-red">Come to Play</span>
+              </h1>
 
-                <p className="text-tungsten-warm/80 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
-                  Welcome to the control room. Explore our collection of whimsical experiments built for kids, parents, and the curious at heart.
-                </p>
+              <p className="text-marker/70 text-lg md:text-xl leading-relaxed mb-8 max-w-lg">
+                Explore our collection of playful experiments built for kids, families, and the young at heart. Each project is a new toy to discover!
+              </p>
 
-                <div className="flex flex-wrap gap-4">
-                  <a href="#programs" className="control-button inline-flex items-center gap-2 bg-neon-pink/20 border-neon-pink/50 text-neon-pink hover:bg-neon-pink/30">
-                    <Radio className="w-4 h-4" />
-                    View All Programs
-                  </a>
-                  <Link href="/analytics" className="control-button inline-flex items-center gap-2">
-                    <Zap className="w-4 h-4" />
-                    Studio Telemetry
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
+              <div className="flex flex-wrap gap-4">
+                <a href="#projects" className="brick-button brick-button-red inline-flex items-center gap-2">
+                  <Blocks className="w-4 h-4" />
+                  See All Projects
+                </a>
+                <Link href="/analytics" className="brick-button brick-button-blue inline-flex items-center gap-2">
+                  <Star className="w-4 h-4" />
+                  Progress Report
+                </Link>
+              </div>
+            </motion.div>
 
-            {/* Right: Studio Stats Panel */}
+            {/* Right: Building Blocks Stats */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="studio-panel-glow p-6"
+              className="paper-panel"
             >
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-display text-sm font-medium text-tungsten-warm/60 uppercase tracking-wider">
-                  Studio Status
-                </h2>
-                <div className="flex items-center gap-2">
-                  <span className="status-light active"></span>
-                  <span className="text-xs text-neon-green">All Systems Go</span>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 bg-lego-yellow rounded-lg flex items-center justify-center">
+                  <Blocks className="w-5 h-5 text-marker" />
                 </div>
+                <h2 className="font-display text-lg font-bold text-marker">
+                  What We've Built
+                </h2>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-studio-slate/50 rounded-lg p-4">
-                  <div className="text-3xl font-display font-bold text-neon-cyan mb-1">
-                    {projects.length}
-                  </div>
-                  <div className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
-                    Live Programs
-                  </div>
-                </div>
-                <div className="bg-studio-slate/50 rounded-lg p-4">
-                  <div className="text-3xl font-display font-bold text-neon-green mb-1">
-                    100%
-                  </div>
-                  <div className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
-                    Uptime
-                  </div>
-                </div>
-                <div className="bg-studio-slate/50 rounded-lg p-4">
-                  <div className="text-3xl font-display font-bold text-neon-yellow mb-1">
-                    4
-                  </div>
-                  <div className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
-                    Categories
-                  </div>
-                </div>
-                <div className="bg-studio-slate/50 rounded-lg p-4">
-                  <div className="text-3xl font-display font-bold text-neon-purple mb-1">
-                    ∞
-                  </div>
-                  <div className="text-xs text-tungsten-warm/60 uppercase tracking-wider">
-                    Ideas in Queue
-                  </div>
-                </div>
+                <BuildingBlock value={projects.length} label="Projects" color="#DA291C" />
+                <BuildingBlock value="100%" label="Fun Level" color="#0055BF" />
+                <BuildingBlock value="4" label="Categories" color="#4DBD33" />
+                <BuildingBlock value="∞" label="Ideas" color="#FF6B35" />
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-craft-shadow/30 flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-lego-green animate-pulse" />
+                <span className="text-sm text-marker/60">All systems ready to play!</span>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Programs Grid */}
-      <section id="programs" className="px-6 py-16 bg-studio-charcoal/50">
+      {/* Projects Grid */}
+      <section id="projects" className="px-6 py-16 bg-craft-tan/50">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-tungsten-soft mb-2">
-                Now Broadcasting
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-marker mb-3">
+                Our Toy Box
               </h2>
-              <p className="text-tungsten-warm/60">
-                Select a program to tune in
+              <p className="text-marker/60 text-lg max-w-md mx-auto">
+                Pick a project and start playing!
               </p>
-            </div>
-            <div className="hidden md:flex items-center gap-3">
-              <span className="text-xs text-tungsten-warm/40 uppercase tracking-wider">Filter:</span>
-              <button className="control-button text-xs">All</button>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {projects.map((project, index) => (
-              <ProgramCard key={project.id} project={project} index={index} />
+              <ToyCard key={project.id} project={project} index={index} />
             ))}
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="px-6 py-12 border-t border-studio-steel">
+      <footer className="px-6 py-12 bg-white border-t-4 border-lego-yellow">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🏏</span>
+              <span className="text-3xl">🧱</span>
               <div>
-                <div className="font-display font-semibold text-tungsten-soft">
+                <div className="font-display font-bold text-marker text-lg">
                   Sticky Wicket Labs
                 </div>
-                <div className="text-xs text-tungsten-warm/50">
-                  Broadcasting since 2024
+                <div className="text-sm text-marker/50">
+                  Building fun since 2024
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-6 text-sm text-tungsten-warm/50">
-              <Link href="/analytics" className="hover:text-neon-cyan transition-colors">
-                Telemetry
+            <div className="flex items-center gap-6 text-sm text-marker/50">
+              <Link href="/analytics" className="hover:text-lego-blue transition-colors font-medium">
+                Progress Report
               </Link>
-              <span className="text-studio-steel">|</span>
-              <span>© 2025 All experiments reserved</span>
+              <span className="text-craft-shadow">|</span>
+              <span>© 2025 All toys reserved</span>
             </div>
           </div>
         </div>
