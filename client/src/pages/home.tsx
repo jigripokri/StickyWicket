@@ -14,6 +14,15 @@ export const projects = [
     category: "Storytelling",
   },
   {
+    id: 18,
+    title: "Ugly 2 CEO",
+    description: "Transform any photo into a polished portrait.",
+    link: "https://ugly2ceo.stickywicketlabs.com/",
+    emoji: "📷",
+    status: "live",
+    category: "AI Fun",
+  },
+  {
     id: 16,
     title: "Characto",
     description: "Create beautiful, consistent characters across scenes.",
