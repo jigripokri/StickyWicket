@@ -148,7 +148,7 @@ async function deleteMonster(id: number): Promise<boolean> {
 // Image generation (OpenRouter → Gemini image models)
 // ---------------------------------------------------------------------------
 
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
+const OPENROUTER_URL = process.env.OPENROUTER_URL || "https://openrouter.ai/api/v1/chat/completions";
 const REQUEST_TIMEOUT_MS = 90_000;
 
 /** Tried in order; the first one that returns an image wins. */
@@ -290,6 +290,77 @@ export async function generateMonsterImage(spec: MonsterSpec): Promise<string> {
 }
 
 // ---------------------------------------------------------------------------
+// Seed entries (so the TV is never empty when the first guests arrive)
+// ---------------------------------------------------------------------------
+// Generated once, on the first boot where the OpenRouter key is present and
+// the guestbook is empty. Each seed is keyed by name, so a partial failure
+// just fills in the missing one next time.
+
+interface SeedMonster {
+  name: string;
+  message: string;
+  creature: string;
+  spec: MonsterSpec;
+}
+
+const SEED_MONSTERS: SeedMonster[] = [
+  {
+    name: "Mama Chhavi",
+    message: "Happy 5th birthday, my sweet Kaveer! Mama loves you to the moon and back 💛",
+    creature: "Fairy",
+    spec: {
+      creature: "fairy with glittery wings",
+      color: "bubblegum pink",
+      hairStyle: "long flowing",
+      hairColor: "rainbow striped",
+      accessories: ["a golden crown", "a sparkling magic wand", "a birthday cake with 5 candles"],
+    },
+  },
+  {
+    name: "Papa Saurabh",
+    message: "Happy birthday, buddy! Five years of the best adventures. Love, Papa 🎉",
+    creature: "Dragon",
+    spec: {
+      creature: "baby dragon",
+      color: "lime green",
+      hairStyle: "spiky",
+      hairColor: "sky blue",
+      accessories: ["cool sunglasses", "an electric guitar", "a bunch of balloons"],
+    },
+  },
+];
+
+let seedRunning = false;
+let seedAttempts = 0;
+const MAX_SEED_ATTEMPTS = 3;
+
+export async function seedIfEmpty(): Promise<void> {
+  if (seedRunning || seedAttempts >= MAX_SEED_ATTEMPTS || !isMonsterGenerationConfigured()) return;
+  seedRunning = true;
+  seedAttempts += 1;
+  try {
+    const existing = await listMonsters();
+    if (existing.length > 0 && seedAttempts > 1) {
+      // Somebody already added real entries; only fill seeds on the first pass.
+      seedAttempts = MAX_SEED_ATTEMPTS;
+      return;
+    }
+    const names = new Set(existing.map((m) => m.name));
+    for (const seed of SEED_MONSTERS) {
+      if (names.has(seed.name)) continue;
+      console.log(`🎉 [monsters] seeding ${seed.name}'s ${seed.creature.toLowerCase()}`);
+      const image = await generateMonsterImage(seed.spec);
+      await saveMonster({ name: seed.name, message: seed.message, creature: seed.creature, image });
+    }
+    seedAttempts = MAX_SEED_ATTEMPTS; // done
+  } catch (err) {
+    console.error(`🎉 [monsters] seeding failed (attempt ${seedAttempts}):`, err instanceof Error ? err.message : err);
+  } finally {
+    seedRunning = false;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Abuse controls for the paid generate route
 // ---------------------------------------------------------------------------
 // The whole party shares one laptop (one IP), so the per-IP cap is generous;
@@ -360,6 +431,9 @@ function isDataImage(value: unknown): value is string {
 }
 
 export function registerMonsterRoutes(app: Express) {
+  // Kick off the seed entries shortly after boot; harmless if already present.
+  setTimeout(() => void seedIfEmpty(), 3000);
+
   app.get("/api/monsters/status", (_req: Request, res: Response) => {
     res.json({ configured: isMonsterGenerationConfigured() });
   });
@@ -367,7 +441,9 @@ export function registerMonsterRoutes(app: Express) {
   app.get("/api/monsters", async (_req: Request, res: Response) => {
     try {
       res.setHeader("Cache-Control", "no-store");
-      res.json(await listMonsters());
+      const list = await listMonsters();
+      if (list.length === 0) void seedIfEmpty();
+      res.json(list);
     } catch (err) {
       console.error("🎉 [monsters] list failed:", err);
       res.status(500).json({ error: "Could not load monsters" });

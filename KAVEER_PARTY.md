@@ -26,6 +26,14 @@ The home page has a new "Kaveer's Monster Party" card that opens the creator.
 If the creator shows a pink "Picture-making is not set up yet" banner, the
 secret is missing on the deployment.
 
+## Starter entries
+
+On the first boot with the key set and an empty guestbook, the server
+generates two entries by itself so the TV is never blank: Mama Chhavi's fairy
+and Papa Saurabh's dragon, each with a birthday message. They are ordinary
+rows and can be deleted like any other. If generation fails at boot, it
+retries on the next visit to the TV page (up to 3 attempts).
+
 ## How it works
 
 - `POST /api/monsters/generate` builds a prompt from the picks (creature, color,
