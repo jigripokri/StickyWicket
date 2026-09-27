@@ -41,8 +41,11 @@ export interface MonsterSpec {
 // Storage
 // ---------------------------------------------------------------------------
 
+/** Fallback rows live above any plausible DB id so the two never collide and
+ *  can be listed together once the database comes back. */
+const MEMORY_ID_BASE = 1_000_000;
 const memory: MonsterRow[] = [];
-let memoryNextId = 1;
+let memoryNextId = MEMORY_ID_BASE;
 let dbReady: Promise<boolean> | null = null;
 
 function ensureTable(): Promise<boolean> {
@@ -72,19 +75,20 @@ function ensureTable(): Promise<boolean> {
 }
 
 async function listMonsters(): Promise<MonsterMeta[]> {
-  if (await ensureTable()) {
-    const result = await pool.query(
-      `SELECT id, name, message, creature, created_at FROM party_monsters ORDER BY created_at ASC, id ASC`,
-    );
-    return result.rows.map((r: any) => ({
-      id: Number(r.id),
-      name: r.name,
-      message: r.message,
-      creature: r.creature,
-      createdAt: new Date(r.created_at).toISOString(),
-    }));
-  }
-  return memory.map(({ image: _image, ...meta }) => meta);
+  const fromMemory: MonsterMeta[] = memory.map(({ image: _image, ...meta }) => meta);
+  if (!(await ensureTable())) return fromMemory;
+  const result = await pool.query(
+    `SELECT id, name, message, creature, created_at FROM party_monsters ORDER BY created_at ASC, id ASC`,
+  );
+  const fromDb: MonsterMeta[] = result.rows.map((r: any) => ({
+    id: Number(r.id),
+    name: r.name,
+    message: r.message,
+    creature: r.creature,
+    createdAt: new Date(r.created_at).toISOString(),
+  }));
+  // Rows saved while the database was down stay in the show after it recovers.
+  return [...fromDb, ...fromMemory].sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 }
 
 async function saveMonster(input: Omit<MonsterRow, "id" | "createdAt">): Promise<MonsterMeta> {
@@ -119,7 +123,7 @@ async function saveMonster(input: Omit<MonsterRow, "id" | "createdAt">): Promise
 }
 
 async function getMonsterImage(id: number): Promise<string | null> {
-  if (await ensureTable()) {
+  if (id < MEMORY_ID_BASE && (await ensureTable())) {
     const result = await pool.query(`SELECT image FROM party_monsters WHERE id = $1`, [id]);
     if (result.rows[0]?.image) return result.rows[0].image as string;
   }
@@ -128,7 +132,7 @@ async function getMonsterImage(id: number): Promise<string | null> {
 
 async function deleteMonster(id: number): Promise<boolean> {
   let removed = false;
-  if (await ensureTable()) {
+  if (id < MEMORY_ID_BASE && (await ensureTable())) {
     const result = await pool.query(`DELETE FROM party_monsters WHERE id = $1`, [id]);
     removed = (result.rowCount ?? 0) > 0;
   }
@@ -286,6 +290,52 @@ export async function generateMonsterImage(spec: MonsterSpec): Promise<string> {
 }
 
 // ---------------------------------------------------------------------------
+// Abuse controls for the paid generate route
+// ---------------------------------------------------------------------------
+// The whole party shares one laptop (one IP), so the per-IP cap is generous;
+// the global cap bounds OpenRouter spend if the public URL gets hammered.
+
+const LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const PER_IP_PER_WINDOW = 60;
+const GLOBAL_PER_WINDOW = 400;
+const MAX_CONCURRENT = 4;
+
+const ipHits = new Map<string, number[]>();
+let globalHits: number[] = [];
+let inFlight = 0;
+
+function prune(times: number[], now: number): number[] {
+  return times.filter((t) => now - t < LIMIT_WINDOW_MS);
+}
+
+/** Returns a reason when the request should be refused, else null (and records the hit). */
+function checkGenerateLimits(ip: string): string | null {
+  const now = Date.now();
+  globalHits = prune(globalHits, now);
+  const mine = prune(ipHits.get(ip) ?? [], now);
+  if (inFlight >= MAX_CONCURRENT) return "Too many pictures being made right now. Wait a moment and try again!";
+  if (mine.length >= PER_IP_PER_WINDOW) return "That's a lot of monsters! Take a little break and try again soon.";
+  if (globalHits.length >= GLOBAL_PER_WINDOW) return "The monster machine needs a rest. Try again in a little while!";
+  mine.push(now);
+  ipHits.set(ip, mine);
+  globalHits.push(now);
+  // Keep the map from growing without bound.
+  if (ipHits.size > 1000) {
+    ipHits.forEach((times, key) => {
+      if (prune(times, now).length === 0) ipHits.delete(key);
+    });
+  }
+  return null;
+}
+
+function isAdmin(req: Request): boolean {
+  const key = process.env.PARTY_ADMIN_KEY;
+  if (!key) return false;
+  const provided = req.get("x-party-key") ?? (typeof req.query.key === "string" ? req.query.key : "");
+  return provided === key;
+}
+
+// ---------------------------------------------------------------------------
 // Routes
 // ---------------------------------------------------------------------------
 
@@ -346,6 +396,8 @@ export function registerMonsterRoutes(app: Express) {
     if (!isMonsterGenerationConfigured()) {
       return res.status(503).json({ error: "Image generation is not set up (missing OPENROUTER_API_KEY)." });
     }
+    const refusal = checkGenerateLimits(req.ip ?? "unknown");
+    if (refusal) return res.status(429).json({ error: refusal });
     const body = req.body ?? {};
     const spec: MonsterSpec = {
       creature: cleanText(body.creature, "monster", 60),
@@ -355,12 +407,15 @@ export function registerMonsterRoutes(app: Express) {
       accessories: cleanList(body.accessories),
       photo: isDataImage(body.photo) ? body.photo : undefined,
     };
+    inFlight += 1;
     try {
       const image = await generateMonsterImage(spec);
       res.json({ image });
     } catch (err) {
       const message = err instanceof Error ? err.message : "Image generation failed";
       res.status(502).json({ error: message });
+    } finally {
+      inFlight -= 1;
     }
   });
 
@@ -386,7 +441,10 @@ export function registerMonsterRoutes(app: Express) {
     }
   });
 
+  // Destructive: requires the PARTY_ADMIN_KEY secret (header x-party-key or ?key=).
+  // With no secret configured the route is disabled entirely.
   app.delete("/api/monsters/:id", async (req: Request, res: Response) => {
+    if (!isAdmin(req)) return res.status(403).json({ error: "Not allowed" });
     const id = Number(req.params.id);
     if (!Number.isInteger(id)) return res.status(400).end();
     try {

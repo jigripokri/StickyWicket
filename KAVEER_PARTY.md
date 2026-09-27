@@ -43,8 +43,18 @@ secret is missing on the deployment.
 
 ## Removing a monster
 
+Deletion is admin-only. Set an extra secret `PARTY_ADMIN_KEY` (any long random
+string) on the deployment; without it the delete route is disabled.
+
 ```
-curl -X DELETE https://stickywicketlabs.com/api/monsters/<id>
+curl -X DELETE -H "x-party-key: <PARTY_ADMIN_KEY>" https://stickywicketlabs.com/api/monsters/<id>
 ```
 
 IDs are visible in `GET /api/monsters`.
+
+## Abuse limits
+
+`POST /api/monsters/generate` is the only route that costs money, so it is
+capped: 4 pictures in flight at once, 60 per hour per IP (the whole party is
+one laptop, so this is generous) and 400 per hour overall. Over the limit the
+kid sees a friendly "take a little break" message.
