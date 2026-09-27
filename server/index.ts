@@ -3,7 +3,8 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
-app.use(express.json());
+// Large limit: the monster guestbook posts webcam photos and generated pictures as data URLs.
+app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {

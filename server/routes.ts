@@ -4,8 +4,12 @@ import { db } from "@db";
 import { pageViews, projectClicks, projects } from "@db/schema";
 import { sql } from "drizzle-orm";
 import { eq } from "drizzle-orm";
+import { registerMonsterRoutes } from "./monsters";
 
 export function registerRoutes(app: Express): Server {
+  // Kaveer's Monster Party guestbook (/kaveer, /kaveer/tv)
+  registerMonsterRoutes(app);
+
   // Track page views with enhanced data
   app.use(async (req, res, next) => {
     if (req.path.startsWith("/api")) {

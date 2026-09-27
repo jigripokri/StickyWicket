@@ -5,6 +5,15 @@ import { apiRequest } from "@/lib/queryClient";
 
 export const projects = [
   {
+    id: 21,
+    title: "Kaveer's Monster Party",
+    description: "Make a monster, unicorn or cartoon-you and wish Kaveer a happy 5th birthday!",
+    link: "/kaveer",
+    emoji: "🎉",
+    status: "live",
+    category: "AI Fun",
+  },
+  {
     id: 17,
     title: "KidScribe",
     description: "Craft a fully illustrated storybook that's all about you.",
