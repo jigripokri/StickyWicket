@@ -3,7 +3,20 @@ import { Link } from "wouter";
 import { Blocks, Sparkles, ExternalLink, Heart } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 
+// Racecraft's home. The subdomain is still being set up; until it answers,
+// the game lives at https://racecraft-game.vercel.app/ (swap it here if needed).
+const RACECRAFT_URL = "https://racecraft.stickywicketlabs.com/";
+
 export const projects = [
+  {
+    id: 22,
+    title: "Racecraft",
+    description: "Build a brick race car, then cheer as it races three rivals all on its own!",
+    link: RACECRAFT_URL,
+    emoji: "🏎️",
+    status: "live",
+    category: "Learning",
+  },
   {
     id: 21,
     title: "Kaveer's Monster Party",
