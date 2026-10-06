@@ -108,14 +108,22 @@ The portfolio uses an elegant Post-it pastel aesthetic with soft colors, subtle 
 - **Project Clicks Table**: Records interactions with project cards
 
 ## Current Projects (in display order)
-1. KidScribe - Personalized storybook creation (kidscribe.ai)
-2. Characto - Character design across scenes
-3. ELI5 - Making web content readable
-4. DebateGPT - AI debate simulator
-5. DottyDraw - Pixel art tool
-6. Wish Upon a Wall - Community message boards
-7. Hue Knew? - Color mixing learning
-8. Emoji Math - Math practice with emojis
+1. KidScribe - Personalized storybook creation (kidscribe.ai) — the featured card
+2. Racecraft - Build a brick race car and watch it race (racecraft.stickywicketlabs.com)
+3. Kaveer's Monster Party - Birthday guestbook (/kaveer)
+4. Mantel - Private family wall
+5. Ink & Wonder - A grandmother's memories for her grandchildren
+6. Ugly 2 CEO - Photo to polished portrait
+7. Characto - Character design across scenes
+8. ELI5 - Making web content readable
+9. DebateGPT - AI debate simulator
+10. DottyDraw - Pixel art tool
+11. Wish Upon a Wall - Community message boards
+12. Hue Knew? - Color mixing learning
+13. Emoji Math - Math practice with emojis
+
+New projects go at the top of the `projects` array in `client/src/pages/home.tsx`,
+so they show first after KidScribe. Each needs a new `id`, used for click tracking.
 
 ## Category Color Mapping (Pastel)
 - Storytelling: Yellow (#FFF4B8 / #7A6B2A text)
