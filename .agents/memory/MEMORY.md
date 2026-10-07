@@ -1,0 +1,1 @@
+- [GitHub CLI authentication](github-cli-authentication.md) — Git operations can authenticate through the source-control connection even when gh prompts for login.

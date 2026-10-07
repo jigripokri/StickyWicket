@@ -94,7 +94,7 @@ export function registerRoutes(app: Express): Server {
               ) as avg_time
             FROM session_durations
           `)
-          .then(result => (result[0] as any)?.avg_time || '0:00'),
+          .then(result => String(result.rows[0]?.avg_time || '0:00')),
 
         // Daily views for the last 7 days
         db
