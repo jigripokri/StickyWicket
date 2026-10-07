@@ -1,1 +1,1 @@
-- [GitHub CLI authentication](github-cli-authentication.md) — Git operations can authenticate through the source-control connection even when gh prompts for login.
+- [GitHub authorization](github-cli-authentication.md) — fetching a public repo does not prove push authorization; recover credentials from actual write failures.
